@@ -1,0 +1,21 @@
+{
+  "generator-fountain-angular2": {
+    "version": "1.0.0-rc2",
+    "props": {
+      "argv": {
+        "remain": [],
+        "cooked": [],
+        "original": []
+      },
+      "framework": "angular2",
+      "namespace": "fountain-angular2:app",
+      "js": "typescript",
+      "modules": "webpack",
+      "css": "css",
+      "resolved": "/Users/gallagherpolyn/.node/lib/node_modules/generator-fountain-angular2/generators/app/index.js",
+      "ci": [],
+      "sample": "hello",
+      "router": "none"
+    }
+  }
+}
