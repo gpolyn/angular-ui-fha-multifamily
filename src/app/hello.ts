@@ -8,6 +8,6 @@ export class HelloComponent {
   public hello: string;
 
   constructor() {
-    this.hello = 'Hello World!';
+    this.hello = 'Hello dog!';
   }
 }

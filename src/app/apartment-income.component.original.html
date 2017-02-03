@@ -1,0 +1,40 @@
+<div [ngClass]="{'new-apartment-income': newApartmentIncome}" >
+  <div class='bedroom-count'>
+    <div class='display' *ngIf="!newApartmentIncome">{{apartmentIncome.bedrooms}}</div>
+    <div class='edit' *ngIf="newApartmentIncome">
+      <select [(ngModel)]="apartmentIncome.bedrooms">
+        <option [ value ]='0'>0</option>
+        <option [ value ]='1'>1</option>
+        <option [ value ]='2'>2</option>
+        <option [ value ]='3'>3</option>
+        <option [ value ]='4'>4</option>
+      </select>
+    </div>
+  </div>
+  <div class='unit-count'>
+    <div class='display' *ngIf="!newApartmentIncome">{{apartmentIncome.units}}</div>
+    <div class='edit' *ngIf="newApartmentIncome" >
+      <input type='number' [(ngModel)]="apartmentIncome.units">
+    </div>
+  </div>
+  <div class='square-feet'>
+    <div class='display' *ngIf="!newApartmentIncome">{{apartmentIncome.squareFeet}}</div>
+    <div class='edit' *ngIf="newApartmentIncome" >
+      <input type='number' [(ngModel)]="apartmentIncome.squareFeet">
+    </div>
+  </div>
+  <div class='monthly-rent'>
+    <div class='display' *ngIf="!newApartmentIncome">{{apartmentIncome.monthlyRent}}</div>
+    <div class='edit' *ngIf="newApartmentIncome">
+      <input type='number' [(ngModel)]="apartmentIncome.monthlyRent">
+    </div>
+  </div>
+  <div>
+    <div class="delete-container" *ngIf="!newApartmentIncome">
+      <button class="destroy apartment-income-destroy destroy-item" (click)="handleDestroyClick()"></button>
+    </div>
+    <div *ngIf="newApartmentIncome">
+      <button (click)="handleAddClick()"></button>
+    </div>
+  </div>
+</div>
