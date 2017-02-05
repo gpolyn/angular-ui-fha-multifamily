@@ -2,8 +2,10 @@ import {NgModule} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 
-import {HelloComponent} from './hello';
+import {AppComponent} from './containers/app.component';
 import {ApartmentIncomeComponent} from './apartment-income.component';
+import {ApartmentIncomeSourceComponent} from './apartment-income-source.component';
+import {ApartmentIncome} from './apartment-income';
 
 @NgModule({
   imports: [
@@ -11,9 +13,10 @@ import {ApartmentIncomeComponent} from './apartment-income.component';
     FormsModule
   ],
   declarations: [
-    HelloComponent,
+    AppComponent,
     ApartmentIncomeComponent,
+    ApartmentIncomeSourceComponent,
   ],
-  bootstrap: [ApartmentIncomeComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

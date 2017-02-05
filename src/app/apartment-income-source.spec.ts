@@ -3,11 +3,11 @@ import { FormsModule } from '@angular/forms';
 import {TestBed, async, tick, fakeAsync} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ApartmentIncome} from './apartment-income';
-import {ApartmentIncomeComponent} from './apartment-income.component';
+import {ApartmentIncomeSourceComponent} from './apartment-income-source.component';
 
 @Component({
-  selector: 'fountain-app',
-  template: require('./apartment-income.component.html')
+  selector: 'apartment-income-source',
+  template: require('./apartment-income-source.component.html')
 })
 
 class MockApartmentIncomeComponent {
@@ -16,13 +16,13 @@ class MockApartmentIncomeComponent {
   @Output() onDestroy: EventEmitter<any> = new EventEmitter(false);
 }
 
-describe('ApartmentIncomeComponent', () => {
+describe('ApartmentIncomeSourceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule ],
       declarations: [
-        ApartmentIncomeComponent,
+        ApartmentIncomeSourceComponent,
         MockApartmentIncomeComponent
       ]
     });
@@ -30,7 +30,7 @@ describe('ApartmentIncomeComponent', () => {
   }));
 
   it('should render the correct elements', fakeAsync(() => {
-    const fixture = TestBed.createComponent(ApartmentIncomeComponent);
+    const fixture = TestBed.createComponent(ApartmentIncomeSourceComponent);
     const AptIncCmp = fixture.componentInstance;
     const units = 20;
     const rent = 30;
