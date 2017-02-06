@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { IncomeService } from './income.service';
 import { OtherResidentialIncome } from './other-income';
-//import { OtherNonParkingIncomeComponent } from './other-non-parking-income.component';
+import { OtherNonParkingIncomeComponent } from './other-non-parking-income.component';
 
 @Component({
   selector: 'other-residential-non-parking-income',
@@ -9,15 +9,13 @@ import { OtherResidentialIncome } from './other-income';
 	providers: [IncomeService]
 })
 
-//export class OtherResidentialNonParkingIncomeComponent extends OtherNonParkingIncomeComponent<OtherResidentialIncome> {
-export class OtherResidentialNonParkingIncomeComponent {
-
-  otherIncomes: Array<OtherResidentialIncome> = [];
+export class OtherResidentialNonParkingIncomeComponent extends OtherNonParkingIncomeComponent<OtherResidentialIncome> {
 
   constructor(protected incomeService: IncomeService<OtherResidentialIncome>){
+    super(incomeService);
   }
 
-  protected helpful = (incomes) => this.otherIncomes = [...incomes, new OtherResidentialIncome()].reverse(); // wanted a certain order
+  helpful = (incomes) => this.otherIncomes = [...incomes, new OtherResidentialIncome()].reverse(); 
 
   ngOnInit(): void {
     this.incomeService.getIncomes(OtherResidentialIncome).then(this.helpful);

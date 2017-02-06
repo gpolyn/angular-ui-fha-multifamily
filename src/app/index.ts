@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './containers/app.component';
+
 import {ApartmentIncomeComponent} from './apartment-income.component';
 import {ApartmentIncomeSourceComponent} from './apartment-income-source.component';
 

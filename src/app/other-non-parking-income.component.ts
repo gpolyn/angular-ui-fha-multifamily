@@ -8,5 +8,4 @@ export abstract class OtherNonParkingIncomeComponent<T extends OtherIncome> {
   constructor(protected incomeService: IncomeService<T>){
   }
 
-
 }
