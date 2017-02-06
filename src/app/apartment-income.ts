@@ -11,7 +11,6 @@ export class ApartmentIncome implements IIncome {
   readonly type: string = 'ApartmentIncome';
 
   constructor(bedrooms?: number) {
-    // this.bedrooms = bedrooms
   }
 
   isValid(): boolean {

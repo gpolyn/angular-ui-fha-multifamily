@@ -5,7 +5,9 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './containers/app.component';
 import {ApartmentIncomeComponent} from './apartment-income.component';
 import {ApartmentIncomeSourceComponent} from './apartment-income-source.component';
-import {ApartmentIncome} from './apartment-income';
+
+import {OtherNonParkingResidentialIncomeSourceComponent} from './other-non-parking-residential-income-source.component';
+import {OtherResidentialNonParkingIncomeComponent} from './other-residential-non-parking-income.component';
 
 @NgModule({
   imports: [
@@ -16,6 +18,8 @@ import {ApartmentIncome} from './apartment-income';
     AppComponent,
     ApartmentIncomeComponent,
     ApartmentIncomeSourceComponent,
+    OtherNonParkingResidentialIncomeSourceComponent,
+    OtherResidentialNonParkingIncomeComponent,
   ],
   bootstrap: [AppComponent]
 })
