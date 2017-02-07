@@ -76,6 +76,7 @@ export class IncomeServiceRevised<T extends IIncome> {
   private incomes: Array<IIncome> = [];
 
   saveIncome<T extends IIncome>(income: T): Promise<T[]> {
+    console.log("IncomeServiceRevised", this.incomes)        
     return new Promise((res)=>{
       income.id = ++this.lastId;
       this.incomes.push(income);
@@ -88,7 +89,7 @@ export class IncomeServiceRevised<T extends IIncome> {
     return Promise.resolve(this.incomes);
 	}
 
-  deleteIncome(id: any): Promise<T[]>{
+  deleteIncome(id: any): Promise<T[]> {
     return new Promise((res)=>{
       this.incomes = this.incomes.filter(income => id !== income.id);
       res(this.incomes);

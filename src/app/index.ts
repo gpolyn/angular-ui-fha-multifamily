@@ -4,8 +4,9 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './containers/app.component';
 
-import {ApartmentIncomeComponent} from './apartment-income.component';
-import {ApartmentIncomeSourceComponent} from './apartment-income-source.component';
+import {ApartmentIncomeModule} from './income/apartment/apartment-income.module'
+
+import {ParkingIncomeModule} from './income/parking/parking-income.module'
 
 import {OtherNonParkingResidentialIncomeSourceComponent} from './other-non-parking-residential-income-source.component';
 import {OtherResidentialNonParkingIncomeComponent} from './other-residential-non-parking-income.component';
@@ -13,24 +14,19 @@ import {OtherResidentialNonParkingIncomeComponent} from './other-residential-non
 import {CommercialOtherIncomeSourceComponent} from './other-non-parking-commercial-income-source.component';
 import {OtherCommercialNonParkingIncomeComponent} from './other-non-parking-commercial-income.component';
 
-import {ParkingIncomeComponent} from './parking-income.component';
-import {ParkingIncomeSourceComponent} from './parking-income-source.component';
 
 @NgModule({
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ApartmentIncomeModule, ParkingIncomeModule
   ],
   declarations: [
     AppComponent,
-    ApartmentIncomeComponent,
-    ApartmentIncomeSourceComponent,
     OtherNonParkingResidentialIncomeSourceComponent,
     OtherResidentialNonParkingIncomeComponent,
     CommercialOtherIncomeSourceComponent,
     OtherCommercialNonParkingIncomeComponent,
-    ParkingIncomeSourceComponent,
-    ParkingIncomeComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -1,31 +1,31 @@
 import {Component, OnInit} from '@angular/core';
 import { ApartmentIncome } from './apartment-income';
-import { IncomeService } from './income.service';
+import { IncomeServiceRevised } from './income.service';
 
 @Component({
   selector: 'apartment-income',
   template: require('./apartment-income.component.html'),
-	providers: [IncomeService]
+	providers: [IncomeServiceRevised]
 })
 
 export class ApartmentIncomeComponent implements OnInit {
 
   apartmentIncomes: Array<ApartmentIncome> = [];
 
-  constructor(private incomeService: IncomeService<ApartmentIncome>){ }
+  constructor(private incomeService: IncomeServiceRevised<ApartmentIncome>){ }
 
   private helpful = (incomes) => this.apartmentIncomes = [...incomes, new ApartmentIncome()].reverse(); // wanted a certain order
 
   ngOnInit(): void {
-    this.incomeService.getIncomes(ApartmentIncome).then(this.helpful);
+    this.incomeService.getIncomes().then(this.helpful);
   }
 
   handleSave(e: any): void {
-    this.incomeService.addIncome(e).then(this.helpful);
+    this.incomeService.saveIncome(e).then(this.helpful);
   }
 
   handleDestroy(e: any): void {
-    this.incomeService.deleteTodoById(e).then(this.helpful);
+    this.incomeService.deleteIncome(e).then(this.helpful);
   }
 
 }

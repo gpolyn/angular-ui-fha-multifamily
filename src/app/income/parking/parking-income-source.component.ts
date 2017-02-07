@@ -1,10 +1,8 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {ParkingIncomeService} from './parking-income.service';
-import { ParkingIncome, CommercialParkingIncome, ResidentialParkingIncome } from './parking-income';
+import { ParkingIncome } from './parking-income';
 
 @Component({
   selector: 'parking-income-source',
-	providers: [ParkingIncomeService],
   template: require('./parking-income-source.component.html')
 })
 
@@ -16,12 +14,12 @@ export class ParkingIncomeSourceComponent {
   @Output() onSave: EventEmitter<any> = new EventEmitter(false);
   newIncome: boolean = true;
 
-  constructor(private parkingIncomeService: ParkingIncomeService){}
+  constructor(){}
 
   handleAddClick() {
   
     if (!this.parkingIncome.isValid()) {
-      this.parkingIncome = this.parkingIncomeService.getNewIncome(this.isCommercial);
+      this.parkingIncome = new ParkingIncome(this.isCommercial);
       return;
     }
 
