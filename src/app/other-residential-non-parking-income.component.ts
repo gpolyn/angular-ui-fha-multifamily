@@ -5,7 +5,7 @@ import { OtherNonParkingIncomeComponent } from './other-non-parking-income.compo
 
 @Component({
   selector: 'other-residential-non-parking-income',
-  template: require('./other-non-parking-residential-income.component.original.html'),
+  template: require('./other-non-parking-residential-income.component.html'),
 	providers: [IncomeService]
 })
 

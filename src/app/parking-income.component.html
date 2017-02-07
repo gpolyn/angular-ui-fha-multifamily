@@ -1,0 +1,10 @@
+<ul [ngClass]="{'residential-parking-income': !isCommercial, 'commercial-parking-income': isCommercial}">
+  <template ngFor let-parkingIncome [ngForOf]="parkingIncomes">
+    <parking-income-source
+      [parkingIncome]="parkingIncome"
+      [isCommercial]="isCommercial"
+      (onDestroy)="handleDestroy($event)"
+      (onSave)="handleSave($event)"
+    ></parking-income-source>
+  </template>
+</ul>

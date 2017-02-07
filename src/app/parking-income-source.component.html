@@ -1,0 +1,34 @@
+<div class='spaces'>
+  <div class='display' *ngIf="!newIncome">{{parkingIncome.spaces}}</div>
+  <div class='edit' *ngIf="newIncome">
+    <input type='number' [(ngModel)]="parkingIncome.spaces">
+  </div>
+</div>
+<div class='indoor-or-outdoor'>
+  <div class='display' *ngIf="!newIncome">{{parkingIncome.parkingStyle}}</div>
+  <div class='edit' *ngIf="newIncome">
+    <select [(ngModel)]="parkingIncome.parkingStyle">
+      <option *ngFor="let parkingStyle of parkingIncome.parkingStyles">{{parkingStyle}}</option>
+    </select>
+  </div>
+</div>
+<div class='total-square-feet'>
+  <div class='display' *ngIf="!newIncome">{{parkingIncome.squareFeet}}</div>
+  <div class='edit' *ngIf="newIncome" >
+    <input type='number' [(ngModel)]="parkingIncome.squareFeet">
+  </div>
+</div>
+<div class='monthly-fee'>
+  <div class='display' *ngIf="!newIncome">{{parkingIncome.monthlyFee}}</div>
+  <div class='edit' *ngIf="newIncome">
+    <input type='number' [(ngModel)]="parkingIncome.monthlyFee">
+  </div>
+</div>
+<div>
+  <div class="delete-container" *ngIf="!newIncome">
+    <button class="parking-income-destroy destroy-item" (click)="handleDestroyClick()">delete</button>
+  </div>
+  <div *ngIf="newIncome">
+    <button (click)="handleAddClick()">add</button>
+  </div>
+</div>

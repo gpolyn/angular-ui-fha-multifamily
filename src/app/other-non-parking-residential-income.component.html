@@ -1,1 +1,9 @@
-<h1>FART</h1>
+<ul class="other-non-parking-residential-income">
+  <template ngFor let-otherIncome [ngForOf]="otherIncomes">
+    <other-non-parking-residential-income-source
+      [otherIncome]="otherIncome"
+      (onDestroy)="handleDestroy($event)"
+      (onSave)="handleSave($event)"
+    ></other-non-parking-residential-income-source>
+  </template>
+</ul>
