@@ -12,7 +12,6 @@ export class ParkingIncome implements IIncome {
   readonly parkingStyles: string[] = ['indoor', 'outdoor'];
   static INDOOR: string = 'indoor';
   static OUTDOOR: string = 'outdoor';
-  readonly isCommercial: boolean;
 
   constructor(isCommercial: boolean, protected isIndoor: boolean = true){
 
@@ -42,6 +41,7 @@ export class ParkingIncome implements IIncome {
 
 export class ResidentialParkingIncome extends ParkingIncome {
 
+  readonly isCommercial: boolean = false;
   readonly type: string = 'ResidentialParkingIncome';
 
 }

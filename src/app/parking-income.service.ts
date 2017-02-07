@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import { ResidentialParkingIncome, CommercialParkingIncome } from './parking-income';
+import { ParkingIncome } from './parking-income';
 
 @Injectable()
-export class ParkingIncomeService {
+export class ParkingIncomeService{
 
-  getNewIncome(isCommercial: boolean) {
-    return isCommercial ? new CommercialParkingIncome() : new ResidentialParkingIncome();
+  getNewIncome(isCommercial: boolean): ParkingIncome {
+    return new ParkingIncome(isCommercial);
   }
 
 }
