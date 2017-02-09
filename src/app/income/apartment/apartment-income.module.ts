@@ -4,16 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import {ApartmentIncomeComponent} from './apartment-income.component';
 import {ApartmentIncomeSourceComponent} from './apartment-income-source.component';
+//import {ProjectStatusComponent} from './project-status.component';
 
 @NgModule({
   imports: [ CommonModule, FormsModule],
   declarations: [
     ApartmentIncomeSourceComponent,
-    ApartmentIncomeComponent
+    ApartmentIncomeComponent,
+    //   ProjectStatusComponent
   ],
   exports: [
     ApartmentIncomeSourceComponent,
-    ApartmentIncomeComponent
+    ApartmentIncomeComponent,
+    //ProjectStatusComponent
   ],
 })
 
