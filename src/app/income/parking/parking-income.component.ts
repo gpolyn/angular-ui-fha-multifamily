@@ -1,4 +1,4 @@
-import {Input, Component, OnInit} from '@angular/core';
+import {Input, Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { ParkingIncome } from './parking-income';
 import { IncomeServiceRevised } from './income.service';
 
@@ -12,6 +12,8 @@ export class ParkingIncomeComponent implements OnInit {
 
   @Input() isCommercial: boolean;
 
+  @Output() incomeChange = new EventEmitter<any>();
+
   parkingIncomes: Array<ParkingIncome> = [];
 
   constructor(private incomeService: IncomeServiceRevised<ParkingIncome>){ }
@@ -24,10 +26,16 @@ export class ParkingIncomeComponent implements OnInit {
 
   handleSave(e: any) {
     this.incomeService.saveIncome(e).then(this.helpful);
+    this.incomeService.totalIncome().then((income) => {
+      this.incomeChange.emit({isCommercial: this.isCommercial, incomeChange: income});
+    })
   }
 
   handleDestroy(e: any) {
     this.incomeService.deleteIncome(e).then(this.helpful);
+    this.incomeService.totalIncome().then((income) => {
+      this.incomeChange.emit({isCommercial: this.isCommercial, totalIncome: income});
+    })
   }
 
 }

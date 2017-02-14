@@ -1,6 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import { ApartmentIncome } from './apartment-income';
 import { IncomeServiceRevised } from './income.service';
+
+export interface ApartmentIncomeChange {
+  isCommercial: boolean;
+  incomeChange: number;
+}
 
 @Component({
   selector: 'apartment-income',
@@ -9,6 +14,8 @@ import { IncomeServiceRevised } from './income.service';
 })
 
 export class ApartmentIncomeComponent implements OnInit {
+
+  @Output() incomeChange = new EventEmitter<ApartmentIncomeChange>();
 
   apartmentIncomes: Array<ApartmentIncome> = [];
 
@@ -22,10 +29,16 @@ export class ApartmentIncomeComponent implements OnInit {
 
   handleSave(e: any): void {
     this.incomeService.saveIncome(e).then(this.helpful);
+    this.incomeService.totalIncome().then((income) => {
+      this.incomeChange.emit(<ApartmentIncomeChange>{isCommercial: false, incomeChange: income});
+    })
   }
 
   handleDestroy(e: any): void {
     this.incomeService.deleteIncome(e).then(this.helpful);
+    this.incomeService.totalIncome().then((income) => {
+      this.incomeChange.emit(<ApartmentIncomeChange>{isCommercial: false, incomeChange: income});
+    })
   }
 
 }

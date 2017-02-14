@@ -7,6 +7,15 @@ export class IncomeServiceRevised<T extends IIncome> {
   private lastId: number = 0;
   private incomes: Array<IIncome> = [];
 
+  totalIncome(): Promise<number> {
+    return new Promise((res) => {
+      const result = this.incomes.reduce((prev,i2)=>{ 
+        return prev + i2.totalMonthlyIncome();  
+      }, 0);
+      res(result);
+    });
+  }
+
   saveIncome<T extends IIncome>(income: T): Promise<T[]> {
     console.log("IncomeServiceRevised", this.incomes)        
     return new Promise((res)=>{
