@@ -1,7 +1,12 @@
-<apartment-income></apartment-income>
+<apartment-income (incomeChange)="handleResidentialIncome($event)"></apartment-income>
 <other-residential-non-parking-income></other-residential-non-parking-income>
 <other-commercial-non-parking-income></other-commercial-non-parking-income>
-<parking-income [isCommercial]="false"></parking-income>
-<parking-income [isCommercial]="true"></parking-income>
-<msa-waiver></msa-waiver>
-<project-status></project-status>
+<parking-income (incomeChange)="handleResidentialIncome($event)" [isCommercial]="false"></parking-income>
+<parking-income (incomeChange)="handleCommercialIncome($event)" [isCommercial]="true"></parking-income>
+<effective-income (onChange)="handleEGI($event)" [incoming]="totalResidentialIncome" [effectiveIncome]="residentialEGI"></effective-income>
+<effective-income (onChange)="handleEGI($event)" [incoming]="totalCommercialIncome" [effectiveIncome]="commercialEGI"></effective-income>
+<label>effective income {{effectiveIncome}}</label>
+<noi [effectiveIncome]="totalEffectiveIncome"></noi>
+<dynamic-form [questions]="questions"></dynamic-form>
+<hero-detail (maybePercent)="handleEvent($event)"></hero-detail>
+<counter-input [isChecked]="true" [numericValue]="10"></counter-input>

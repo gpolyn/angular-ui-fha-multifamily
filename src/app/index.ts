@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {BrowserModule} from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 import {AppComponent} from './containers/app.component';
 
@@ -20,10 +21,19 @@ import {OtherCommercialNonParkingIncomeComponent} from './other-non-parking-comm
 
 import {MSAWaiverComponent} from './msa-waiver.component';
 
+import { DynamicFormComponent }         from './dynamic-form/dynamic-form.component';
+import { DynamicFormQuestionComponent } from './dynamic-form/dynamic-form-question.component';
+import {HeroDetailComponent1} from './input-and-checkbox/input-and-checkbox.component';
+import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox.component';
+import {EffectiveIncomeComponent} from './effective-income/effective-income.component';
+
+import {NOIComponent} from './noi/noi.component';
+
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     ApartmentIncomeModule, ParkingIncomeModule,
     //    ProjectCharacteristicsModule
   ],
@@ -34,7 +44,12 @@ import {MSAWaiverComponent} from './msa-waiver.component';
     CommercialOtherIncomeSourceComponent,
     OtherCommercialNonParkingIncomeComponent,
     MSAWaiverComponent,
-    ProjectStatusComponent
+    ProjectStatusComponent,
+    HeroDetailComponent1,
+    CounterInputComponent,
+    EffectiveIncomeComponent,
+    NOIComponent,
+    DynamicFormComponent, DynamicFormQuestionComponent
   ],
   bootstrap: [AppComponent]
 })

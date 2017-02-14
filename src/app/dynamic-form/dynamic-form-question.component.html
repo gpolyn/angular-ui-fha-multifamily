@@ -1,0 +1,15 @@
+<div [formGroup]="form">
+  <label [attr.for]="question.key">{{question.label}}</label>
+  <div [ngSwitch]="question.controlType">
+    <input *ngSwitchCase="'textbox'" [formControlName]="question.key" (change)="changeHandler($event)"
+            [id]="question.key" [type]="question.type">
+    <select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
+      <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
+    </select>
+    <div *ngSwitchCase="'radio'">
+      <label *ngFor="let opt of question.options">
+        <input type="radio" [value]="opt.key" [formControlName]="question.key">{{opt.value}}
+      </label>
+    </div>
+  </div> 
+</div>
