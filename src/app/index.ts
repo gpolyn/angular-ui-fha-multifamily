@@ -28,6 +28,7 @@ import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox
 import {EffectiveIncomeComponent} from './effective-income/effective-income.component';
 
 import {NOIComponent} from './noi/noi.component';
+import {IncomeServiceRevised} from './special.service';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import {NOIComponent} from './noi/noi.component';
     ApartmentIncomeModule, ParkingIncomeModule,
     //    ProjectCharacteristicsModule
   ],
+  providers: [IncomeServiceRevised],
   declarations: [
     AppComponent,
     OtherNonParkingResidentialIncomeSourceComponent,

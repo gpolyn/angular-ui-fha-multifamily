@@ -36,12 +36,6 @@ export class NOIComponent implements OnInit, OnDestroy {
   recalculateNOI(e?: any){
     console.log("handleOpex", e);
 
-    if (e.isPercent){
-      
-    } else {
-
-    }
-
   }
 
   ngOnDestroy(){

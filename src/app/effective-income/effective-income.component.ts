@@ -1,6 +1,7 @@
 import { OnDestroy, Component,  OnInit, forwardRef, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { ValidatorFn, AbstractControl, Validators, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import {Observable} from 'rxjs/Observable';  
+import {IncomeServiceRevised} from '../special.service';
 
 export interface EffectiveIncome {
 	totalIncome: number;
@@ -14,6 +15,7 @@ export interface EffectiveIncome {
 @Component({
   selector: 'effective-income',
   template: `
+    <div>{{incomes2 | async | json}}</div>
     <label>
       gross {{incomeTypeLabel}}<div>{{effectiveIncome.totalIncome}}</div>
     </label>
@@ -33,9 +35,13 @@ export class EffectiveIncomeComponent implements OnInit, OnDestroy {
 	occupancyPercent: FormControl; 
   private subs: any[] = [];
   incomeTypeLabel: string;
+	incomes: Observable<any[]>;
+  incomes2: Observable<any[]>;
 
 	@Output()
   onChange: EventEmitter<any> = new EventEmitter();
+
+  constructor(private incomeService: IncomeServiceRevised){}
 
   incomeChange(e: any){
     console.log("income change", e, this.occupancyPercent.value);
@@ -44,6 +50,8 @@ export class EffectiveIncomeComponent implements OnInit, OnDestroy {
   }
 
 	ngOnInit(){
+		this.incomes = this.incomeService.chincomes$;
+     this.incomes2 = this.incomes.filter((item)=>{ console.log(item.parkingStyle); return true; })
 		console.log("EffectiveIncome", this.effectiveIncome);
     const validators = [Validators.required];
     this.incomeTypeLabel = this.effectiveIncome.isCommercial ? "commercial" : "residential";

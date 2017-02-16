@@ -1,41 +1,53 @@
-import {Input, Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Input, ChangeDetectionStrategy, Component, OnInit, OnChanges, Output, EventEmitter} from '@angular/core';
 import { ParkingIncome } from './parking-income';
-import { IncomeServiceRevised } from './income.service';
+import { IncomeServiceRevised } from '../../special.service';
+import { Observable } from 'rxjs/Observable';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'parking-income',
   template: require('./parking-income.component.html'),
-	providers: [ IncomeServiceRevised ]
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class ParkingIncomeComponent implements OnInit {
 
   @Input() isCommercial: boolean;
-
   @Output() incomeChange = new EventEmitter<any>();
+	incomes: Observable<ParkingIncome[]>;
+  newIncomeForm: FormGroup;
+  parkingStyles: string[];
 
-  parkingIncomes: Array<ParkingIncome> = [];
-
-  constructor(private incomeService: IncomeServiceRevised<ParkingIncome>){ }
-
-  private helpful = (incomes) => this.parkingIncomes = [...incomes, new ParkingIncome(this.isCommercial)].reverse();
-
-  ngOnInit() {
-    this.incomeService.getIncomes().then(this.helpful);
+  constructor(private fb: FormBuilder, private incomeService: IncomeServiceRevised){
   }
 
-  handleSave(e: any) {
-    this.incomeService.saveIncome(e).then(this.helpful);
-    this.incomeService.totalIncome().then((income) => {
-      this.incomeChange.emit({isCommercial: this.isCommercial, incomeChange: income});
-    })
+  createForm() {
+
+		const newParkingIncome = new ParkingIncome(true);
+		this.parkingStyles = [ParkingIncome.INDOOR, ParkingIncome.OUTDOOR]
+
+    this.newIncomeForm = this.fb.group({
+      spaces: newParkingIncome.spaces,
+      squareFeet: newParkingIncome.squareFeet,
+      parkingStyle: this.parkingStyles[0],
+      monthlyFee: newParkingIncome.monthlyFee
+    });
+
+  }
+
+  addNewIncome(){
+    this.incomeService.addIncome(<ParkingIncome>this.newIncomeForm.value);
+    this.newIncomeForm.reset({parkingStyle: this.parkingStyles[0]});
+  }
+
+
+  ngOnInit() {
+		this.incomes = this.incomeService.chincomes$;
+    this.createForm();
   }
 
   handleDestroy(e: any) {
-    this.incomeService.deleteIncome(e).then(this.helpful);
-    this.incomeService.totalIncome().then((income) => {
-      this.incomeChange.emit({isCommercial: this.isCommercial, totalIncome: income});
-    })
+		this.incomeService.removeIncome(e);
   }
 
 }

@@ -1,10 +1,35 @@
 <ul [ngClass]="{'residential-parking-income': !isCommercial, 'commercial-parking-income': isCommercial}">
-  <template ngFor let-parkingIncome [ngForOf]="parkingIncomes">
+  <form [formGroup]="newIncomeForm" novalidate>
+    <div class='spaces'>
+      <div class='edit'>
+        <input type='number' formControlName="spaces">
+      </div>
+    </div>
+    <div class='indoor-or-outdoor'>
+      <div class='edit'>
+        <select formControlName="parkingStyle">
+          <option *ngFor="let style of parkingStyles">{{style}}</option>
+        </select>
+      </div>
+    </div>
+    <div class='total-square-feet'>
+      <div class='edit'>
+        <input type='number' formControlName="squareFeet">
+      </div>
+    </div>
+    <div class='monthly-fee'>
+      <div class='edit'>
+        <input type='number' formControlName="monthlyFee">
+      </div>
+    </div>
+    <div>
+      <button (click)="addNewIncome()">add</button>
+    </div>
+  </form>
+  <template ngFor let-parkingIncome [ngForOf]="(incomes | async)">
     <parking-income-source
       [parkingIncome]="parkingIncome"
-      [isCommercial]="isCommercial"
       (onDestroy)="handleDestroy($event)"
-      (onSave)="handleSave($event)"
     ></parking-income-source>
   </template>
 </ul>

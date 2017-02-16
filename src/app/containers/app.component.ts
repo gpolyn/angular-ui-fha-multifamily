@@ -1,5 +1,7 @@
 import {Component, Output, EventEmitter} from '@angular/core';
 import { QuestionService } from '../dynamic-form/question.service';
+import { IncomeServiceRevised } from '../special.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'fha-app',
@@ -17,9 +19,12 @@ export class AppComponent {
   totalEffectiveIncome: EventEmitter<number> = new EventEmitter<number>();
   residentialEGI: any;
   commercialEGI: any;
+	incomes: Observable<any[]>;
 
-  constructor(service: QuestionService) {
+
+  constructor(service: QuestionService, private incomeService: IncomeServiceRevised) {
     this.questions = service.getQuestions();
+    this.incomeService.chincomes$.subscribe((change)=>{console.log(change)});
 
     this.residentialEGI = {isCommercial: false, totalIncome: 0,occupancyPercent:85, maxOccupancyPercent:95}
 

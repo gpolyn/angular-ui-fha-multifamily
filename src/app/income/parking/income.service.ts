@@ -1,11 +1,35 @@
 import {Injectable} from '@angular/core';
 import { IIncome } from './interfaces';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { ParkingIncome } from './parking-income';
 
 @Injectable()
-export class IncomeServiceRevised<T extends IIncome> {
+export class IncomeServiceRevised {
 
   private lastId: number = 0;
-  private incomes: Array<IIncome> = [];
+  private incomes: Array<any> = [];
+  private observableIncomes: BehaviorSubject<ParkingIncome[]> = new BehaviorSubject([]);
+	chincomes$: Observable<ParkingIncome[]> = this.observableIncomes.asObservable();
+
+	constructor() { 
+	} 
+
+  refresh() {
+    this.observableIncomes.next(this.incomes);
+  }
+
+	addIncome(e: ParkingIncome){
+		e.id = ++this.lastId;
+		this.incomes.push(e);
+		this.refresh();
+	}
+
+	removeIncome(e: ParkingIncome) {
+		console.log("removeIncome", e);
+		this.incomes = this.incomes.filter(income => income.id !== e.id);
+		this.refresh();
+  }
 
   totalIncome(): Promise<number> {
     return new Promise((res) => {
@@ -16,6 +40,7 @@ export class IncomeServiceRevised<T extends IIncome> {
     });
   }
 
+	/*
   saveIncome<T extends IIncome>(income: T): Promise<T[]> {
     console.log("IncomeServiceRevised", this.incomes)        
     return new Promise((res)=>{
@@ -36,5 +61,6 @@ export class IncomeServiceRevised<T extends IIncome> {
       res(this.incomes);
     })
   }
+	*/
 
 }
