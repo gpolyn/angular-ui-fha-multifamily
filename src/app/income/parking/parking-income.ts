@@ -13,11 +13,21 @@ export class ParkingIncome implements IIncome {
   static INDOOR: string = 'indoor';
   static OUTDOOR: string = 'outdoor';
 
-  constructor(isCommercial: boolean, protected isIndoor: boolean = true){
+  //constructor(isCommercial: boolean, protected isIndoor: boolean = true){
+  constructor(options: {
+    isCommercial?: boolean,
+    spaces?: number,
+    squareFeet?: number,
+    monthlyFee?: number,
+    isIndoor?: boolean
+  } = {}) {
 
-    this.isCommercial = isCommercial; 
+    this.isCommercial = options.isCommercial; 
+    this.spaces = options.spaces;
+    this.squareFeet = options.squareFeet;
+    this.monthlyFee = options.monthlyFee;
 
-    if (isIndoor){
+    if (options.isIndoor){
       this.parkingStyle = this.parkingStyles[0];
     } else {
       this.parkingStyle = this.parkingStyles[1];

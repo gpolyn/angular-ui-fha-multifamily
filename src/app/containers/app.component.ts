@@ -24,25 +24,20 @@ export class AppComponent {
 
   constructor(service: QuestionService, private incomeService: IncomeServiceRevised) {
     this.questions = service.getQuestions();
-    this.incomeService.chincomes$.subscribe((change)=>{console.log(change)});
-
-    this.residentialEGI = {isCommercial: false, totalIncome: 0,occupancyPercent:85, maxOccupancyPercent:95}
-
-    this.commercialEGI = {isCommercial: true, totalIncome:0,occupancyPercent:80, maxOccupancyPercent:80}
   }
 
   handleEGI(e:any){
     console.log(e)
-    this.totalEffectiveIncome.emit(e);
+    // this.totalEffectiveIncome.emit(e);
   }
 
   handleResidentialIncome(e: any){
-    this.totalResidentialIncome.emit(e.incomeChange)
+  //  this.totalResidentialIncome.emit(e.incomeChange)
   }
 
   handleCommercialIncome(e: any){
     console.log("AppComponent#handleCommercialIncome", e);
-    this.totalCommercialIncome.emit(e.incomeChange)
+    // this.totalCommercialIncome.emit(e.incomeChange)
   }
 
 }

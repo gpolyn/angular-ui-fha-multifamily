@@ -1,7 +1,10 @@
 import { OnDestroy, Component,  OnInit, forwardRef, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { ValidatorFn, AbstractControl, Validators, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import {Observable} from 'rxjs/Observable';  
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';  
 import {IncomeServiceRevised} from '../special.service';
+import { ParkingIncome } from '../shared/parking-income';
+import 'rxjs/add/operator/filter'; 
 
 export interface EffectiveIncome {
 	totalIncome: number;
@@ -15,64 +18,71 @@ export interface EffectiveIncome {
 @Component({
   selector: 'effective-income',
   template: `
-    <div>{{incomes2 | async | json}}</div>
     <label>
-      gross {{incomeTypeLabel}}<div>{{effectiveIncome.totalIncome}}</div>
+      gross {{incomeTypeLabel}}<div>{{( gross | async ) }}</div>
     </label>
     <label>occupancy rate
       <input name="occupancy-rate" type="number" [formControl]="occupancyPercent">
     </label>
     <label>
-      {{incomeTypeLabel}} income<div>{{effectiveIncome.egi}}</div>
+      {{incomeTypeLabel}} income<div>{{( effectiveGrossIncome | async )}}</div>
     </label>
   `
 })
 export class EffectiveIncomeComponent implements OnInit, OnDestroy {
 
-  @Input() effectiveIncome: EffectiveIncome
 	@Input() label: string;
-  @Input() incoming: Observable<number>;
+  @Input() isCommercial: boolean = false;
+  @Input() maxOccupancyPercent: number;
+  @Input() minOccupancyPercent: number = 0;
 	occupancyPercent: FormControl; 
   private subs: any[] = [];
   incomeTypeLabel: string;
-	incomes: Observable<any[]>;
-  incomes2: Observable<any[]>;
 
-	@Output()
-  onChange: EventEmitter<any> = new EventEmitter();
+	incomes: Observable<ParkingIncome[]>;
+  incomes2: Observable<ParkingIncome[]>;
+
+  occupancy: BehaviorSubject<number>;
+  gross: Observable<number>;
+  effectiveGrossIncome: Observable<number>;
 
   constructor(private incomeService: IncomeServiceRevised){}
 
-  incomeChange(e: any){
-    console.log("income change", e, this.occupancyPercent.value);
-    this.effectiveIncome.totalIncome = e;
-    this.handleOccupancyPercent();
-  }
-
 	ngOnInit(){
+
 		this.incomes = this.incomeService.chincomes$;
-     this.incomes2 = this.incomes.filter((item)=>{ console.log(item.parkingStyle); return true; })
-		console.log("EffectiveIncome", this.effectiveIncome);
+
+    this.incomes2 = this.incomes.map((es: any) => es.filter((e) => {return e.isCommercial} ))
+		
     const validators = [Validators.required];
-    this.incomeTypeLabel = this.effectiveIncome.isCommercial ? "commercial" : "residential";
+    this.incomeTypeLabel = this.isCommercial ? "commercial" : "residential";
 
-    if (this.effectiveIncome.maxOccupancyPercent){
-      validators.push(this.maxVal(this.effectiveIncome.maxOccupancyPercent))
+    if (this.maxOccupancyPercent){
+      validators.push(this.maxVal(this.maxOccupancyPercent))
     }
 
-    if (this.effectiveIncome.minOccupancyPercent){
-      validators.push(this.minVal(this.effectiveIncome.minOccupancyPercent))
+    if (this.minOccupancyPercent){
+      validators.push(this.minVal(this.minOccupancyPercent))
     }
 
-		this.occupancyPercent = new FormControl(this.effectiveIncome.occupancyPercent, validators);
+    if (this.isCommercial){
+      this.effectiveGrossIncome = this.incomeService.commercialEGI$;
+      this.occupancy = this.incomeService.observableCommercialOccupancy$
+      this.gross = this.incomeService.totalGrossCommercialIncome$;
+    } else {
+      this.effectiveGrossIncome = this.incomeService.residentialEGI$;
+      this.occupancy = this.incomeService.observableResidentialOccupancy$
+      this.gross = this.incomeService.totalGrossResidentialIncome$;
+    }
+
+		this.occupancyPercent = new FormControl(this.occupancy.getValue(), validators);
+
 		this.subs.push(this.occupancyPercent.valueChanges.subscribe(this.handleOccupancyPercent.bind(this)));
-    this.subs.push(this.incoming.subscribe(this.incomeChange.bind(this)))
+
 	}
 
 	handleOccupancyPercent(){
-    console.log("handleOccupancyPercent", this.occupancyPercent.value)  
-		this.effectiveIncome.egi = this.occupancyPercent.value/100.0 * this.effectiveIncome.totalIncome;
-    this.onChange.emit(this.effectiveIncome.egi);
+    this.incomeService.saveOccupancy(this.isCommercial, this.occupancyPercent.value);
 	}
 
   maxVal(max: number): ValidatorFn {

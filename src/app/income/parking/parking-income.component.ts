@@ -1,6 +1,7 @@
-import {Input, ChangeDetectionStrategy, Component, OnInit, OnChanges, Output, EventEmitter} from '@angular/core';
+import {Input, ChangeDetectionStrategy, Component, OnInit, OnChanges, Output, Injector, EventEmitter} from '@angular/core';
 import { ParkingIncome } from './parking-income';
 import { IncomeServiceRevised } from '../../special.service';
+import { CommercialIncomeService, ResidentialIncomeService } from '../../special.service';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -15,11 +16,14 @@ export class ParkingIncomeComponent implements OnInit {
   @Input() isCommercial: boolean;
   @Output() incomeChange = new EventEmitter<any>();
 	incomes: Observable<ParkingIncome[]>;
+	private incomes2: Observable<ParkingIncome[]>;
   newIncomeForm: FormGroup;
   parkingStyles: string[];
+  private incomeService: IncomeServiceRevised;
 
-  constructor(private fb: FormBuilder, private incomeService: IncomeServiceRevised){
+  constructor(private fb: FormBuilder, private incomeService2: IncomeServiceRevised, private injector: Injector){
   }
+
 
   createForm() {
 
@@ -36,13 +40,22 @@ export class ParkingIncomeComponent implements OnInit {
   }
 
   addNewIncome(){
-    this.incomeService.addIncome(<ParkingIncome>this.newIncomeForm.value);
+    console.log("addNewIncome", this.newIncomeForm.value);
+    this.incomeService.addIncome(new ParkingIncome(Object.assign(this.newIncomeForm.value, {isCommercial: this.isCommercial})));
     this.newIncomeForm.reset({parkingStyle: this.parkingStyles[0]});
   }
 
+  ngOnChanges(){
+    if (this.isCommercial){
+      this.incomeService = this.injector.get(CommercialIncomeService); 
+    } else {
+      this.incomeService = this.injector.get(ResidentialIncomeService);
+    }
+  }
 
   ngOnInit() {
-		this.incomes = this.incomeService.chincomes$;
+		this.incomes2 = this.incomeService.chincomes$;
+    this.incomes = this.incomes2.map((es: any) => es.filter((e)=> e.isCommercial == this.isCommercial))
     this.createForm();
   }
 
