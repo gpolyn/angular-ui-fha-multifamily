@@ -29,16 +29,23 @@ import {EffectiveIncomeComponent} from './effective-income/effective-income.comp
 
 import {NOIComponent} from './noi/noi.component';
 import {IncomeServiceRevised, CommercialIncomeService, ResidentialIncomeService} from './special.service';
+import {OperatingExpensesModule} from './opex/opex.module';
+import { DI_CONFIG, APP_CONFIG } from './app-config';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    OperatingExpensesModule,
     ApartmentIncomeModule, ParkingIncomeModule,
     //    ProjectCharacteristicsModule
   ],
-  providers: [IncomeServiceRevised, CommercialIncomeService, ResidentialIncomeService],
+  providers: [
+    IncomeServiceRevised, 
+    CommercialIncomeService, 
+    { provide: APP_CONFIG, useValue: DI_CONFIG },
+    ResidentialIncomeService],
   declarations: [
     AppComponent,
     OtherNonParkingResidentialIncomeSourceComponent,
@@ -51,6 +58,7 @@ import {IncomeServiceRevised, CommercialIncomeService, ResidentialIncomeService}
     CounterInputComponent,
     EffectiveIncomeComponent,
     NOIComponent,
+    //    OperatingExpensesComponent,
     DynamicFormComponent, DynamicFormQuestionComponent
   ],
   bootstrap: [AppComponent]

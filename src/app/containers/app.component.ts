@@ -20,6 +20,8 @@ export class AppComponent {
   residentialEGI: any;
   commercialEGI: any;
 	incomes: Observable<any[]>;
+  maxCommercialOccupancy: number = 90;
+  maxResidentialOccupancy: number = 80;
 
 
   constructor(service: QuestionService, private incomeService: IncomeServiceRevised) {

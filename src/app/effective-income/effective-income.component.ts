@@ -1,10 +1,12 @@
-import { OnDestroy, Component,  OnInit, forwardRef, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Inject, Injector, OnDestroy, Component,  OnInit, forwardRef, Input, OnChanges, Output } from '@angular/core';
 import { ValidatorFn, AbstractControl, Validators, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import {Observable} from 'rxjs/Observable';  
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';  
 import {IncomeServiceRevised} from '../special.service';
 import { ParkingIncome } from '../shared/parking-income';
 import 'rxjs/add/operator/filter'; 
+import { CommercialIncomeService, ResidentialIncomeService } from '../special.service';
+import { AppConfig, APP_CONFIG } from '../app-config';
 
 export interface EffectiveIncome {
 	totalIncome: number;
@@ -33,7 +35,7 @@ export class EffectiveIncomeComponent implements OnInit, OnDestroy {
 
 	@Input() label: string;
   @Input() isCommercial: boolean = false;
-  @Input() maxOccupancyPercent: number;
+  @Input() maxOccupancyPercent: number = 100;
   @Input() minOccupancyPercent: number = 0;
 	occupancyPercent: FormControl; 
   private subs: any[] = [];
@@ -45,45 +47,58 @@ export class EffectiveIncomeComponent implements OnInit, OnDestroy {
   occupancy: BehaviorSubject<number>;
   gross: Observable<number>;
   effectiveGrossIncome: Observable<number>;
+  private incomeService: any;
+  private config: AppConfig;
 
-  constructor(private incomeService: IncomeServiceRevised){}
+  constructor(@Inject(APP_CONFIG) config: AppConfig, private injector: Injector){
+    this.config = config;
+  }
+
+  ngOnChanges(){
+    if (this.isCommercial){
+      this.incomeService = this.injector.get(CommercialIncomeService); 
+      this.maxOccupancyPercent = this.config.maxCommercialOccupancy;
+    } else {
+      this.incomeService = this.injector.get(ResidentialIncomeService);
+      this.maxOccupancyPercent = this.config.maxResidentialOccupancy;
+    }
+  }
 
 	ngOnInit(){
 
-		this.incomes = this.incomeService.chincomes$;
-
-    this.incomes2 = this.incomes.map((es: any) => es.filter((e) => {return e.isCommercial} ))
-		
     const validators = [Validators.required];
+
+		this.incomes2 = this.incomeService.chincomes$;
+		
     this.incomeTypeLabel = this.isCommercial ? "commercial" : "residential";
 
-    if (this.maxOccupancyPercent){
-      validators.push(this.maxVal(this.maxOccupancyPercent))
-    }
-
-    if (this.minOccupancyPercent){
-      validators.push(this.minVal(this.minOccupancyPercent))
-    }
-
-    if (this.isCommercial){
-      this.effectiveGrossIncome = this.incomeService.commercialEGI$;
-      this.occupancy = this.incomeService.observableCommercialOccupancy$
-      this.gross = this.incomeService.totalGrossCommercialIncome$;
-    } else {
-      this.effectiveGrossIncome = this.incomeService.residentialEGI$;
-      this.occupancy = this.incomeService.observableResidentialOccupancy$
-      this.gross = this.incomeService.totalGrossResidentialIncome$;
-    }
+    this.effectiveGrossIncome = this.incomeService.egi$;
+    this.occupancy = this.incomeService.observableOccupancy$
+    this.gross = this.incomeService.totalGrossIncome$;
 
 		this.occupancyPercent = new FormControl(this.occupancy.getValue(), validators);
 
-		this.subs.push(this.occupancyPercent.valueChanges.subscribe(this.handleOccupancyPercent.bind(this)));
+    this.subs.push(this.occupancyPercent.valueChanges.subscribe(this.handleOccupancyPercent.bind(this)));
 
 	}
 
 	handleOccupancyPercent(){
-    this.incomeService.saveOccupancy(this.isCommercial, this.occupancyPercent.value);
+
+    if (this.occupancyPercent.value > this.maxOccupancyPercent){
+      this.occupancyPercent.patchValue(this.maxOccupancyPercent);
+    }
+
+    if (this.occupancyPercent.value < this.minOccupancyPercent){
+      this.occupancyPercent.patchValue(this.minOccupancyPercent);
+    }
+
+    this.incomeService.saveOccupancy(this.occupancyPercent.value);
+
 	}
+
+  // Note: would like to add this (and the next) validators, but
+  // they result in a zone error when the max (min) values for different
+  // component instances differ
 
   maxVal(max: number): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {

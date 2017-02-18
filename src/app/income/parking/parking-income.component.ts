@@ -1,6 +1,5 @@
 import {Input, ChangeDetectionStrategy, Component, OnInit, OnChanges, Output, Injector, EventEmitter} from '@angular/core';
 import { ParkingIncome } from './parking-income';
-import { IncomeServiceRevised } from '../../special.service';
 import { CommercialIncomeService, ResidentialIncomeService } from '../../special.service';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -14,16 +13,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class ParkingIncomeComponent implements OnInit {
 
   @Input() isCommercial: boolean;
-  @Output() incomeChange = new EventEmitter<any>();
 	incomes: Observable<ParkingIncome[]>;
-	private incomes2: Observable<ParkingIncome[]>;
   newIncomeForm: FormGroup;
   parkingStyles: string[];
-  private incomeService: IncomeServiceRevised;
+  private incomeService: any;
 
-  constructor(private fb: FormBuilder, private incomeService2: IncomeServiceRevised, private injector: Injector){
+  constructor(private fb: FormBuilder, private injector: Injector){
   }
-
 
   createForm() {
 
@@ -54,8 +50,7 @@ export class ParkingIncomeComponent implements OnInit {
   }
 
   ngOnInit() {
-		this.incomes2 = this.incomeService.chincomes$;
-    this.incomes = this.incomes2.map((es: any) => es.filter((e)=> e.isCommercial == this.isCommercial))
+		this.incomes = this.incomeService.chincomes$;
     this.createForm();
   }
 

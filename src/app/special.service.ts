@@ -10,28 +10,20 @@ export class IncomeServiceRevised {
 
   private lastId: number = 0;
   private incomes: Array<IIncome> = [];
-  private commercialOccupancy: number = 90;
-  observableCommercialOccupancy$: BehaviorSubject<number>;
-  observableResidentialOccupancy$: BehaviorSubject<number>;
-  private residentialOccupancy: number = 80;
+  private occupancy: number = 90;
+  observableOccupancy$: BehaviorSubject<number>;
   private observableIncomes: BehaviorSubject<IIncome[]> = new BehaviorSubject([]);
 	chincomes$: Observable<IIncome[]> = this.observableIncomes.asObservable();
-  totalGrossCommercialIncome$: Observable<number>;
-  totalGrossResidentialIncome$: Observable<number>;
-  commercialEGI$: Observable<number>;
-  residentialEGI$: Observable<number>;
+  totalGrossIncome$: Observable<number>;
+  egi$: Observable<number>;
 
   constructor(){
   
-    this.observableResidentialOccupancy$ = new BehaviorSubject<number>(this.residentialOccupancy);
+    this.observableOccupancy$ = new BehaviorSubject<number>(this.occupancy);
 
-    this.observableCommercialOccupancy$ = new BehaviorSubject<number>(this.commercialOccupancy);
+    this.totalGrossIncome$ = this.observableIncomes.map((todos: any) => todos.reduce((count, todo) =>  count + todo.totalMonthlyIncome(), 0));
 
-    this.totalGrossCommercialIncome$ = this.observableIncomes.map((todos: any) => todos.reduce((count, todo) => todo.isCommercial ? count + todo.totalMonthlyIncome() : count, 0));
-    this.totalGrossResidentialIncome$ = this.observableIncomes.map((todos: any) => todos.reduce((count, todo) => !todo.isCommercial ? count + todo.totalMonthlyIncome() : count, 0));
-    this.commercialEGI$ = Observable.combineLatest(this.observableResidentialOccupancy$, this.totalGrossCommercialIncome$, (occ,inc)=>{ return occ/100 * inc;});
-
-    this.residentialEGI$ = Observable.combineLatest(this.observableResidentialOccupancy$, this.totalGrossResidentialIncome$, (occ,inc)=>{ return occ/100 * inc;});
+    this.egi$ = Observable.combineLatest(this.observableOccupancy$, this.totalGrossIncome$, (occ,inc)=>{ return occ/100 * inc;});
 
   }
 
@@ -53,22 +45,9 @@ export class IncomeServiceRevised {
 		this.refresh();
   }
 
-  saveOccupancy(isCommercial: boolean, occupancy: number){
-    if (isCommercial){
-      this.saveCommercialOccupancy(occupancy);
-    } else {
-      this.saveResidentialOccupancy(occupancy);
-    }
-  }
-
-  private saveCommercialOccupancy(occ: number){
-    this.commercialOccupancy = occ;
-    this.observableCommercialOccupancy$.next(this.commercialOccupancy);
-  }
-
-  private saveResidentialOccupancy(occ: number){
-    this.residentialOccupancy = occ;
-    this.observableResidentialOccupancy$.next(this.residentialOccupancy);
+  saveOccupancy(occupancy: number){
+    this.occupancy = occupancy;
+    this.observableOccupancy$.next(this.occupancy);
   }
 
 }

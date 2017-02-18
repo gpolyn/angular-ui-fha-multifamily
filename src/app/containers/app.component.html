@@ -1,12 +1,11 @@
-<div>hi {{incomes | async }}</div>
 <apartment-income (incomeChange)="handleResidentialIncome($event)"></apartment-income>
 <other-residential-non-parking-income></other-residential-non-parking-income>
 <other-commercial-non-parking-income></other-commercial-non-parking-income>
 <parking-income (incomeChange)="handleResidentialIncome($event)" [isCommercial]="false"></parking-income>
 <parking-income (incomeChange)="handleCommercialIncome($event)" [isCommercial]="true"></parking-income>
-<effective-income [isCommercial]="false" [maxOccupancyPercent]="95"></effective-income>
-<!-- <effective-income [isCommercial]="true" [maxOccupancyPercent]="80"></effective-income> -->
-<noi [effectiveIncome]="totalEffectiveIncome"></noi>
+<effective-income [isCommercial]="true" [maxOccupancyPercent]="80"></effective-income>
+<effective-income [isCommercial]="false" [maxOccupancyPercent]="95"></effective-income> 
+<operating-expenses></operating-expenses>
 <dynamic-form [questions]="questions"></dynamic-form>
-<hero-detail (maybePercent)="handleEvent($event)"></hero-detail>
+
 <counter-input [isChecked]="true" [numericValue]="10"></counter-input>
