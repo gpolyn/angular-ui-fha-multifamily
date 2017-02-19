@@ -5,13 +5,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import {AppComponent} from './containers/app.component';
 
-import {ApartmentIncomeModule} from './income/apartment/apartment-income.module'
+import {ApartmentIncomeModule} from './income/apartment/apartment-income.module';
 
-import {ParkingIncomeModule} from './income/parking/parking-income.module'
+import {ParkingIncomeModule} from './income/parking/parking-income.module';
 
-import {ProjectCharacteristicsModule} from './project-characteristics/project-characteristics.module'
-
-import {ProjectStatusComponent} from './project-status.component'
+import {ProjectStatusComponent} from './project-status.component';
 
 import {OtherNonParkingResidentialIncomeSourceComponent} from './other-non-parking-residential-income-source.component';
 import {OtherResidentialNonParkingIncomeComponent} from './other-residential-non-parking-income.component';
@@ -27,7 +25,6 @@ import {HeroDetailComponent1} from './input-and-checkbox/input-and-checkbox.comp
 import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox.component';
 import {EffectiveIncomeComponent} from './effective-income/effective-income.component';
 
-import {NOIComponent} from './noi/noi.component';
 import {IncomeServiceRevised, CommercialIncomeService, ResidentialIncomeService} from './special.service';
 import {OperatingExpensesModule} from './opex/opex.module';
 import { DI_CONFIG, APP_CONFIG } from './app-config';
@@ -39,7 +36,6 @@ import { DI_CONFIG, APP_CONFIG } from './app-config';
     ReactiveFormsModule,
     OperatingExpensesModule,
     ApartmentIncomeModule, ParkingIncomeModule,
-    //    ProjectCharacteristicsModule
   ],
   providers: [
     IncomeServiceRevised, 
@@ -57,8 +53,6 @@ import { DI_CONFIG, APP_CONFIG } from './app-config';
     HeroDetailComponent1,
     CounterInputComponent,
     EffectiveIncomeComponent,
-    NOIComponent,
-    //    OperatingExpensesComponent,
     DynamicFormComponent, DynamicFormQuestionComponent
   ],
   bootstrap: [AppComponent]

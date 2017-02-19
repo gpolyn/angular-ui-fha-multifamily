@@ -17,7 +17,7 @@ export class IncomeServiceRevised<T extends IIncome> {
   }
 
   saveIncome<T extends IIncome>(income: T): Promise<T[]> {
-    console.log("IncomeServiceRevised", this.incomes)        
+    console.log("IncomeServiceRevised", this.incomes);        
     return new Promise((res)=>{
       income.id = ++this.lastId;
       this.incomes.push(income);
@@ -26,7 +26,7 @@ export class IncomeServiceRevised<T extends IIncome> {
   }
 
   getIncomes(): Promise<T[]> {
-		console.log('IncomeServiceRevised.getIncomes')
+		console.log('IncomeServiceRevised.getIncomes');
     return Promise.resolve(this.incomes);
 	}
 

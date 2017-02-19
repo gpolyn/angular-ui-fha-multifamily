@@ -2,7 +2,7 @@ import { Component, Input, OnInit }  from '@angular/core';
 import { FormGroup }                 from '@angular/forms';
 import { QuestionBase }              from './question-base';
 import { QuestionControlService }    from './question-control.service';
-import { CounterInputComponent }    from '../input-and-checkbox/textfield-and-checkbox.component';
+
 @Component({
   selector: 'dynamic-form',
   template: require('./dynamic-form.component.html'),

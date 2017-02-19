@@ -1,9 +1,7 @@
-import {Injectable, EventEmitter} from '@angular/core';
+import {Injectable} from '@angular/core';
 import { IIncome } from './shared/interfaces';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import { ParkingIncome } from './shared/parking-income';
 
 @Injectable()
 export class IncomeServiceRevised {
@@ -32,15 +30,14 @@ export class IncomeServiceRevised {
   }
 
 	addIncome(e: IIncome){
-    console.log("too IncomeServiceRevised", e.totalMonthlyIncome());
+    console.log('too IncomeServiceRevised', e.totalMonthlyIncome());
 		e.id = ++this.lastId;
 		this.incomes.push(e);
 		this.refresh();
-    console.log("incomes", this.incomes);
+    console.log('incomes', this.incomes);
 	}
 
 	removeIncome(e: IIncome) {
-    console.log("too IncomeServiceRevised", e)
 		this.incomes = this.incomes.filter(income => income.id !== e.id);
 		this.refresh();
   }
@@ -53,9 +50,9 @@ export class IncomeServiceRevised {
 }
 
 export class CommercialIncomeService extends IncomeServiceRevised {
-}
+};
 
 export class ResidentialIncomeService extends IncomeServiceRevised {
-}
+};
 
 

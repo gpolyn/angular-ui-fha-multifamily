@@ -14,12 +14,12 @@ export class ApartmentIncomeSourceComponent {
 
   constructor(){
     if (this.apartmentIncome && this.apartmentIncome.id){
-      console.log("apartment income is not new", this.apartmentIncome)
+      console.log("apartment income is not new", this.apartmentIncome);
     }
   }
 
   handleAddClick() {
-    console.log('ApartmentIncomeSourceComponent#handleAddClick')
+    console.log('ApartmentIncomeSourceComponent#handleAddClick');
     if (!this.apartmentIncome.isValid()) {
       this.apartmentIncome = null;
       this.apartmentIncome = new ApartmentIncome(0);
@@ -31,7 +31,7 @@ export class ApartmentIncomeSourceComponent {
   }
 
   handleDestroyClick() {
-    console.log('ApartmentIncomeSourceComponent#handleDestroy')
+    console.log('ApartmentIncomeSourceComponent#handleDestroy');
     this.onDestroy.emit(this.apartmentIncome.id);
   }
 

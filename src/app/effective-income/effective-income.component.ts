@@ -1,12 +1,11 @@
-import { Inject, Injector, OnDestroy, Component,  OnInit, forwardRef, Input, OnChanges, Output } from '@angular/core';
-import { ValidatorFn, AbstractControl, Validators, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
+import { Inject, Injector, OnDestroy, Component,  OnInit, forwardRef, Input, OnChanges } from '@angular/core';
+import { ValidatorFn, AbstractControl, Validators, FormControl } from '@angular/forms';
 import {Observable} from 'rxjs/Observable';  
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';  
-import {IncomeServiceRevised} from '../special.service';
 import { ParkingIncome } from '../shared/parking-income';
 import 'rxjs/add/operator/filter'; 
 import { CommercialIncomeService, ResidentialIncomeService } from '../special.service';
-import { AppConfig, APP_CONFIG } from '../app-config';
+import { IAppConfig, APP_CONFIG } from '../app-config';
 
 export interface EffectiveIncome {
 	totalIncome: number;
@@ -24,7 +23,7 @@ export interface EffectiveIncome {
       gross {{incomeTypeLabel}}<div>{{( gross | async ) }}</div>
     </label>
     <label>occupancy rate
-      <input name="occupancy-rate" type="number" [formControl]="occupancyPercent">
+      <input name='occupancy-rate' type='number' [formControl]='occupancyPercent'>
     </label>
     <label>
       {{incomeTypeLabel}} income<div>{{( effectiveGrossIncome | async )}}</div>
@@ -48,9 +47,9 @@ export class EffectiveIncomeComponent implements OnInit, OnDestroy {
   gross: Observable<number>;
   effectiveGrossIncome: Observable<number>;
   private incomeService: any;
-  private config: AppConfig;
+  private config: IAppConfig;
 
-  constructor(@Inject(APP_CONFIG) config: AppConfig, private injector: Injector){
+  constructor(@Inject(APP_CONFIG) config: IAppConfig, private injector: Injector){
     this.config = config;
   }
 
@@ -70,7 +69,7 @@ export class EffectiveIncomeComponent implements OnInit, OnDestroy {
 
 		this.incomes2 = this.incomeService.chincomes$;
 		
-    this.incomeTypeLabel = this.isCommercial ? "commercial" : "residential";
+    this.incomeTypeLabel = this.isCommercial ? 'commercial' : 'residential';
 
     this.effectiveGrossIncome = this.incomeService.egi$;
     this.occupancy = this.incomeService.observableOccupancy$
@@ -103,7 +102,7 @@ export class EffectiveIncomeComponent implements OnInit, OnDestroy {
   maxVal(max: number): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
         if (control.value > max) {
-          control.setValue(max)
+          control.setValue(max);
         } 
         return null;
     };
@@ -112,14 +111,14 @@ export class EffectiveIncomeComponent implements OnInit, OnDestroy {
   minVal(min: number): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
         if (control.value < min) {
-          control.setValue(min)
+          control.setValue(min);
         } 
         return null;
     };
   }
 
   ngOnDestroy(){
-    this.subs.forEach(sub => sub.unsubscribe())
+    this.subs.forEach(sub => sub.unsubscribe());
   }
 
 }

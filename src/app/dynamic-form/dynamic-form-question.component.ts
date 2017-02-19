@@ -9,8 +9,8 @@ export class DynamicFormQuestionComponent {
   @Input() question: QuestionBase<any>;
   @Input() form: FormGroup;
   get isValid() { return this.form.controls[this.question.key].valid; }
-  changeHandler(e: any){
-    console.log("change is ", e.target.value);
+  changeHandler (e: any) {
+    console.log('change is ', e.target.value);
   }
 
 }

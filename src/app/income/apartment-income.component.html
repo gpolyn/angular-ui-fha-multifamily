@@ -1,9 +1,0 @@
-<ul class="apartment-income">
-  <template ngFor let-apartmentIncome [ngForOf]="apartmentIncomes">
-    <apartment-income-source
-      [apartmentIncome]="apartmentIncome"
-      (onDestroy)="handleDestroy($event)"
-      (onSave)="handleSave($event)"
-    ></apartment-income-source>
-  </template>
-</ul>
