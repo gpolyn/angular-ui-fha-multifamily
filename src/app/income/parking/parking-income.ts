@@ -1,28 +1,37 @@
 import { IIncome } from './interfaces';
+import { IIncome2 } from '../../income-service.interface';
 
-export class ParkingIncome implements IIncome {
+export interface IParkingIncome {
+
+  parkingStyle: string;
+  squareFeet: number;
+  spaces: number;
+  monthlyFee: number;
+
+}
+
+export class ParkingIncome implements IIncome2 {
 
   id: any;
   parkingStyle: string;
   squareFeet: number;
   spaces: number;
   monthlyFee: number;
-  readonly isCommercial: boolean;
-  readonly type: string;
+  totalMonthlyIncome: number;
+
+  // readonly isCommercial: boolean;
+  // readonly type: string;
   readonly parkingStyles: string[] = ['indoor', 'outdoor'];
   static INDOOR: string = 'indoor';
   static OUTDOOR: string = 'outdoor';
 
-  //constructor(isCommercial: boolean, protected isIndoor: boolean = true){
   constructor(options: {
-    isCommercial?: boolean,
-    spaces?: number,
+    spaces: number,
     squareFeet?: number,
-    monthlyFee?: number,
+    monthlyFee: number,
     isIndoor?: boolean
-  } = {}) {
+  }) {
 
-    this.isCommercial = options.isCommercial; 
     this.spaces = options.spaces;
     this.squareFeet = options.squareFeet;
     this.monthlyFee = options.monthlyFee;
@@ -33,7 +42,10 @@ export class ParkingIncome implements IIncome {
       this.parkingStyle = this.parkingStyles[1];
     }
 
+    this.totalMonthlyIncome = this.monthlyFee * this.spaces;
   }
+
+  /*
   
   isValid(): boolean {
     return this.monthlyFee > 0 &&  this.spaces > 0 && this.squareFeetIsValid();
@@ -42,6 +54,7 @@ export class ParkingIncome implements IIncome {
   totalMonthlyIncome(): number {
     return this.isValid() ? this.monthlyFee * this.spaces : 0;
   }
+  */
 
   private squareFeetIsValid(): boolean {
     return this.squareFeet ? this.squareFeet > 0 : true;
@@ -49,28 +62,3 @@ export class ParkingIncome implements IIncome {
 
 }
 
-abstract class ActivatableParkingIncome extends ParkingIncome {
-
-    isActive: boolean = false;
-
-    activate() {
-        this.isActive = true;
-    }
-    deactivate() {
-        this.isActive = false;
-    }
-}
-
-export class ResidentialParkingIncome extends ActivatableParkingIncome {
-
-  readonly isCommercial: boolean = false;
-  readonly type: string = 'ResidentialParkingIncome';
-
-}
-
-export class CommercialParkingIncome extends ActivatableParkingIncome {
-
-  readonly isCommercial: boolean = true;
-  readonly type: string = 'CommercialParkingIncome';
-
-}

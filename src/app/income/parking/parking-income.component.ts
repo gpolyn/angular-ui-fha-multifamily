@@ -1,8 +1,10 @@
-import {Input, ChangeDetectionStrategy, Component, OnInit, OnChanges, Output, Injector, EventEmitter} from '@angular/core';
-import { ParkingIncome } from './parking-income';
-import { CommercialIncomeService, ResidentialIncomeService } from '../../special.service';
+import {Input, Inject, ChangeDetectionStrategy, Component, OnInit, OnChanges, Output, Injector, EventEmitter} from '@angular/core';
+import { ParkingIncome, IParkingIncome } from './parking-income';
+//import { CommercialIncomeService, ResidentialIncomeService } from '../../special.service';
+import { CommercialIncomeService, ResidentialIncomeService } from './parking-income.service';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { PARKING_INC_CONFIG } from './config';
 
 @Component({
   selector: 'parking-income',
@@ -18,27 +20,20 @@ export class ParkingIncomeComponent implements OnInit {
   parkingStyles: string[];
   private incomeService: any;
 
-  constructor(private fb: FormBuilder, private injector: Injector){
+  constructor(private fb: FormBuilder, private injector: Injector, @Inject(PARKING_INC_CONFIG) private config: IParkingIncome){
   }
 
   createForm() {
 
-		const newParkingIncome = new ParkingIncome(true);
 		this.parkingStyles = [ParkingIncome.INDOOR, ParkingIncome.OUTDOOR]
-
-    this.newIncomeForm = this.fb.group({
-      spaces: newParkingIncome.spaces,
-      squareFeet: newParkingIncome.squareFeet,
-      parkingStyle: this.parkingStyles[0],
-      monthlyFee: newParkingIncome.monthlyFee
-    });
+    this.newIncomeForm = this.fb.group(this.config);
 
   }
 
   addNewIncome(){
     console.log("addNewIncome", this.newIncomeForm.value);
-    this.incomeService.addIncome(new ParkingIncome(Object.assign(this.newIncomeForm.value, {isCommercial: this.isCommercial})));
-    this.newIncomeForm.reset({parkingStyle: this.parkingStyles[0]});
+    this.incomeService.addIncome(new ParkingIncome(this.newIncomeForm.value));
+    this.newIncomeForm.reset(this.config);
   }
 
   ngOnChanges(){

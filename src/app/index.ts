@@ -8,10 +8,9 @@ import { OpexService } from './opex.service';
 import {AppComponent} from './containers/app.component';
 
 import { OtherIncomeWrapperModule} from './income/other-income-wrapper.module';
+import { ParkingIncomeWrapperModule} from './income/parking-income-wrapper.module';
 
 import {ApartmentIncomeModule} from './income/apartment/apartment-income.module';
-
-import {ParkingIncomeModule} from './income/parking/parking-income.module';
 
 import {ProjectStatusComponent} from './project-status.component';
 
@@ -30,8 +29,7 @@ import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox
 import {EffectiveIncomeComponent} from './effective-income/effective-income.component';
 
 import {IncomeServiceRevised, CommercialIncomeService, ResidentialIncomeService} from './special.service';
-
-import { MyCommercialOtherIncomeService, MyResidentialOtherIncomeService } from './special.service';
+import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService, MyCommercialOtherIncomeService, MyResidentialOtherIncomeService } from './special.service';
 
 import { BSService } from './bs.service';
 import {OperatingExpensesModule} from './opex/opex.module';
@@ -43,7 +41,9 @@ import { DI_CONFIG, APP_CONFIG } from './app-config';
     FormsModule,
     ReactiveFormsModule,
     OperatingExpensesModule,
-    ApartmentIncomeModule, ParkingIncomeModule,
+    ApartmentIncomeModule, 
+    //ParkingIncomeModule,
+    ParkingIncomeWrapperModule,
     //OtherIncomeModule,
     OtherIncomeWrapperModule
   ],
@@ -52,6 +52,8 @@ import { DI_CONFIG, APP_CONFIG } from './app-config';
     CommercialIncomeService, 
     OpexService,
     BSService,
+    MyResidentialParkingIncomeService,
+    MyCommercialParkingIncomeService,
     MyResidentialOtherIncomeService,
     MyCommercialOtherIncomeService,
     { provide: APP_CONFIG, useValue: DI_CONFIG },

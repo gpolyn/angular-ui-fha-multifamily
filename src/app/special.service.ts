@@ -118,7 +118,7 @@ export class MyResidentialParkingIncomeService extends MultiIncomeService implem
 };
 
 @Injectable()
-export class MyCommercialParkingIncomeService extends MultiIncomeService {
+export class MyCommercialParkingIncomeService extends MultiIncomeService implements IResidentialIncomeService<IIncome2> {
 
   constructor(commSvc: CommercialIncomeService, resSvc: ResidentialIncomeService){ 
     super(commSvc, resSvc, true, 'commercialParkingIncome');
