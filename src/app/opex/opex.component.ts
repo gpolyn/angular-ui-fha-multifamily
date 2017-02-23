@@ -12,7 +12,6 @@ function jsonEqual(a,b) {
 export interface IOpex {
   opex: number;
   isPercent: boolean;  
-  isExternal: boolean;
 }
 
 @Component({

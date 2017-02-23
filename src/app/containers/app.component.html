@@ -1,6 +1,6 @@
 <apartment-income (incomeChange)="handleResidentialIncome($event)"></apartment-income>
-<other-residential-non-parking-income></other-residential-non-parking-income>
-<other-commercial-non-parking-income></other-commercial-non-parking-income>
+<residential-other-income></residential-other-income>
+<commercial-other-income></commercial-other-income>
 <parking-income (incomeChange)="handleResidentialIncome($event)" [isCommercial]="false"></parking-income>
 <parking-income (incomeChange)="handleCommercialIncome($event)" [isCommercial]="true"></parking-income>
 <effective-income [isCommercial]="true" [maxOccupancyPercent]="80"></effective-income>

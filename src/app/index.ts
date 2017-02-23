@@ -3,7 +3,11 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { OpexService } from './opex.service';
+
 import {AppComponent} from './containers/app.component';
+
+import { OtherIncomeWrapperModule} from './income/other-income-wrapper.module';
 
 import {ApartmentIncomeModule} from './income/apartment/apartment-income.module';
 
@@ -26,6 +30,10 @@ import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox
 import {EffectiveIncomeComponent} from './effective-income/effective-income.component';
 
 import {IncomeServiceRevised, CommercialIncomeService, ResidentialIncomeService} from './special.service';
+
+import { MyCommercialOtherIncomeService, MyResidentialOtherIncomeService } from './special.service';
+
+import { BSService } from './bs.service';
 import {OperatingExpensesModule} from './opex/opex.module';
 import { DI_CONFIG, APP_CONFIG } from './app-config';
 
@@ -36,12 +44,19 @@ import { DI_CONFIG, APP_CONFIG } from './app-config';
     ReactiveFormsModule,
     OperatingExpensesModule,
     ApartmentIncomeModule, ParkingIncomeModule,
+    //OtherIncomeModule,
+    OtherIncomeWrapperModule
   ],
   providers: [
     IncomeServiceRevised, 
     CommercialIncomeService, 
+    OpexService,
+    BSService,
+    MyResidentialOtherIncomeService,
+    MyCommercialOtherIncomeService,
     { provide: APP_CONFIG, useValue: DI_CONFIG },
-    ResidentialIncomeService],
+    ResidentialIncomeService
+    ],
   declarations: [
     AppComponent,
     OtherNonParkingResidentialIncomeSourceComponent,
@@ -53,7 +68,7 @@ import { DI_CONFIG, APP_CONFIG } from './app-config';
     HeroDetailComponent1,
     CounterInputComponent,
     EffectiveIncomeComponent,
-    DynamicFormComponent, DynamicFormQuestionComponent
+    DynamicFormComponent, DynamicFormQuestionComponent,
   ],
   bootstrap: [AppComponent]
 })

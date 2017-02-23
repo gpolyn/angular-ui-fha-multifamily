@@ -1,0 +1,14 @@
+<div class='use'>
+  <div class='display'>{{income.usage}}</div>
+</div>
+<div class='square-feet'>
+  <div class='display'>{{income.squareFeet}}</div>
+</div>
+<div class='monthly-rent'>
+  <div class='display'>{{income.monthlyRent}}</div>
+</div>
+<div>
+  <div class="delete-container">
+    <button class="simple-income-source-destroy destroy-item" (click)="onDestroy.emit(income)">delete</button>
+  </div>
+</div>
