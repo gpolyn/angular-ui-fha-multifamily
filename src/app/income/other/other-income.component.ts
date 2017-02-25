@@ -2,7 +2,7 @@ import { Inject, ChangeDetectionStrategy, Component, OnInit, OnChanges } from '@
 import { IOtherIncome, OtherIncome } from './other-income';
 import { ResidentialIncomeService, CommercialIncomeService } from './other-income.service';
 import { Observable } from 'rxjs/Observable';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OTHER_INC_CONFIG } from './other-income';
 
 
@@ -17,19 +17,24 @@ abstract class OtherIncomeComponent<T extends IOtherIncome> implements OnInit {
   }
 
   private createForm() {
-    this.newIncomeForm = this.fb.group(this.config);
+    const validatedRent = {monthlyRent: [this.config.monthlyRent, [Validators.required]]};
+    this.newIncomeForm = this.fb.group(Object.assign({}, this.config, validatedRent));
   }
 
   addClick(){
 
-    const formVals = this.newIncomeForm.value;
+    if (this.newIncomeForm.valid){
 
-    this.otherIncome.usage = formVals.usage;
-    this.otherIncome.squareFeet = formVals.usage;
-    this.otherIncome.monthlyRent = formVals.monthlyRent;
-    this.otherIncome.totalMonthlyIncome = formVals.monthlyRent;
+      const formVals = this.newIncomeForm.value;
 
-    this.incomeService.addIncome(this.otherIncome);
+      this.otherIncome.usage = formVals.usage;
+      this.otherIncome.squareFeet = formVals.usage;
+      this.otherIncome.monthlyRent = formVals.monthlyRent;
+      this.otherIncome.totalMonthlyIncome = formVals.monthlyRent;
+
+      this.incomeService.addIncome(this.otherIncome);
+
+    }
 
     this.newIncomeForm.reset(this.config);
   }

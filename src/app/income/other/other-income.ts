@@ -17,6 +17,8 @@ export class OtherIncome implements IOtherIncome {
   monthlyRent: number;
   totalMonthlyIncome: number;
 
+   
+
   /* 
   constructor(options: {
     squareFeet?: number, 

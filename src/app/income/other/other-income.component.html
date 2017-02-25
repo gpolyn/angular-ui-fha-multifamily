@@ -12,11 +12,11 @@
     </div>
     <div class='monthly-rent'>
       <div class='edit'>
-        <input type='number' formControlName="monthlyRent">
+        <input type='number' formControlName="monthlyRent" required>
       </div>
     </div>
     <div>
-      <button (click)="addClick()">add</button>
+      <button id="add-other-income" (click)="addClick()">add</button>
     </div>
   </form>
   <template ngFor let-otherIncome [ngForOf]="(incomes | async)">
