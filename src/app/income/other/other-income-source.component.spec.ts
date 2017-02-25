@@ -3,23 +3,25 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By }           from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { OtherIncome } from './other-income';
+import { IOtherIncome } from './other-income';
 import { OtherIncomeSourceComponent } from './other-income-source.component';
 
-const testIncome = new OtherIncome();
-testIncome.usage = "some use";
-testIncome.squareFeet = 25;
-testIncome.monthlyRent = 250;
+const testIncome: IOtherIncome = {
+  usage: "some use",
+  squareFeet: 25,
+  monthlyRent: 250,
+  totalMonthlyIncome: undefined
+};
 
 let comp: any;
 let usageEl: DebugElement;
 let squareFeetEl: DebugElement;
 let monthlyRentEl: DebugElement;
-let expectedIncome: OtherIncome;
+let expectedIncome: IOtherIncome;
 
 describe('OtherIncomeSourceComponent when tested directly', () => {
 
-  let fixture: ComponentFixture<OtherIncomeSourceComponent<OtherIncome>>;
+  let fixture: ComponentFixture<OtherIncomeSourceComponent<IOtherIncome>>;
 
 	beforeEach( async(() => {
 		TestBed.configureTestingModule({
@@ -117,8 +119,8 @@ import { Component } from '@angular/core';
 })
 class TestHostComponent {
 
-  income: OtherIncome = testIncome; 
-	incomeForDestruction: OtherIncome;
+  income: IOtherIncome = testIncome; 
+	incomeForDestruction: IOtherIncome;
   handleDestroy(income) { this.incomeForDestruction = income; }
 
 }

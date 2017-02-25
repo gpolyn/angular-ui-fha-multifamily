@@ -16,7 +16,6 @@ const INITIAL_OTHER_INCOME_CONFIG = {
 import { OTHER_INC_CONFIG, IOtherIncome } from './other-income';
 import { CommercialIncomeService, ResidentialIncomeService }      from './other-income.service';
 import { CommercialOtherIncomeComponent, ResidentialOtherIncomeComponent } from './other-income.component';
-import { OtherIncome } from './other-income';
 import { OtherIncomeSourceComponent } from './other-income-source.component';
 
 const someIncome: IOtherIncome = {
@@ -28,11 +27,11 @@ const someIncome: IOtherIncome = {
 
 abstract class FakeIncomeServiceBase {
 
-  privateIncomes: BehaviorSubject<OtherIncome[]> = new BehaviorSubject([]);
-  chincomes$: Observable<OtherIncome[]> = this.privateIncomes.asObservable();
+  privateIncomes: BehaviorSubject<IOtherIncome[]> = new BehaviorSubject([]);
+  chincomes$: Observable<IOtherIncome[]> = this.privateIncomes.asObservable();
 
-  addIncome(income: OtherIncome) {}
-  removeIncome(income: OtherIncome) {}
+  addIncome(income: IOtherIncome) {}
+  removeIncome(income: IOtherIncome) {}
 
 }
 
@@ -67,7 +66,7 @@ describe('ResidentialOtherIncomeComponent', () => {
        declarations: [ OtherIncomeSourceComponent, ResidentialOtherIncomeComponent ],
        imports: [ReactiveFormsModule, FormsModule],
        providers:    [ 
-         OtherIncome,
+       //OtherIncome,
          {provide: ResidentialIncomeService, useClass: FakeResidentialIncomeService},
          {provide: OTHER_INC_CONFIG, useValue: INITIAL_OTHER_INCOME_CONFIG}
 			 ]
@@ -97,7 +96,7 @@ describe('CommercialOtherIncomeComponent', () => {
        declarations: [ OtherIncomeSourceComponent, CommercialOtherIncomeComponent ],
        imports: [ReactiveFormsModule, FormsModule],
        providers:    [ 
-         OtherIncome,
+       // OtherIncome,
          {provide: CommercialIncomeService, useClass: FakeCommercialIncomeService},
          {provide: OTHER_INC_CONFIG, useValue: INITIAL_OTHER_INCOME_CONFIG}
 			 ]

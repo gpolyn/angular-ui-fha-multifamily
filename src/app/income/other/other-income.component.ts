@@ -1,10 +1,29 @@
 import { Inject, ChangeDetectionStrategy, Component, OnInit, OnChanges } from '@angular/core';
-import { IOtherIncome, OtherIncome } from './other-income';
+import { IOtherIncome } from './other-income';
 import { ResidentialIncomeService, CommercialIncomeService } from './other-income.service';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OTHER_INC_CONFIG } from './other-income';
 
+class OtherIncome implements IOtherIncome {
+
+  usage?: string;
+  squareFeet?: number;
+  monthlyRent: number;
+  totalMonthlyIncome: number;
+
+  constructor(options: {
+    squareFeet?: number, 
+    usage?: string, 
+    monthlyRent: number}){
+
+    this.usage = options.usage;
+    this.squareFeet = options.squareFeet;
+    this.monthlyRent = options.monthlyRent;
+    this.totalMonthlyIncome = options.monthlyRent;
+  }
+
+}
 
 abstract class OtherIncomeComponent<T extends IOtherIncome> implements OnInit { 
 
@@ -12,7 +31,7 @@ abstract class OtherIncomeComponent<T extends IOtherIncome> implements OnInit {
   incomes: Observable<Array<T>>;
   private fb: FormBuilder;
 
-  constructor( private incomeService: ResidentialIncomeService | CommercialIncomeService, private config: T, private otherIncome: OtherIncome){
+  constructor( private incomeService: ResidentialIncomeService | CommercialIncomeService, private config: T){
     this.fb = new FormBuilder();
   }
 
@@ -24,16 +43,8 @@ abstract class OtherIncomeComponent<T extends IOtherIncome> implements OnInit {
   addClick(){
 
     if (this.newIncomeForm.valid){
-
       const formVals = this.newIncomeForm.value;
-
-      this.otherIncome.usage = formVals.usage;
-      this.otherIncome.squareFeet = formVals.usage;
-      this.otherIncome.monthlyRent = formVals.monthlyRent;
-      this.otherIncome.totalMonthlyIncome = formVals.monthlyRent;
-
-      this.incomeService.addIncome(this.otherIncome);
-
+      this.incomeService.addIncome(new OtherIncome(this.newIncomeForm.value));
     }
 
     this.newIncomeForm.reset(this.config);
@@ -57,8 +68,8 @@ abstract class OtherIncomeComponent<T extends IOtherIncome> implements OnInit {
 })
 export class CommercialOtherIncomeComponent<T extends IOtherIncome> extends OtherIncomeComponent<T> { 
 
-  constructor(incomeService: CommercialIncomeService, @Inject(OTHER_INC_CONFIG) config: T, otherIncome: OtherIncome){
-    super(incomeService, config, otherIncome);
+  constructor(incomeService: CommercialIncomeService, @Inject(OTHER_INC_CONFIG) config: T){
+    super(incomeService, config);
   }
 
 }
@@ -69,8 +80,8 @@ export class CommercialOtherIncomeComponent<T extends IOtherIncome> extends Othe
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResidentialOtherIncomeComponent<T extends IOtherIncome> extends OtherIncomeComponent<T> { 
-  constructor(incomeService: ResidentialIncomeService, @Inject(OTHER_INC_CONFIG) config: T, otherIncome: OtherIncome){
-    super(incomeService, config, otherIncome);
+  constructor(incomeService: ResidentialIncomeService, @Inject(OTHER_INC_CONFIG) config: T){
+    super(incomeService, config);
   }
 
 }

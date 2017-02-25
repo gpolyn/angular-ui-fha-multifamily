@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {ResidentialOtherIncomeComponent, CommercialOtherIncomeComponent} from './other-income.component';
 import {OtherIncomeSourceComponent} from './other-income-source.component';
-import { OtherIncome, INITIAL_OTHER_INCOME_CONFIG, OTHER_INC_CONFIG } from './other-income';
+import { INITIAL_OTHER_INCOME_CONFIG, OTHER_INC_CONFIG } from './other-income';
 
 @NgModule({
   imports: [ CommonModule, FormsModule, ReactiveFormsModule],
@@ -15,7 +15,6 @@ import { OtherIncome, INITIAL_OTHER_INCOME_CONFIG, OTHER_INC_CONFIG } from './ot
   ],
   providers: [
     { provide: OTHER_INC_CONFIG, useValue: INITIAL_OTHER_INCOME_CONFIG },
-    OtherIncome
   ],
   exports: [
     ResidentialOtherIncomeComponent,
