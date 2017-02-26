@@ -1,64 +1,191 @@
-import { IncomeServiceRevised } from './special.service';
-import { ParkingIncome } from './shared/parking-income';
+import {  MyCommercialOtherIncomeService,
+          MyResidentialOtherIncomeService,
+          MyResidentialParkingIncomeService,
+          MyCommercialParkingIncomeService,
+          CommercialIncomeService,
+          ResidentialIncomeService} from './special.service';
+import { IIncome2 } from './income-service.interface';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-describe('DependentService without the TestBed', () => {
+const fake = {
+  addIncome: (inc: any) => {},
+  removeIncome: (inc: any) => {},
+  chincomes$: undefined
+}
 
-  let service: IncomeServiceRevised;
+const fake2 = Object.assign({}, fake);
 
-  it('#addIncome should add the income to the service observable', () => {
+let someIncome: IIncome2 = {
+  totalMonthlyIncome: 300
+}
 
-    service = new IncomeServiceRevised();
-    const expected = new ParkingIncome(true);
-    service.addIncome(expected);
-    service.chincomes$.subscribe(inc => {
-      expect(inc).toEqual([expected]);
+let serviceUnderTest: any;
+let commercialAddIncomeSpy;
+let commercialRemoveIncomeSpy;
+let residentialAddIncomeSpy;
+let residentialRemoveIncomeSpy;
+let commercialObservableIncomes: BehaviorSubject<Array<IIncome2>>;
+let residentialObservableIncomes: BehaviorSubject<Array<IIncome2>>;
+
+let typeObj: any;
+let serviceDependency: string;
+let offServiceDependency: string;
+let offServiceDependencyObservable: any;
+let serviceDependencyObservable: any;
+let serviceDependencyAddIncomeSpy: any;
+let serviceDependencyRemoveIncomeSpy: any;
+let offServiceDependencyAddIncomeSpy: any;
+let offServiceDependencyRemoveIncomeSpy: any;
+
+describe('MyCommercialParkingIncomeService', () => {
+
+	beforeEach(() => {
+
+    commercialSetup();
+
+    typeObj = {type: 'commercialParkingIncome'};
+
+    serviceUnderTest = new MyCommercialParkingIncomeService(fake as CommercialIncomeService, fake2 as ResidentialIncomeService);
+  });
+
+  tests();
+
+});
+
+describe('MyCommercialOtherIncomeService', () => {
+
+	beforeEach(() => {
+
+    commercialSetup();
+
+    typeObj = {type: 'commercialOtherIncome'};
+
+    serviceUnderTest = new MyCommercialOtherIncomeService(fake as CommercialIncomeService, fake2 as ResidentialIncomeService);
+  });
+
+  tests();
+
+});
+
+describe('MyResidentialOtherIncomeService', () => {
+
+	beforeEach(() => {
+
+    residentialSetup();
+
+    typeObj = {type: 'residentialOtherIncome'};
+
+    serviceUnderTest = new MyResidentialOtherIncomeService(fake as CommercialIncomeService, fake2 as ResidentialIncomeService);
+  });
+
+  tests();
+
+});
+
+describe('MyResidentialParkingIncomeService', () => {
+
+	beforeEach(() => {
+
+    residentialSetup();
+
+    typeObj = {type: 'residentialParkingIncome'};
+
+    serviceUnderTest = new MyResidentialParkingIncomeService(fake as CommercialIncomeService, fake2 as ResidentialIncomeService);
+  });
+
+  tests();
+
+});
+
+function tests() {
+
+  it(`#addIncome calls addIncome on ${serviceDependency} using correctly typed income`, () => {
+
+    const inc2 = Object.assign({}, typeObj, someIncome);
+    serviceUnderTest.addIncome(someIncome);
+    expect(serviceDependencyAddIncomeSpy).toHaveBeenCalledWith(inc2);
+    expect(offServiceDependencyAddIncomeSpy.calls.any()).toEqual(false);
+
+  });
+
+  it(`#removeIncome calls removeIncome on ${serviceDependency} with passed income`, () => {
+
+    serviceUnderTest.removeIncome(someIncome);
+    expect(serviceDependencyRemoveIncomeSpy).toHaveBeenCalledWith(someIncome);
+    expect(offServiceDependencyRemoveIncomeSpy.calls.any()).toEqual(false);
+
+  });
+
+  it(`#chincomes$ should be ${serviceDependency}#chincomes$ only of correct type`, () => {
+
+    const blah = Object.assign({}, typeObj, someIncome);
+    const meh = {type: 'someOtherIncome', totalMonthlyIncome: 400};
+
+    serviceDependencyObservable.next([blah, meh]);
+
+    serviceUnderTest.chincomes$.subscribe(inc => {
+      expect(inc).toEqual([blah]);  
     });
 
   });
 
-  it('#removeIncome should remove the income from the service observable', () => {
+  it(`#chincomes$ should be not be ${offServiceDependency}#chincomes$`, () => {
 
-    service = new IncomeServiceRevised();
-    const expected = new ParkingIncome(true);
-    service.addIncome(expected);
-    let resultingIncome;
-    service.chincomes$.subscribe(
-      inc => {
-        resultingIncome = inc[0];
-      },
-      e => {},
-      () => {
-        console.log("HI FRM THE TEST", resultingIncome)
-        service.removeIncome(resultingIncome);
-        service.chincomes$.subscribe(inc => {
-          expect(inc.length).toBe(1);  
-        })
-      }
-    );
+    const blah = Object.assign({},typeObj, someIncome);
+    const whuh = Object.assign({},typeObj, {totalMonthlyIncome: 1235});
+
+    offServiceDependencyObservable.next([blah, whuh]);
+
+    serviceUnderTest.chincomes$.subscribe(inc => {
+      expect(inc.length).toBe(0);  
+    });
 
   });
+}
 
-  /*
-  it('#getValue should return faked value by way of a fakeService', () => {
-    service = new DependentService(new FakeFancyService());
-    expect(service.getValue()).toBe('faked value');
-  });
+function commonSetup(){
+  someIncome = {totalMonthlyIncome: 400};
+  commercialObservableIncomes = new BehaviorSubject([]);
+  residentialObservableIncomes = new BehaviorSubject([]);
+  fake.chincomes$ = commercialObservableIncomes.asObservable();
+  fake2.chincomes$ = residentialObservableIncomes.asObservable();
+  commercialAddIncomeSpy = spyOn(fake, 'addIncome');
+  commercialRemoveIncomeSpy = spyOn(fake, 'removeIncome');
+  residentialAddIncomeSpy = spyOn(fake2, 'addIncome');
+  residentialRemoveIncomeSpy = spyOn(fake2, 'removeIncome');
+}
 
-  it('#getValue should return faked value from a fake object', () => {
-    const fake =  { getValue: () => 'fake value' };
-    service = new DependentService(fake as FancyService);
-    expect(service.getValue()).toBe('fake value');
-  });
+function commercialSetup(){
 
-  it('#getValue should return stubbed value from a FancyService spy', () => {
-    const fancy = new FancyService();
-    const stubValue = 'stub value';
-    const spy = spyOn(fancy, 'getValue').and.returnValue(stubValue);
-    service = new DependentService(fancy);
-    expect(service.getValue()).toBe(stubValue, 'service returned stub value');
-    expect(spy.calls.count()).toBe(1, 'stubbed method was called once');
-    expect(spy.calls.mostRecent().returnValue).toBe(stubValue);
-  });
-  */
-});
+  commonSetup()
 
+  serviceDependency = 'CommercialIncomeService';
+  offServiceDependency = 'ResidentialIncomeService';
+
+  offServiceDependencyObservable = residentialObservableIncomes;
+  offServiceDependencyAddIncomeSpy = residentialAddIncomeSpy;
+  offServiceDependencyRemoveIncomeSpy = residentialRemoveIncomeSpy;
+
+  serviceDependencyObservable = commercialObservableIncomes;
+  serviceDependencyAddIncomeSpy = commercialAddIncomeSpy;
+  serviceDependencyRemoveIncomeSpy = commercialRemoveIncomeSpy;
+
+}
+
+function residentialSetup(){
+
+  commonSetup()
+
+  serviceDependency = 'ResidentialIncomeService';
+  offServiceDependency = 'CommercialIncomeService';
+
+  offServiceDependencyObservable = commercialObservableIncomes;
+  offServiceDependencyAddIncomeSpy = commercialAddIncomeSpy;
+  offServiceDependencyRemoveIncomeSpy = commercialRemoveIncomeSpy;
+
+  serviceDependencyObservable = residentialObservableIncomes;
+  serviceDependencyAddIncomeSpy = residentialAddIncomeSpy;
+  serviceDependencyRemoveIncomeSpy = residentialRemoveIncomeSpy;
+
+}

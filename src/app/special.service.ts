@@ -51,8 +51,23 @@ export class IncomeServiceRevised {
 
 }
 
-export class CommercialIncomeService extends IncomeServiceRevised {
-  constructor(){ super(); console.log("CommercialIncomeService");}
+//export class CommercialIncomeService extends IncomeServiceRevised {
+export class CommercialIncomeService {
+
+//constructor(){ super(); console.log("CommercialIncomeService");}
+
+//private incomeService: IncomeServiceRevised = new IncomeServiceRevised();
+// chincomes$ = this.incomeService.chincomes$;
+  chincomes$: any;
+
+  constructor(private incomeService: any){
+    this.incomeService = new IncomeServiceRevised();
+    this.chincomes$ = this.incomeService.chincomes$;
+  }
+
+  addIncome(e: IIncome) { return this.incomeService.addIncome(e);}
+  removeIncome(e: IIncome) { return this.incomeService.removeIncome(e);}
+
 };
 
 export class ResidentialIncomeService extends IncomeServiceRevised {
