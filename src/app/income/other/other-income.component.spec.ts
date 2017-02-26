@@ -35,13 +35,9 @@ abstract class FakeIncomeServiceBase {
 
 }
 
-class FakeCommercialIncomeService extends FakeIncomeServiceBase implements CommercialIncomeService {
+class FakeCommercialIncomeService extends FakeIncomeServiceBase implements CommercialIncomeService { }
 
-}
-
-class FakeResidentialIncomeService extends FakeIncomeServiceBase implements ResidentialIncomeService {
-
-}
+class FakeResidentialIncomeService extends FakeIncomeServiceBase implements ResidentialIncomeService { }
 
 @Component({
   selector: 'other-income-source',
@@ -66,7 +62,6 @@ describe('ResidentialOtherIncomeComponent', () => {
        declarations: [ OtherIncomeSourceComponent, ResidentialOtherIncomeComponent ],
        imports: [ReactiveFormsModule, FormsModule],
        providers:    [ 
-       //OtherIncome,
          {provide: ResidentialIncomeService, useClass: FakeResidentialIncomeService},
          {provide: OTHER_INC_CONFIG, useValue: INITIAL_OTHER_INCOME_CONFIG}
 			 ]
@@ -96,11 +91,11 @@ describe('CommercialOtherIncomeComponent', () => {
        declarations: [ OtherIncomeSourceComponent, CommercialOtherIncomeComponent ],
        imports: [ReactiveFormsModule, FormsModule],
        providers:    [ 
-       // OtherIncome,
          {provide: CommercialIncomeService, useClass: FakeCommercialIncomeService},
          {provide: OTHER_INC_CONFIG, useValue: INITIAL_OTHER_INCOME_CONFIG}
 			 ]
     });
+
 
     TestBed.compileComponents();
     fixture = TestBed.createComponent(CommercialOtherIncomeComponent);
@@ -133,6 +128,8 @@ function tests(){
   });
 
   it('should handle other-income-source onDestroy with handleDestroy',()=>{
+
+    
 
     componentIncomeService.privateIncomes.next([someIncome]);
 
