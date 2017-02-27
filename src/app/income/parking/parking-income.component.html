@@ -2,7 +2,7 @@
   <form [formGroup]="newIncomeForm" novalidate>
     <div class='spaces'>
       <div class='edit'>
-        <input type='number' formControlName="spaces">
+        <input type='number' formControlName="spaces" required>
       </div>
     </div>
     <div class='indoor-or-outdoor'>
@@ -19,16 +19,16 @@
     </div>
     <div class='monthly-fee'>
       <div class='edit'>
-        <input type='number' formControlName="monthlyFee">
+        <input type='number' formControlName="monthlyFee" required>
       </div>
     </div>
     <div>
-      <button (click)="addNewIncome()">add</button>
+      <button id='add-parking-income' (click)="addClick()">add</button>
     </div>
   </form>
   <template ngFor let-parkingIncome [ngForOf]="(incomes | async)">
     <parking-income-source
-      [parkingIncome]="parkingIncome"
+      [income]="parkingIncome"
       (onDestroy)="handleDestroy($event)"
     ></parking-income-source>
   </template>

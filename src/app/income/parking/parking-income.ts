@@ -4,7 +4,7 @@ import { IIncome2 } from '../../income-service.interface';
 export interface IParkingIncome extends IIncome2 {
 
   parkingStyle: string;
-  squareFeet: number;
+  squareFeet?: number;
   spaces: number;
   monthlyFee: number;
   totalMonthlyIncome: number;

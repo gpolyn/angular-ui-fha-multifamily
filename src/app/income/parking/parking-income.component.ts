@@ -1,16 +1,102 @@
 import {Input, Inject, ChangeDetectionStrategy, Component, OnInit, OnChanges, Output, Injector, EventEmitter} from '@angular/core';
-import { ParkingIncome, IParkingIncome } from './parking-income';
-//import { CommercialIncomeService, ResidentialIncomeService } from '../../special.service';
+import { IParkingIncome } from './parking-income';
 import { CommercialIncomeService, ResidentialIncomeService } from './parking-income.service';
 import { Observable } from 'rxjs/Observable';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PARKING_INC_CONFIG } from './config';
+
+class ParkingIncome implements IParkingIncome {
+
+  parkingStyle: string;
+  squareFeet?: number;
+  spaces: number;
+  monthlyFee: number;
+  totalMonthlyIncome: number;
+
+  constructor(options: {
+    squareFeet?: number, 
+    spaces: number, 
+    parkingStyle: string, 
+    monthlyFee: number}){
+
+    this.spaces = options.spaces;
+    this.squareFeet = options.squareFeet;
+    this.parkingStyle = options.parkingStyle;
+    this.monthlyFee = options.monthlyFee;
+    this.totalMonthlyIncome = this.monthlyFee * this.spaces;
+  }
+
+}
+
+abstract class ParkingIncomeComponent<T extends IParkingIncome> implements OnInit { 
+
+  newIncomeForm: FormGroup;
+  incomes: Observable<Array<T>>;
+  private fb: FormBuilder;
+
+  constructor( private incomeService: ResidentialIncomeService | CommercialIncomeService, private config: T){
+    this.fb = new FormBuilder();
+  }
+
+  private createForm() {
+    const validatedRent = {monthlyFee: [this.config.monthlyFee, [Validators.required]]};
+    const validatedSpaces = {spaces: [this.config.spaces, [Validators.required]]};
+    this.newIncomeForm = this.fb.group(Object.assign({}, this.config, validatedRent, validatedSpaces));
+  }
+
+  addClick(){
+
+    if (this.newIncomeForm.valid){
+      const formVals = this.newIncomeForm.value;
+      this.incomeService.addIncome(new ParkingIncome(this.newIncomeForm.value));
+    }
+
+    this.newIncomeForm.reset(this.config);
+  }
+
+  ngOnInit() {
+    this.incomes = this.incomeService.chincomes$;
+    this.createForm();
+  }
+
+  handleDestroy(e: T) {
+		this.incomeService.removeIncome(e);
+  }
+
+}
 
 @Component({
   selector: 'parking-income',
   template: require('./parking-income.component.html'),
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
+@Component({
+  selector: 'commercial-parking-income',
+  template: require('./parking-income.component.html'),
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class CommercialParkingIncomeComponent<T extends IParkingIncome> extends ParkingIncomeComponent<T> { 
+
+  constructor(incomeService: CommercialIncomeService, @Inject(PARKING_INC_CONFIG) config: T){
+    super(incomeService, config);
+  }
+
+}
+
+@Component({
+  selector: 'residential-parking-income',
+  template: require('./parking-income.component.html'),
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ResidentialParkingIncomeComponent<T extends IParkingIncome> extends ParkingIncomeComponent<T> { 
+  constructor(incomeService: ResidentialIncomeService, @Inject(PARKING_INC_CONFIG) config: T){
+    super(incomeService, config);
+  }
+
+}
+
+/*
 
 export class ParkingIncomeComponent implements OnInit {
 
@@ -54,3 +140,4 @@ export class ParkingIncomeComponent implements OnInit {
   }
 
 }
+*/
