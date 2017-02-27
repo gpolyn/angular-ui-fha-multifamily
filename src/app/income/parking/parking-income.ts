@@ -1,12 +1,13 @@
-import { IIncome } from './interfaces';
+import { OpaqueToken } from '@angular/core';
 import { IIncome2 } from '../../income-service.interface';
 
-export interface IParkingIncome {
+export interface IParkingIncome extends IIncome2 {
 
   parkingStyle: string;
   squareFeet: number;
   spaces: number;
   monthlyFee: number;
+  totalMonthlyIncome: number;
 
 }
 
@@ -62,3 +63,12 @@ export class ParkingIncome implements IIncome2 {
 
 }
 
+export const INITIAL_PARKING_INCOME_CONFIG: IParkingIncome = {
+  parkingStyle: undefined,
+  squareFeet: undefined,
+  spaces: undefined,
+  monthlyFee: undefined,
+  totalMonthlyIncome: undefined
+};
+
+export let PARKING_INC_CONFIG = new OpaqueToken('app.parkingIncome.initialConfig');

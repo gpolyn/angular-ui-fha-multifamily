@@ -1,17 +1,17 @@
 <div class='spaces'>
-  <div class='display'>{{parkingIncome.spaces}}</div>
+  <div class='display'>{{income.spaces}}</div>
 </div>
 <div class='indoor-or-outdoor'>
-  <div class='display'>{{parkingIncome.parkingStyle}}</div>
+  <div class='display'>{{income.parkingStyle}}</div>
 </div>
 <div class='total-square-feet'>
-  <div class='display'>{{parkingIncome.squareFeet}}</div>
+  <div class='display'>{{income.squareFeet}}</div>
 </div>
 <div class='monthly-fee'>
-  <div class='display'>{{parkingIncome.monthlyFee}}</div>
+  <div class='display'>{{income.monthlyFee}}</div>
 </div>
 <div>
   <div class="delete-container">
-    <button class="parking-income-destroy destroy-item" (click)="onDestroy.emit(parkingIncome)">delete</button>
+    <button class="parking-income-destroy destroy-item" (click)="onDestroy.emit(income)">delete</button>
   </div>
 </div>

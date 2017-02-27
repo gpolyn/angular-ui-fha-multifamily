@@ -6,6 +6,7 @@ export const INITIAL_CONFIG: IParkingIncome = {
   squareFeet: undefined,
   monthlyFee: undefined,
   parkingStyle: undefined,
+  totalMonthlyIncome: undefined
 };
 
 export let PARKING_INC_CONFIG = new OpaqueToken('app.parkingIncome.initialConfig');

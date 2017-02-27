@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter} from '@angular/core';
-import { ParkingIncome } from './parking-income';
+import { IParkingIncome } from './parking-income';
 
 @Component({
   selector: 'parking-income-source',
@@ -7,9 +7,9 @@ import { ParkingIncome } from './parking-income';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class ParkingIncomeSourceComponent {
+export class ParkingIncomeSourceComponent<T extends IParkingIncome> {
 
-  @Input() parkingIncome: ParkingIncome;
+  @Input() income: T;
   @Output() onDestroy: EventEmitter<any> = new EventEmitter(false);
 
 }
