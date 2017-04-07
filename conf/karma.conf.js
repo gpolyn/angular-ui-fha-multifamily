@@ -33,6 +33,12 @@ module.exports = function (config) {
     webpackMiddleware: {
       noInfo: true
     },
+		customLaunchers: {
+			Chrome_travis_ci: {
+					base: 'Chrome',
+					flags: ['--no-sandbox']
+			}
+    },
     plugins: [
       require('karma-jasmine'),
       require('karma-junit-reporter'),
