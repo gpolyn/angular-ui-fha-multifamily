@@ -29,7 +29,7 @@ describe('ApartmentIncomeSourceComponent', () => {
     TestBed.compileComponents();
   }));
 
-  it('should render the correct elements', fakeAsync(() => {
+  xit('should render the correct elements', fakeAsync(() => {
     const fixture = TestBed.createComponent(ApartmentIncomeSourceComponent);
     const AptIncCmp = fixture.componentInstance;
     const units = 20;
