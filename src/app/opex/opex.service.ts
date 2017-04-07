@@ -34,7 +34,7 @@ export class OperatingExpensesService {
   ){
     console.log("Opex service", commercialIncome, residentialIncome);
 
-    this.observableEffectiveIncome$ = Observable.combineLatest(commercialIncome.egi$, residentialIncome.egi$, (comm, residential) => { return comm + residential;});
+    //this.observableEffectiveIncome$ = Observable.combineLatest(commercialIncome.egi$, residentialIncome.egi$, (comm, residential) => { return comm + residential;});
     
     this.opex = new BehaviorSubject<IOpex>(<IOpex>{opex: 30, isPercent: true});
     this.observableOpex$ = this.opex;

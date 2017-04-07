@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { OpexService } from './opex.service';
+//import { OpexService } from './opex.service';
 
 import {AppComponent} from './containers/app.component';
 
@@ -26,13 +26,13 @@ import { DynamicFormComponent }         from './dynamic-form/dynamic-form.compon
 import { DynamicFormQuestionComponent } from './dynamic-form/dynamic-form-question.component';
 import {HeroDetailComponent1} from './input-and-checkbox/input-and-checkbox.component';
 import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox.component';
-import {EffectiveIncomeComponent} from './effective-income/effective-income.component';
+import {ResidentialEffectiveIncomeComponent, CommercialEffectiveIncomeComponent} from './effective-income/effective-income.component';
 
 import {IncomeServiceRevised, CommercialIncomeService, ResidentialIncomeService} from './special.service';
 import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService, MyCommercialOtherIncomeService, MyResidentialOtherIncomeService } from './special.service';
 
 import { BSService } from './bs.service';
-import {OperatingExpensesModule} from './opex/opex.module';
+//import {OperatingExpensesModule} from './opex/opex.module';
 import { DI_CONFIG, APP_CONFIG } from './app-config';
 
 @NgModule({
@@ -40,7 +40,7 @@ import { DI_CONFIG, APP_CONFIG } from './app-config';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    OperatingExpensesModule,
+    //OperatingExpensesModule,
     ApartmentIncomeModule, 
     //ParkingIncomeModule,
     ParkingIncomeWrapperModule,
@@ -50,7 +50,7 @@ import { DI_CONFIG, APP_CONFIG } from './app-config';
   providers: [
     IncomeServiceRevised, 
     CommercialIncomeService, 
-    OpexService,
+    //OpexService,
     BSService,
     MyResidentialParkingIncomeService,
     MyCommercialParkingIncomeService,
@@ -69,7 +69,8 @@ import { DI_CONFIG, APP_CONFIG } from './app-config';
     ProjectStatusComponent,
     HeroDetailComponent1,
     CounterInputComponent,
-    EffectiveIncomeComponent,
+    CommercialEffectiveIncomeComponent,
+    ResidentialEffectiveIncomeComponent,
     DynamicFormComponent, DynamicFormQuestionComponent,
   ],
   bootstrap: [AppComponent]

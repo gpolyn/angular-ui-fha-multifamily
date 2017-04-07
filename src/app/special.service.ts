@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { IIncome } from './shared/interfaces';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import {IIncome2, ICommercialIncomeService, IResidentialIncomeService} from './income-service.interface';
+import { IIncome2, ICommercialIncomeService, IResidentialIncomeService } from './income-service.interface';
 
 @Injectable()
 export class IncomeServiceRevised {
@@ -51,27 +51,38 @@ export class IncomeServiceRevised {
 
 }
 
-//export class CommercialIncomeService extends IncomeServiceRevised {
 export class CommercialIncomeService {
 
-//constructor(){ super(); console.log("CommercialIncomeService");}
-
-//private incomeService: IncomeServiceRevised = new IncomeServiceRevised();
-// chincomes$ = this.incomeService.chincomes$;
   chincomes$: any;
+  totalGrossIncome$: any;
+  egi$: any;
+  private incomeService: any;
+  observableOccupancy$: any;
 
-  constructor(private incomeService: any){
+  constructor(){
+
     this.incomeService = new IncomeServiceRevised();
     this.chincomes$ = this.incomeService.chincomes$;
+    this.totalGrossIncome$ = this.incomeService.totalGrossIncome$;
+    this.egi$ = this.incomeService.egi$;
+    this.observableOccupancy$ = this.incomeService.observableOccupancy$;
+
   }
 
-  addIncome(e: IIncome) { return this.incomeService.addIncome(e);}
-  removeIncome(e: IIncome) { return this.incomeService.removeIncome(e);}
+  saveOccupancy(occupancy: number){ return this.incomeService.saveOccupancy(occupancy); }
+
+  addIncome(e: IIncome) { return this.incomeService.addIncome(e); }
+
+  removeIncome(e: IIncome) { return this.incomeService.removeIncome(e); }
 
 };
 
-export class ResidentialIncomeService extends IncomeServiceRevised {
-  constructor(){ super(); console.log("ResidentialIncomeService");}
+export class ResidentialIncomeService extends CommercialIncomeService {
+
+  constructor(){
+    super(); 
+  }
+
 };
 
 abstract class MultiIncomeService {

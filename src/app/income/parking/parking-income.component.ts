@@ -33,6 +33,7 @@ abstract class ParkingIncomeComponent<T extends IParkingIncome> implements OnIni
   newIncomeForm: FormGroup;
   incomes: Observable<Array<T>>;
   private fb: FormBuilder;
+  readonly parkingStyles: string[] = ['indoor', 'outdoor'];
 
   constructor( private incomeService: ResidentialIncomeService | CommercialIncomeService, private config: T){
     this.fb = new FormBuilder();
@@ -64,12 +65,6 @@ abstract class ParkingIncomeComponent<T extends IParkingIncome> implements OnIni
   }
 
 }
-
-@Component({
-  selector: 'parking-income',
-  template: require('./parking-income.component.html'),
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
 
 @Component({
   selector: 'commercial-parking-income',

@@ -5,6 +5,10 @@ import '@angular/common';
 import 'rxjs';
 
 import './index.css';
+import './stylesheets/general.css';
+import './stylesheets/income_tables.css';
+import './stylesheets/scaffold.css';
+import './stylesheets/todos.css';
 
 import {enableProdMode} from '@angular/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';

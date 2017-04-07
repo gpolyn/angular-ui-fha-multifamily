@@ -13,26 +13,63 @@ export interface EffectiveIncome {
 	maxOccupancyPercent: number;
 	minOccupancyPercent: number;
   egi: number;
+  isCommercial: boolean;
 }
 
-class EffectiveIncomeComponent implements OnInit, OnDestroy {
+@Component({
+  selector: 'effective-income',
+  template: `
+    <label>
+      gross {{incomeTypeLabel}}<div>{{( gross | async ) }}</div>
+    </label>
+    <label>occupancy rate
+      <input name='occupancy-rate' type='number' [formControl]='occupancyPercent'>
+    </label>
+    <label>
+      {{incomeTypeLabel}} income<div>{{( effectiveGrossIncome | async )}}</div>
+    </label>
+  `
+})
+export class EffectiveIncomeComponent implements OnInit, OnDestroy {
 
-  protected maxOccupancyPercent: number = 100;
-  protected minOccupancyPercent: number = 0;
-  protected incomeTypeLabel: string;
+	@Input() label: string;
+  @Input() isCommercial: boolean = false;
+  @Input() maxOccupancyPercent: number = 100;
+  @Input() minOccupancyPercent: number = 0;
 	occupancyPercent: FormControl; 
   private subs: any[] = [];
+  incomeTypeLabel: string;
+
+	incomes: Observable<ParkingIncome[]>;
+  incomes2: Observable<ParkingIncome[]>;
 
   occupancy: BehaviorSubject<number>;
   gross: Observable<number>;
   effectiveGrossIncome: Observable<number>;
+  private incomeService: any;
+  private config: IAppConfig;
 
-  constructor(protected incomeService: CommercialIncomeService | ResidentialIncomeService){
+  constructor(@Inject(APP_CONFIG) config: IAppConfig, private injector: Injector){
+    this.config = config;
+  }
+
+  ngOnChanges(){
+    if (this.isCommercial){
+      this.incomeService = this.injector.get(CommercialIncomeService); 
+      this.maxOccupancyPercent = this.config.maxCommercialOccupancy;
+    } else {
+      this.incomeService = this.injector.get(ResidentialIncomeService);
+      this.maxOccupancyPercent = this.config.maxResidentialOccupancy;
+    }
   }
 
 	ngOnInit(){
 
     const validators = [Validators.required];
+
+		this.incomes2 = this.incomeService.chincomes$;
+		
+    this.incomeTypeLabel = this.isCommercial ? 'commercial' : 'residential';
 
     this.effectiveGrossIncome = this.incomeService.egi$;
     this.occupancy = this.incomeService.observableOccupancy$
@@ -82,34 +119,6 @@ class EffectiveIncomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.subs.forEach(sub => sub.unsubscribe());
-  }
-
-}
-
-@Component({
-  selector: 'commercial-effective-income',
-  template: require('./effective-income.component.html')
-})
-export class CommercialEffectiveIncomeComponent extends EffectiveIncomeComponent {
-
-  constructor(@Inject(APP_CONFIG) private config: IAppConfig, protected incomeService: CommercialIncomeService){
-    super(incomeService);
-    this.incomeTypeLabel = 'commercial';
-    this.maxOccupancyPercent = this.config.maxResidentialOccupancy;
-  }
-
-}
-
-@Component({
-  selector: 'residential-effective-income',
-  template: require('./effective-income.component.html')
-})
-export class ResidentialEffectiveIncomeComponent extends EffectiveIncomeComponent {
-
-  constructor(@Inject(APP_CONFIG) private config: IAppConfig, protected incomeService: ResidentialIncomeService){
-    super(incomeService);
-    this.incomeTypeLabel = 'residential';
-    this.maxOccupancyPercent = this.config.maxCommercialOccupancy;
   }
 
 }

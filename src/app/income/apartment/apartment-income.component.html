@@ -1,9 +1,49 @@
-<ul class="apartment-income">
-  <template ngFor let-apartmentIncome [ngForOf]="apartmentIncomes">
-    <apartment-income-source
-      [apartmentIncome]="apartmentIncome"
-      (onDestroy)="handleDestroy($event)"
-      (onSave)="handleSave($event)"
-    ></apartment-income-source>
-  </template>
-</ul>
+<table id="apartment-income">
+  <caption class='income-table'>apartment income</caption>
+  <colgroup>
+    <col id="apartment-bedroom-count" />
+    <col id="apartment-unit-count" />
+    <col className="square-footage" id="apartment-square-feet" />
+    <col className="monthly-income" id="apartment-monthly-rent" />
+    <col id="destroy" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>
+        bedrooms<span className='required'>*</span>	
+      </th>	
+      <th>
+        units<span className='required'>*</span>	
+      </th>	
+      <th>
+        square feet
+      </th>	
+      <th>
+        monthly rent<span className='required'>*</span>	
+      </th>	
+      <th>
+      </th>	
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='new-apartment-income'>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+    </tr>
+    <template ngFor let-apartmentIncome [ngForOf]="apartmentIncomes">
+      <apartment-income-source
+        [apartmentIncome]="apartmentIncome"
+        (onDestroy)="handleDestroy($event)"
+        (onSave)="handleSave($event)"
+      ></apartment-income-source>
+    </template>
+  </tbody>
+</table>

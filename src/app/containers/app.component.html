@@ -1,11 +1,20 @@
-<apartment-income (incomeChange)="handleResidentialIncome($event)"></apartment-income>
-<residential-other-income></residential-other-income>
-<commercial-other-income></commercial-other-income>
-<commercial-parking-income></commercial-parking-income>
-<residential-parking-income></residential-parking-income>
-<effective-income [isCommercial]="true" [maxOccupancyPercent]="80"></effective-income>
-<effective-income [isCommercial]="false" [maxOccupancyPercent]="95"></effective-income> 
-<operating-expenses></operating-expenses>
-<dynamic-form [questions]="questions"></dynamic-form>
-
-<counter-input [isChecked]="true" [numericValue]="10"></counter-input>
+<div class='column'>
+  <div id='inner_page_title'>
+    <h1>FHA Sec. 223(f) refinance/purchase demo</h1>
+  </div>  
+  <div id='todoapp'>
+    <div class='content'>
+      <div id='income'>
+        <apartment-income (incomeChange)="handleResidentialIncome($event)"></apartment-income>
+        <residential-other-income></residential-other-income>
+        <commercial-other-income></commercial-other-income>
+        <commercial-parking-income></commercial-parking-income>
+        <residential-parking-income></residential-parking-income>
+        <commercial-effective-income></commercial-effective-income>
+        <residential-effective-income></residential-effective-income>
+      </div>
+      <dynamic-form [questions]="questions"></dynamic-form>
+      <counter-input [isChecked]="true" [numericValue]="10"></counter-input>
+    </div>
+  </div>
+</div>

@@ -1,51 +1,24 @@
-import { IIncome2 } from '../../income-service.interface';
 import { Observable } from 'rxjs/Observable';
 import { ComponentFixture, inject, TestBed, async } from '@angular/core/testing';
 import { By }                                from '@angular/platform-browser';
 import { DebugElement, Input, Output, Component, EventEmitter } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { APP_CONFIG } from '../app-config';
 
-const INITIAL_OTHER_INCOME_CONFIG = {
-  usage: "blah blah",
-  squareFeet: 20,
-  monthlyRent: 300,
-  totalMonthlyIncome: undefined
-};
-/*
-import { OTHER_INC_CONFIG, IOtherIncome } from './other-income';
-import { CommercialIncomeService, ResidentialIncomeService }      from './other-income.service';
-import { CommercialOtherIncomeComponent, ResidentialOtherIncomeComponent } from './other-income.component';
-import { OtherIncomeSourceComponent } from './other-income-source.component';
-
-const someIncome: IOtherIncome = {
-  usage: "f u",
-  squareFeet: 208,
-  monthlyRent: 310,
-  totalMonthlyIncome: undefined
+const INITIAL_CONFIG = {
+  maxCommercialOccupancy: 80,
+  maxResidentialOccupancy: 95
 };
 
-abstract class FakeIncomeServiceBase {
+//import { CommercialIncomeService, ResidentialIncomeService }      from './other-income.service';
+import { CommercialIncomeService, ResidentialIncomeService }      from '../special.service';
+import { ResidentialEffectiveIncomeComponent, CommercialEffectiveIncomeComponent } from './effective-income.component';
 
-  privateIncomes: BehaviorSubject<IOtherIncome[]> = new BehaviorSubject([]);
-  chincomes$: Observable<IOtherIncome[]> = this.privateIncomes.asObservable();
-
-  addIncome(income: IOtherIncome) {}
-  removeIncome(income: IOtherIncome) {}
-
-}
-
-class FakeCommercialIncomeService extends FakeIncomeServiceBase implements CommercialIncomeService { }
-
-class FakeResidentialIncomeService extends FakeIncomeServiceBase implements ResidentialIncomeService { }
-
-@Component({
-  selector: 'other-income-source',
-  template: ''
-})
-class MockOtherIncomeSourceComponent {
-  @Input() income;
-  @Output() onDestroy: EventEmitter<any> = new EventEmitter(false);
+const fake = {
+  egi$: undefined,
+  totalGrossIncome$: undefined,
+  observableOccupancy$: undefined
 }
 
 let comp: any;
@@ -54,21 +27,22 @@ let componentIncomeService: any;
 let incomeService: any;
 let spy: any;
 
-describe('ResidentialOtherIncomeComponent', () => {
+describe('ResidentialEffectiveIncomeComponent', () => {
 
 	beforeEach(() => {
 
+
     TestBed.configureTestingModule({
-       declarations: [ OtherIncomeSourceComponent, ResidentialOtherIncomeComponent ],
+       declarations: [ ResidentialEffectiveIncomeComponent ],
        imports: [ReactiveFormsModule, FormsModule],
        providers:    [ 
-         {provide: ResidentialIncomeService, useClass: FakeResidentialIncomeService},
-         {provide: OTHER_INC_CONFIG, useValue: INITIAL_OTHER_INCOME_CONFIG}
+         {provide: ResidentialIncomeService, useValue: fake },
+         {provide: APP_CONFIG, useValue: INITIAL_CONFIG}
 			 ]
     });
 
     TestBed.compileComponents();
-    fixture = TestBed.createComponent(ResidentialOtherIncomeComponent);
+    fixture = TestBed.createComponent(ResidentialEffectiveIncomeComponent);
     comp    = fixture.componentInstance;
 
     fixture.detectChanges();
@@ -83,6 +57,7 @@ describe('ResidentialOtherIncomeComponent', () => {
 
 })
 
+/*
 describe('CommercialOtherIncomeComponent', () => {
 
 	beforeEach(() => {
@@ -113,8 +88,11 @@ describe('CommercialOtherIncomeComponent', () => {
 
 });
 
+*/
+
 function tests(){
 
+  /*
   it('should initially display configured income usage', () => {
     expect(comp.newIncomeForm.controls['usage'].value).toEqual(INITIAL_OTHER_INCOME_CONFIG.usage);
   });
@@ -201,27 +179,22 @@ function tests(){
 
   });
 
-  it('should display observable incomes', () => {
 
-    const initialList = fixture.debugElement.queryAllNodes(By.css('other-income-source'));
-    expect(initialList.length).toBe(0);
+  it('should display gross income', () => {
 
-    componentIncomeService.privateIncomes.next([someIncome]);
+    const grossIncomeEl = fixture.debugElement.query(By.css('.gross-income'));
+
+    expect(grossIncomeEl.textContent).toContain("fuck")
+
+    componentIncomeService.totalGrossIncome$.next([someIncome]);
 
     fixture.detectChanges();
 
-    const updatedList = fixture.debugElement.queryAllNodes(By.css('other-income-source'));
-
-    let incomes;
-
-    comp.incomes.subscribe((_incomes: any) => {
-      incomes = _incomes;
-    })
-
-    expect(updatedList.length).toBe(1);
-    expect(updatedList[0].componentInstance.income).toBe(incomes[0]);
+    const updatedGrossIncomeEl = fixture.debugElement.query(By.css('.gross-income'));
+    expect(grossIncomeEl.textContent).toContain("fuck")
 
   });
+  */
 
 }
-*/
+

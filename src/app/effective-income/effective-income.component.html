@@ -1,0 +1,11 @@
+<div>
+<label>
+  gross {{incomeTypeLabel}}<div class="gross-income">{{( gross | async ) }}</div>
+</label>
+<label>occupancy rate
+  <input name='occupancy-rate' type='number' [formControl]='occupancyPercent'>
+</label>
+<label>
+  {{incomeTypeLabel}} income<div class="effective-gross-income">{{( effectiveGrossIncome | async )}}</div>
+</label>
+</div>

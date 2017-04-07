@@ -1,10 +1,10 @@
 <div>
-  <form [formGroup]="form">
+  <div [formGroup]="form">
     <div *ngFor="let question of questions" class="form-row">
       <df-question [question]="question" [form]="form"></df-question>
     </div>
     <counter-input [isChecked]="true" [numericValue]="10" formControlName="counter-input"></counter-input>
-  </form>
+  </div>
   <div *ngIf="payLoad" class="form-row">
     <strong>Saved the following values</strong><br>{{payLoad}}
   </div>
