@@ -31,7 +31,7 @@ class ParkingIncome implements IParkingIncome {
 abstract class ParkingIncomeComponent<T extends IParkingIncome> implements OnInit { 
 
   newIncomeForm: FormGroup;
-  incomes: Observable<Array<T>>;
+  incomes: Observable<Array<IParkingIncome>>;
   private fb: FormBuilder;
   readonly parkingStyles: string[] = ['indoor', 'outdoor'];
 

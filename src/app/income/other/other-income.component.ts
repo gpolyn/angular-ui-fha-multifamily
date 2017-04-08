@@ -28,7 +28,7 @@ class OtherIncome implements IOtherIncome {
 abstract class OtherIncomeComponent<T extends IOtherIncome> implements OnInit { 
 
   newIncomeForm: FormGroup;
-  incomes: Observable<Array<T>>;
+  incomes: Observable<Array<IOtherIncome>>;
   private fb: FormBuilder;
 
   constructor( private incomeService: ResidentialIncomeService | CommercialIncomeService, private config: T){
@@ -51,7 +51,7 @@ abstract class OtherIncomeComponent<T extends IOtherIncome> implements OnInit {
   }
 
   ngOnInit() {
-    this.incomes = this.incomeService.chincomes$;
+  this.incomes = this.incomeService.chincomes$;
     this.createForm();
   }
 
