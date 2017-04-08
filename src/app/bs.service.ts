@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import { ParkingIncome } from './shared/parking-income';
 import { CommercialIncomeService, ResidentialIncomeService } from './special.service';
 
+
 @Injectable()
 export class BSService {
 
