@@ -1,9 +1,36 @@
-<div>
-  <div [formGroup]="form">
-    <div *ngFor="let question of questions" class="form-row">
-      <df-question [question]="question" [form]="form"></df-question>
+<div [formGroup]="form">
+
+  <df-question [question]="questionsObj['elevator-status']" [form]="form"></df-question>
+  <df-question [question]="questionsObj['financing-fee-is-percent-of-loan']" [form]="form"></df-question>
+  <div id='transaction-amount-container'>
+    <!-- <df-question [question]="questions[1]" [form]="form"></df-question> -->
+  </div>
+  <div id='bullshit'>
+    <div class='costs-left costs'>
+      <df-question [question]="questionsObj['loan-term']" [form]="form"></df-question>
+      <df-question [question]="questionsObj['loan-request-amount']" [form]="form"></df-question>
+      <!-- <div id='annual-replacement-reserves-per-unit'> -->
+      <!--   <label for='annual-replacement-reserves-per-unit'> -->
+      <!--     annual replacement reserves per unit -->
+      <!--     <span class="required">*</span> -->
+      <!--   </label> -->
+      <!-- </div> -->
     </div>
-    <counter-input [isChecked]="true" [numericValue]="10" formControlName="counter-input"></counter-input>
+    <div class='costs-right costs'>
+      <df-question [question]="questionsObj['mortgage-interest-rate']" [form]="form"></df-question>
+      <df-question [question]="questionsObj['project-value']" [form]="form"></df-question>
+      <!-- <df-question [question]="questionsObj['loan-replacement-reserves']" [form]="form"></df-question> -->
+    </div>
+  </div>
+  <div class='costs-left costs'>
+      <df-question [question]="questionsObj['land-value']" [form]="form"></df-question>
+      <df-question [question]="questionsObj['third-party-reports']" [form]="form"></df-question>
+      <df-question [question]="questionsObj['legal-and-organizational']" [form]="form"></df-question>
+  </div>
+  <div class='costs-right costs'>
+      <df-question [question]="questionsObj['repairs-or-improvements']" [form]="form"></df-question>
+      <df-question [question]="questionsObj['survey']" [form]="form"></df-question>
+      <df-question [question]="questionsObj['other']" [form]="form"></df-question>
   </div>
   <div *ngIf="payLoad" class="form-row">
     <strong>Saved the following values</strong><br>{{payLoad}}

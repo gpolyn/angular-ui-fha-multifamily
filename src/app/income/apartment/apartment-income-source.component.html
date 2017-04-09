@@ -1,28 +1,28 @@
-<tr [attr.id]="newApartmentIncome ? 'new-apartment-income' : ''" [ngClass]="{'new-apartment-income': !newApartmentIncome}" >
-  <td [ngClass]="{'bedroom-count': !newApartmentIncome}">
+<div [attr.id]="newApartmentIncome ? 'new-apartment-income' : ''" [ngClass]="{'new-apartment-income': newApartmentIncome, 'apartment-income': !newApartmentIncome}" >
+  <div [ngClass]="{'bedroom-count': !newApartmentIncome}">
     <div class='display' *ngIf="!newApartmentIncome">{{apartmentIncome.bedrooms}}</div>
     <select class='apartment-bedroom-count' [(ngModel)]="apartmentIncome.bedrooms" *ngIf="newApartmentIncome">
       <option *ngFor="let bedroom of apartmentIncome.bedroomRange">{{bedroom}}</option>
     </select>
-  </td>
-  <td [ngClass]="{'unit-count': !newApartmentIncome}">
+  </div>
+  <div [ngClass]="{'unit-count': !newApartmentIncome}">
     <div class='display' *ngIf="!newApartmentIncome">{{apartmentIncome.units}}</div>
     <input *ngIf="newApartmentIncome" class='apartment-unit-count' type='number' [(ngModel)]="apartmentIncome.units">
-  </td>
-  <td [ngClass]="{'square-feet': !newApartmentIncome}">
+  </div>
+  <div [ngClass]="{'square-feet': !newApartmentIncome}">
     <div class='display' *ngIf="!newApartmentIncome">{{apartmentIncome.squareFeet}}</div>
     <input class='apartment-square-feet' *ngIf="newApartmentIncome" type='number' [(ngModel)]="apartmentIncome.squareFeet">
-  </td>
-  <td [ngClass]="{'monthly-rent': !newApartmentIncome}">
+  </div>
+  <div [ngClass]="{'monthly-rent': !newApartmentIncome}">
     <div class='display' *ngIf="!newApartmentIncome">{{apartmentIncome.monthlyRent}}</div>
     <input class='apartment-monthly-rent' *ngIf="newApartmentIncome" type='number' [(ngModel)]="apartmentIncome.monthlyRent">
-  </td>
-  <td>
+  </div>
+  <div>
     <div class="delete-container" *ngIf="!newApartmentIncome">
       <button class="destroy apartment-income-destroy destroy-item" (click)="handleDestroyClick()">delete</button>
     </div>
     <div class='add' *ngIf="newApartmentIncome">
       <button class='add-apartment-income add-item' (click)="handleAddClick()">add</button>
     </div>
-  </td>
-</tr>
+  </div>
+</div>

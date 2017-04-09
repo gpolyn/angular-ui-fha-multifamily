@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/Observable';
 export class AppComponent {
 
   questions: any[];
+  questionsObj: any;
   @Output()
   totalResidentialIncome: EventEmitter<number> = new EventEmitter<number>();
   @Output()
@@ -27,6 +28,7 @@ export class AppComponent {
 
   constructor(service: QuestionService, private incomeService: IncomeServiceRevised) {
     this.questions = service.getQuestions();
+    this.questionsObj = service.getQuestionsObject();
   }
 
   handleEGI(e:any){

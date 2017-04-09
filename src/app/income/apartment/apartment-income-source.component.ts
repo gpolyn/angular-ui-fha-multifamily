@@ -3,6 +3,8 @@ import {ApartmentIncome} from './apartment-income';
 
 @Component({
   selector: 'apartment-income-source',
+  // github.com/webpack-contrib/style-loader/issues/123
+  styles: [require('./apartment-income.css').toString()], 
   template: require('./apartment-income-source.component.html')
 })
 

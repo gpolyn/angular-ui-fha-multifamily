@@ -10,13 +10,25 @@ import { QuestionControlService }    from './question-control.service';
 })
 export class DynamicFormComponent implements OnInit {
   @Input() questions: QuestionBase<any>[] = [];
+  @Input() questionsObj: any = {};
   form: FormGroup;
+  elevatorStatus: any;
   payLoad = '';
   constructor(private qcs: QuestionControlService) {  }
   ngOnInit() {
-    this.form = this.qcs.toFormGroup(this.questions);
+    console.log('questionsObj', this.questionsObj);
+    console.log('questions', this.questions);
+  //this.form = this.qcs.toFormGroup(this.questions);
+    this.form = this.qcs.objectToFormGroup(this.questionsObj);
     this.form.valueChanges.subscribe((e)=>console.log(e));
+    this.enforceOptionalMaxNumericLimit = this.enforceOptionalMaxNumericLimit.bind(this);
+    this.form.valueChanges.subscribe(this.enforceOptionalMaxNumericLimit);
   }
+
+  private enforceOptionalMaxNumericLimit(e) {
+    console.log('LAH', e);
+  };
+
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
   }

@@ -13,8 +13,9 @@
         <commercial-effective-income></commercial-effective-income>
         <residential-effective-income></residential-effective-income>
       </div>
-      <dynamic-form [questions]="questions"></dynamic-form>
-      <counter-input [isChecked]="true" [numericValue]="10"></counter-input>
+      <div id='acquisition-costs'>
+        <dynamic-form [questions]="questions" [questionsObj]='questionsObj'></dynamic-form>
+      </div>
     </div>
   </div>
 </div>

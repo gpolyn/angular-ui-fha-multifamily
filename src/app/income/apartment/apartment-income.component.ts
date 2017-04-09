@@ -1,6 +1,7 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import { ApartmentIncome } from './apartment-income';
 import { IncomeServiceRevised } from './income.service';
+import './apartment-income.css';
 
 export interface ApartmentIncomeChange {
   isCommercial: boolean;
@@ -9,6 +10,8 @@ export interface ApartmentIncomeChange {
 
 @Component({
   selector: 'apartment-income',
+  // github.com/webpack-contrib/style-loader/issues/123
+  styles: [require('./apartment-income.css').toString()],
   template: require('./apartment-income.component.html'),
 	providers: [IncomeServiceRevised]
 })

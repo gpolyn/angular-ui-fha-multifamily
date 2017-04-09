@@ -2,6 +2,7 @@ import { Injectable }       from '@angular/core';
 import { DropdownQuestion } from './question-dropdown';
 import { QuestionBase }     from './question-base';
 import { TextboxQuestion }  from './question-textbox';
+import { CheckboxQuestion }  from './question-checkbox';
 import { RadioQuestion }  from './question-radio';
 import { Validators, ValidatorFn} from '@angular/forms';
 @Injectable()
@@ -23,6 +24,7 @@ export class QuestionService {
       new TextboxQuestion({
         key: 'transaction-amount',
         label: 'transaction amount',
+        containerId: 'transaction-amount-input',
         validators: [Validators.required, this.minVal(0)],
         type: 'number',
         order: 2
@@ -38,6 +40,7 @@ export class QuestionService {
       }),
       new TextboxQuestion({
         key: 'loan-request-amount',
+        required: true,
         label: 'loan request',
         validators: [Validators.required, this.minVal(0)],
         type: 'number',
@@ -46,6 +49,7 @@ export class QuestionService {
       new TextboxQuestion({
         key: 'loan-replacement-reserves',
         label: 'annual replacment reserves per unit',
+        fuck: true,
         value: 250,
         validators: [Validators.required, this.minVal(0)],
         type: 'number',
@@ -82,7 +86,8 @@ export class QuestionService {
         order: 8
       }),
       new TextboxQuestion({
-        key: 'repairs-and-improvements',
+        key: 'repairs-or-improvements',
+        className: 'optional',
         label: 'repairs/improvements',
         validators: [this.minVal(0)],
         type: 'number',
@@ -104,6 +109,7 @@ export class QuestionService {
       }),
       new TextboxQuestion({
         key: 'mortgage-interest-rate',
+        required: true,
         label: 'mortgage interest rate',
         validators: [Validators.required, this.minVal(0), this.maxVal(99)],
         value: 5.25,
@@ -117,8 +123,23 @@ export class QuestionService {
         type: 'number',
         order: 12
       }),
+      new CheckboxQuestion({
+        key: 'financing-fee-is-percent-of-loan',
+        label: '% of loan',
+        value: 'true',
+        type: 'checkbox',
+        order: 12
+      }),
     ];
     return questions.sort((a, b) => a.order - b.order);
+  }
+
+  getQuestionsObject() {
+    let questions = {};
+    this.getQuestions().forEach( question => {
+      questions[question.key] = question;
+    });
+    return questions;    
   }
 
   maxVal(max: number): { [key: string]: any; } {
