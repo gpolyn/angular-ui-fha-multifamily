@@ -1,0 +1,46 @@
+<table id="commercial-income">
+  <caption class='income-table'>commercial income</caption>
+  <colgroup>
+    <col />
+    <col class='square-footage' />
+    <col class="monthly-income" />
+    <col id="destroy" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>
+        usage
+      </th>	
+      <th>
+        square feet
+      </th>	
+      <th>
+        monthly rent<span class='required'>*</span>	
+      </th>	
+      <th>
+      </th>	
+    </tr>
+  </thead>
+  <div id='new-commercial-income' [formGroup]="newIncomeForm" novalidate>
+    <div>
+      <input type='text' class='commercial-use usage' formControlName="usage">
+    </div>
+    <div>
+      <input class='commercial-square-feet' type='number' formControlName="squareFeet">
+    </div>
+    <div>
+      <input class='commercial-monthly-rent' type='number' formControlName="monthlyRent" required>
+    </div>
+    <div>
+      <div class='add'>
+        <button id="add-commercial-income add-item" (click)="addClick()">add</button>
+      </div>
+    </div>
+  </div>
+  <template ngFor let-otherIncome [ngForOf]="(incomes | async)">
+    <other-income-source
+      [income]="otherIncome"
+      (onDestroy)="handleDestroy($event)"
+    ></other-income-source>
+  </template>
+</table>

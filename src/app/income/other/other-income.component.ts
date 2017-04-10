@@ -63,7 +63,9 @@ abstract class OtherIncomeComponent<T extends IOtherIncome> implements OnInit {
 
 @Component({
   selector: 'commercial-other-income',
-  template: require('./other-income.component.html'),
+  template: require('./other-commercial-income.component.html'),
+  // github.com/webpack-contrib/style-loader/issues/123
+  styles: [require('./other-income.css').toString()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommercialOtherIncomeComponent<T extends IOtherIncome> extends OtherIncomeComponent<T> { 
@@ -76,7 +78,9 @@ export class CommercialOtherIncomeComponent<T extends IOtherIncome> extends Othe
 
 @Component({
   selector: 'residential-other-income',
-  template: require('./other-income.component.html'),
+  template: require('./other-residential-income.component.html'),
+  // github.com/webpack-contrib/style-loader/issues/123
+  styles: [require('./other-income.css').toString()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResidentialOtherIncomeComponent<T extends IOtherIncome> extends OtherIncomeComponent<T> { 

@@ -68,7 +68,9 @@ abstract class ParkingIncomeComponent<T extends IParkingIncome> implements OnIni
 
 @Component({
   selector: 'commercial-parking-income',
-  template: require('./parking-income.component.html'),
+  template: require('./commercial-parking-income.component.html'),
+  // github.com/webpack-contrib/style-loader/issues/123
+  styles: [require('./parking-income.css').toString()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommercialParkingIncomeComponent<T extends IParkingIncome> extends ParkingIncomeComponent<T> { 
@@ -82,6 +84,8 @@ export class CommercialParkingIncomeComponent<T extends IParkingIncome> extends 
 @Component({
   selector: 'residential-parking-income',
   template: require('./parking-income.component.html'),
+  // github.com/webpack-contrib/style-loader/issues/123
+  styles: [require('./parking-income.css').toString()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResidentialParkingIncomeComponent<T extends IParkingIncome> extends ParkingIncomeComponent<T> { 

@@ -1,5 +1,5 @@
-<table class='parking' id='residential-parking-income'>
-  <caption class='income-table'>residential parking income</caption>
+<table class='parking' id='commercial-parking-income'>
+  <caption class='income-table'>commercial parking income</caption>
   <colgroup>
     <col />
     <col />
@@ -24,24 +24,24 @@
       </th>	
     </tr>
   </thead>
-  <div [formGroup]="newIncomeForm" id='new-residential-parking-income' novalidate>
+  <div [formGroup]="newIncomeForm" id='new-commercial-parking-income' novalidate>
     <div>
-      <input class='residential-parking-spaces' type='number' formControlName="spaces" required>
+      <input class='commercial-parking-spaces' type='number' formControlName="spaces" required>
     </div>
     <div>
-      <select class='residential-parking-type' formControlName="parkingStyle">
+      <select class='commercial-parking-type' formControlName="parkingStyle">
         <option *ngFor="let style of parkingStyles">{{style}}</option>
       </select>
     </div>
     <div>
-      <input class='residential-parking-square-feet' type='number' formControlName="squareFeet">
+      <input class='commercial-parking-square-feet' type='number' formControlName="squareFeet">
     </div>
     <div>
-      <input class='residential-parking-monthly-fee' type='number' formControlName="monthlyFee" required>
+      <input class='commercial-parking-monthly-fee' type='number' formControlName="monthlyFee" required>
     </div>
     <div>
       <div class='add'>
-        <button class='add-residential-parking-income add-item' (click)="addClick()">add</button>
+        <button class='add-commercial-parking-income add-item' (click)="addClick()">add</button>
       </div>
     </div>
   </div>

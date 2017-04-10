@@ -1,0 +1,46 @@
+<table id='other-residential-income'>
+  <caption class='income-table'>other residential income</caption>
+  <colgroup>
+    <col />
+    <col class='square-footage' />
+    <col class="monthly-income" />
+    <col id="destroy" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>
+        usage
+      </th>	
+      <th>
+        square feet
+      </th>	
+      <th>
+        monthly rent<span class='required'>*</span>	
+      </th>	
+      <th>
+      </th>	
+    </tr>
+  </thead>
+  <div id="new-other-income" [formGroup]="newIncomeForm" novalidate>
+    <div>
+      <input class='other-residential-use usage' type='text' formControlName="usage">
+    </div>
+    <div>
+      <input class='other-residential-square-feet usage' type='number' formControlName="squareFeet">
+    </div>
+    <div>
+      <input class='other-residential-monthly-rent' type='number' formControlName="monthlyRent" required>
+    </div>
+    <div>
+      <div class='add'>
+        <button class='add-other-income add-item' (click)="addClick()">add</button>
+      </div>
+    </div>
+  </div>
+  <template ngFor let-otherIncome [ngForOf]="(incomes | async)">
+    <other-income-source
+      [income]="otherIncome"
+      (onDestroy)="handleDestroy($event)"
+    ></other-income-source>
+  </template>
+</table>

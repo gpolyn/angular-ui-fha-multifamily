@@ -1,0 +1,39 @@
+table > div {
+  width: 508px;
+}
+
+table > div div {
+	width: 232px;
+  float: left;
+  padding: 1px;
+  margin-right: 2px;
+	border: 1px solid black;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+table > div div:nth-child(2), 
+table > div div:nth-child(3) {
+	width: 115px;
+}
+
+table#other-residential-income > div div:nth-child(2) input, 
+table#other-residential-income > div div:nth-child(3) input {
+	width: 96%;
+}
+
+table > div div:nth-child(4) {
+	width: 20px;
+}
+
+table > div div.add {
+	width: 16px;
+  height: 16px;
+  margin: auto;
+}
+
+table input {
+	width: 96%;
+	height: 99%;
+}
