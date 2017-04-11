@@ -173,7 +173,7 @@ function tests(){
   it('should add valid income with CommercialIncomeService', () => {
     spy = spyOn(incomeService, 'addIncome');
     comp.newIncomeForm.patchValue({monthlyFee: 300, spaces: 26});
-		const button = fixture.debugElement.nativeElement.querySelector('button#add-parking-income');
+		const button = fixture.debugElement.nativeElement.querySelector('button.add-item');
 		button.click();
     const whatWasCalled: IIncome2 = spy.calls.mostRecent();
     expect(whatWasCalled.totalMonthlyIncome).not.toBe(null);
@@ -182,7 +182,7 @@ function tests(){
   it('should not add income without monthlyFee with CommercialIncomeService', () => {
     spy = spyOn(incomeService, 'addIncome');
     comp.newIncomeForm.patchValue({monthlyFee: undefined});
-		const button = fixture.debugElement.nativeElement.querySelector('button#add-parking-income');
+		const button = fixture.debugElement.nativeElement.querySelector('button.add-item');
 		button.click();
     expect(spy.calls.any()).toEqual(false);
   });
@@ -190,7 +190,7 @@ function tests(){
   it('should not add income without spaces with backing income service', () => {
     spy = spyOn(incomeService, 'addIncome');
     comp.newIncomeForm.patchValue({spaces: undefined});
-		const button = fixture.debugElement.nativeElement.querySelector('button#add-parking-income');
+		const button = fixture.debugElement.nativeElement.querySelector('button.add-item');
 		button.click();
     expect(spy.calls.any()).toEqual(false);
   });

@@ -5,6 +5,7 @@ export class QuestionBase<T>{
   key: string;
   className: string;
   label: string;
+  id: string;
   required: boolean;
   maximumNumericValue: number;
   mininumNumericValue: number;
@@ -19,6 +20,7 @@ export class QuestionBase<T>{
       label?: string,
       required?: boolean,
       type?: string,
+      id?: string,
       order?: number,
       controlType?: string,
       validators?: ValidatorFn|ValidatorFn[]
@@ -31,6 +33,7 @@ export class QuestionBase<T>{
     this.controlType = options.controlType || '';
     this.type = options.type || '';
     this.validators = options.validators;
+    this.id = options.id;
   }
 
 }

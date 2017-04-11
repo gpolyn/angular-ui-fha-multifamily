@@ -14,26 +14,24 @@ export class QuestionControlService {
       group[question.key] =  new FormControl(question.value || '', question.validators);
     });
     group['counter-input'] = new FormControl('');
-    console.log('HEY XU', group);
     return new FormGroup(group);
   }
 
   objectToFormGroup(questions: any) {
-    console.log('objectToFormGroup', questions);
     let group: any = {};
 
     for (let questionKey in questions){
-      console.log('k', questionKey)
       group[questionKey] =  new FormControl(questions[questionKey].value || '', questions[questionKey].validators);
     }
-    console.log('HEY FU', group);
     return new FormGroup(group, this.checkboxValidator);
   }
 
   checkboxValidator(g: FormGroup){
-    console.log({amount: g.get('transaction-amount').value, term: g.get('loan-term').value})
-    if (g.get('financing-fee-is-percent-of-loan').value && Number(g.get('other').value) > 100){
-      g.patchValue({'other': 100});
+    if (g.get('financing-fee-is-percent-of-loan').value && Number(g.get('financing-fee').value) > 100){
+      g.patchValue({'financing-fee': 100});
+    }
+    if (g.get('title-and-recording-percent').value && Number(g.get('title-and-recording').value) > 100){
+      g.patchValue({'title-and-recording': 100});
     }
     return null;
   }

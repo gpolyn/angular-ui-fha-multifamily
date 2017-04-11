@@ -16,8 +16,6 @@ export class DynamicFormComponent implements OnInit {
   payLoad = '';
   constructor(private qcs: QuestionControlService) {  }
   ngOnInit() {
-    console.log('questionsObj', this.questionsObj);
-    console.log('questions', this.questions);
   //this.form = this.qcs.toFormGroup(this.questions);
     this.form = this.qcs.objectToFormGroup(this.questionsObj);
     this.form.valueChanges.subscribe((e)=>console.log(e));

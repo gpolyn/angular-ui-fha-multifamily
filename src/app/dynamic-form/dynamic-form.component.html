@@ -1,7 +1,6 @@
 <div [formGroup]="form">
 
   <df-question [question]="questionsObj['elevator-status']" [form]="form"></df-question>
-  <df-question [question]="questionsObj['financing-fee-is-percent-of-loan']" [form]="form"></df-question>
   <div id='transaction-amount-container'>
     <!-- <df-question [question]="questions[1]" [form]="form"></df-question> -->
   </div>
@@ -31,5 +30,23 @@
       <df-question [question]="questionsObj['repairs-or-improvements']" [form]="form"></df-question>
       <df-question [question]="questionsObj['survey']" [form]="form"></df-question>
       <df-question [question]="questionsObj['other']" [form]="form"></df-question>
+  </div>
+  <div>
+    <div class='costs-left costs'>
+      <df-question [question]="questionsObj['financing-fee']" [form]="form"></df-question>
+    </div>
+    <div class='costs-right costs'>
+      <div id='percent-as-loan-checkbox-container'>
+        <df-question [question]="questionsObj['financing-fee-is-percent-of-loan']" [form]="form"></df-question>
+      </div>
+    </div>
+  </div>
+  <div id='title-container'>
+    <div class='costs-left costs'>
+      <df-question [question]="questionsObj['title-and-recording']" [form]="form"></df-question>
+    </div>
+    <div class='costs-right costs'>
+      <df-question [question]="questionsObj['title-and-recording-percent']" [form]="form"></df-question>
+    </div>
   </div>
 </div>

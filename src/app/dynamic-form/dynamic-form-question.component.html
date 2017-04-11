@@ -4,7 +4,7 @@
   </label>
   <input *ngIf="question.controlType === 'checkbox'" type='checkbox' [formControlName]="question.key" [id]="question.key" value='true' />
   <input *ngIf="question.controlType === 'textbox'" [formControlName]="question.key" (change)="changeHandler($event)"
-          [id]="question.key" [type]="question.type">
+  [id]="question.key" [type]="question.type">
   <select [id]="question.key" *ngIf="question.controlType==='dropdown'" [formControlName]="question.key">
     <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
   </select>

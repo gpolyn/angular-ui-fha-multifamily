@@ -123,12 +123,33 @@ export class QuestionService {
         type: 'number',
         order: 12
       }),
+      new TextboxQuestion({
+        key: 'financing-fee',
+        label: 'financing fee',
+        validators: [Validators.required, this.minVal(0)],
+        type: 'number',
+        order: 12
+      }),
       new CheckboxQuestion({
         key: 'financing-fee-is-percent-of-loan',
         label: '% of loan',
         value: 'true',
         type: 'checkbox',
         order: 12
+      }),
+      new TextboxQuestion({
+        key: 'title-and-recording',
+        label: 'title & recording',
+        validators: [Validators.required, this.minVal(0)],
+        type: 'number',
+        order: 13
+      }),
+      new CheckboxQuestion({
+        key: 'title-and-recording-percent',
+        label: '% of loan',
+        value: 'true',
+        type: 'checkbox',
+        order: 14
       }),
     ];
     return questions.sort((a, b) => a.order - b.order);
