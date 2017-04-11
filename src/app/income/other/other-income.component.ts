@@ -1,9 +1,10 @@
-import { Inject, ChangeDetectionStrategy, Component, OnInit, OnChanges } from '@angular/core';
+import { ViewEncapsulation, Inject, ChangeDetectionStrategy, Component, OnInit, OnChanges } from '@angular/core';
 import { IOtherIncome } from './other-income';
 import { ResidentialIncomeService, CommercialIncomeService } from './other-income.service';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OTHER_INC_CONFIG } from './other-income';
+import style from './other-income.style';
 
 class OtherIncome implements IOtherIncome {
 
@@ -64,8 +65,7 @@ abstract class OtherIncomeComponent<T extends IOtherIncome> implements OnInit {
 @Component({
   selector: 'commercial-other-income',
   template: require('./other-commercial-income.component.html'),
-  // github.com/webpack-contrib/style-loader/issues/123
-  styles: [require('./other-income.css').toString()],
+  styles: [style],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommercialOtherIncomeComponent<T extends IOtherIncome> extends OtherIncomeComponent<T> { 
@@ -79,8 +79,7 @@ export class CommercialOtherIncomeComponent<T extends IOtherIncome> extends Othe
 @Component({
   selector: 'residential-other-income',
   template: require('./other-residential-income.component.html'),
-  // github.com/webpack-contrib/style-loader/issues/123
-  styles: [require('./other-income.css').toString()],
+  styles: [style],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResidentialOtherIncomeComponent<T extends IOtherIncome> extends OtherIncomeComponent<T> { 

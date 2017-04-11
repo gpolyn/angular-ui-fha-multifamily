@@ -28,7 +28,7 @@ import {HeroDetailComponent1} from './input-and-checkbox/input-and-checkbox.comp
 import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox.component';
 import {ResidentialEffectiveIncomeComponent, CommercialEffectiveIncomeComponent} from './effective-income/effective-income.component';
 
-import {IncomeServiceRevised, CommercialIncomeService, ResidentialIncomeService} from './special.service';
+import {IncomeServiceRevised, CommercialIncomeService, ResidentialIncomeService, IncomeStorageService} from './special.service';
 import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService, MyCommercialOtherIncomeService, MyResidentialOtherIncomeService } from './special.service';
 
 import { BSService } from './bs.service';
@@ -57,7 +57,8 @@ import { DI_CONFIG, APP_CONFIG } from './app-config';
     MyResidentialOtherIncomeService,
     MyCommercialOtherIncomeService,
     { provide: APP_CONFIG, useValue: DI_CONFIG },
-    ResidentialIncomeService
+    ResidentialIncomeService,
+    IncomeStorageService
     ],
   declarations: [
     AppComponent,

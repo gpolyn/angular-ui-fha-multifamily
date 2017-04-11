@@ -1,8 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector, ReflectiveInjector } from '@angular/core';
 import { IIncome } from './shared/interfaces';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { IIncome2, ICommercialIncomeService, IResidentialIncomeService } from './income-service.interface';
+
+@Injectable()
+export class IncomeStorageService {
+
+  STORAGE_ID = 'sizemymultifamilyloan_angular_incomes';
+
+	get (): IIncome[] {
+    return JSON.parse(localStorage.getItem(this.STORAGE_ID) || '[]');
+	}
+
+	put(incomes: IIncome[]) {
+    const type = incomes[0].type;
+    const filteredIncomes = this.get().filter( income => income.type !== type) || [];
+		localStorage.setItem(this.STORAGE_ID, JSON.stringify(filteredIncomes.concat(incomes)));
+	}
+}
 
 @Injectable()
 export class IncomeServiceRevised {
@@ -16,9 +32,14 @@ export class IncomeServiceRevised {
   totalGrossIncome$: Observable<number>;
   egi$: Observable<number>;
 
-  constructor(){
+  constructor(private incomeStorageService: IncomeStorageService){
   
     this.observableOccupancy$ = new BehaviorSubject<number>(this.occupancy);
+    const storedIncomes = incomeStorageService.get();
+    this.incomes = storedIncomes;
+    // storedIncomes.map(incs => this.incomes = incs)
+    this.observableIncomes = new BehaviorSubject(this.incomes);
+    this.chincomes$ = this.observableIncomes.asObservable();
 
     this.totalGrossIncome$ = this.observableIncomes.map((todos: any) => todos.reduce((count, todo) =>  count + todo.totalMonthlyIncome, 0));
 
@@ -34,6 +55,7 @@ export class IncomeServiceRevised {
     console.log('too IncomeServiceRevised', e);
 		e.id = ++this.lastId;
 		this.incomes.push(e);
+    this.incomeStorageService.put(this.incomes);
 		this.refresh();
     console.log('incomes', this.incomes);
 	}
@@ -41,6 +63,7 @@ export class IncomeServiceRevised {
 	removeIncome(e: IIncome) {
     console.log("about to remove ", e)
 		this.incomes = this.incomes.filter(income => income.id !== e.id);
+    this.incomeStorageService.put(this.incomes);
 		this.refresh();
   }
 
@@ -53,6 +76,7 @@ export class IncomeServiceRevised {
 
 export class CommercialIncomeService {
 
+  private injector: Injector = ReflectiveInjector.resolveAndCreate([IncomeStorageService]);
   chincomes$: any;
   totalGrossIncome$: any;
   egi$: any;
@@ -61,7 +85,7 @@ export class CommercialIncomeService {
 
   constructor(){
 
-    this.incomeService = new IncomeServiceRevised();
+    this.incomeService = new IncomeServiceRevised(this.injector.get(IncomeStorageService));
     this.chincomes$ = this.incomeService.chincomes$;
     this.totalGrossIncome$ = this.incomeService.totalGrossIncome$;
     this.egi$ = this.incomeService.egi$;

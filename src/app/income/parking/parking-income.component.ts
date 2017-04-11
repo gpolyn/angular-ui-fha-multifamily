@@ -1,5 +1,6 @@
-import {Input, Inject, ChangeDetectionStrategy, Component, OnInit, OnChanges, Output, Injector, EventEmitter} from '@angular/core';
+import { ViewEncapsulation, Input, Inject, ChangeDetectionStrategy, Component, OnInit, OnChanges, Output, Injector, EventEmitter} from '@angular/core';
 import { IParkingIncome } from './parking-income';
+import style from './parking-income.style';
 import { CommercialIncomeService, ResidentialIncomeService } from './parking-income.service';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -70,7 +71,8 @@ abstract class ParkingIncomeComponent<T extends IParkingIncome> implements OnIni
   selector: 'commercial-parking-income',
   template: require('./commercial-parking-income.component.html'),
   // github.com/webpack-contrib/style-loader/issues/123
-  styles: [require('./parking-income.css').toString()],
+  //styles: [require('./parking-income.css').toString()],
+  styles: [style],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommercialParkingIncomeComponent<T extends IParkingIncome> extends ParkingIncomeComponent<T> { 
@@ -84,8 +86,7 @@ export class CommercialParkingIncomeComponent<T extends IParkingIncome> extends 
 @Component({
   selector: 'residential-parking-income',
   template: require('./parking-income.component.html'),
-  // github.com/webpack-contrib/style-loader/issues/123
-  styles: [require('./parking-income.css').toString()],
+  styles: [style],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResidentialParkingIncomeComponent<T extends IParkingIncome> extends ParkingIncomeComponent<T> { 

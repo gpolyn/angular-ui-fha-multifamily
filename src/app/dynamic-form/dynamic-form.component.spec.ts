@@ -60,14 +60,22 @@ describe('DynamicFormComponent', () => {
     expect(subj.value).toBe(minRate)
 	});
 
-  it('should enfore min 0 value for numerous input fields', ()=>{
-    const fields = [
-      'transaction-amount',
-      'loan-request-amount',
-      'loan-replacement-reserve',
-      'land-value',
-      'third-party-reports'
-    ]
+  it('should enfore max 100 value for title-and-recording, financing-fee under certain conditions ', ()=>{
+    const subjects = [
+      {field: 'title-and-recording', checkbox: 'title-and-recording-percent'},
+      {field: 'financing-fee', checkbox: 'financing-fee-is-percent-of-loan'}
+    ];
+    subjects.forEach( subj => {
+      let field = component.form.controls[subj.field];
+      let checkbox = component.form.controls[subj.checkbox];
+      checkbox.setValue(false);
+      field.setValue(101);
+      expect(field.value).toBe(101);
+      checkbox.setValue(true);
+      expect(field.value).toBe(100);
+      field.setValue(200);
+      expect(field.value).toBe(100);
+    });
   })
 
   it('should have expected form elements in the DOM', ()=>{
@@ -81,6 +89,8 @@ describe('DynamicFormComponent', () => {
       'repairs-or-improvements',
       'survey',
       'other',
+      'financing-fee',
+      'title-and-recording',
       'third-party-reports'
     ];
 
@@ -93,7 +103,7 @@ describe('DynamicFormComponent', () => {
 
   });
 
-  it('should have...', () => {
+  it('should have expected number of df-question components', () => {
       let eles = fixture.nativeElement.querySelectorAll("df-question");
       expect(eles.length).toBe(15);
   })
