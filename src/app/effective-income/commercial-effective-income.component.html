@@ -1,0 +1,22 @@
+<div id='commercial-income' class='income'>
+  <div>
+    <div class='left'>gross commercial</div>
+    <div class='right'>
+      <span id="gross-commercial-income" class="income">{{( gross | async ) }}</span>
+    </div>
+  </div>
+  <div>
+    <div class='left'>
+      <label for="commercial-occupancy-percent">occupancy rate<span class='required'>*</span></label>
+    </div>
+    <div class='right'>
+      <input id='commercial-occupancy-percent' class='occupancy-percent' name='occupancy-rate' type='number' [formControl]='occupancyPercent'>
+    </div>
+  </div>
+  <div id='effective-commercial-income'>
+    <div class='left'>commercial income</div>
+    <div class='right'>
+      <span id="effective-gross-commercial-income">{{( effectiveGrossIncome | async )}}</span>
+    </div>
+  </div>
+</div>
