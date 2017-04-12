@@ -38,7 +38,7 @@ export class OperatingExpensesComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder, private opexSvc: OperatingExpensesService, private ref: ChangeDetectorRef){
     this.totalGrossIncome = opexSvc.observableEffectiveIncome$;
-    this.noi = opexSvc.observableNOI$;
+    //this.noi = opexSvc.observableNOI$;
     this.opex = opexSvc.observableOpex$;
   }
 

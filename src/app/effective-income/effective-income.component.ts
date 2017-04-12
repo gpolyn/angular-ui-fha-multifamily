@@ -88,7 +88,7 @@ class EffectiveIncomeComponent implements OnInit, OnDestroy {
 
 @Component({
   selector: 'commercial-effective-income',
-  template: require('./effective-income.component.html')
+  template: require('./commercial-effective-income.component.html')
 })
 export class CommercialEffectiveIncomeComponent extends EffectiveIncomeComponent {
 
@@ -102,7 +102,7 @@ export class CommercialEffectiveIncomeComponent extends EffectiveIncomeComponent
 
 @Component({
   selector: 'residential-effective-income',
-  template: require('./effective-income.component.html')
+  template: require('./residential-effective-income.component.html')
 })
 export class ResidentialEffectiveIncomeComponent extends EffectiveIncomeComponent {
 
