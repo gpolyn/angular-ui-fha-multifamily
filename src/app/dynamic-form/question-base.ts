@@ -3,6 +3,7 @@ import { ValidatorFn} from '@angular/forms';
 export class QuestionBase<T>{
   value: T;
   key: string;
+  name: string;
   className: string;
   label: string;
   id: string;
@@ -21,6 +22,7 @@ export class QuestionBase<T>{
       required?: boolean,
       type?: string,
       id?: string,
+      name?: string,
       order?: number,
       controlType?: string,
       validators?: ValidatorFn|ValidatorFn[]
@@ -34,6 +36,7 @@ export class QuestionBase<T>{
     this.type = options.type || '';
     this.validators = options.validators;
     this.id = options.id;
+    this.name = options.name;
   }
 
 }

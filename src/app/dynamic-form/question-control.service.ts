@@ -23,6 +23,7 @@ export class QuestionControlService {
     for (let questionKey in questions){
       group[questionKey] =  new FormControl(questions[questionKey].value || '', questions[questionKey].validators);
     }
+    console.log('group is ', group)
     return new FormGroup(group, this.checkboxValidator);
   }
 
@@ -35,4 +36,16 @@ export class QuestionControlService {
     }
     return null;
   }
+
+  /*
+  checkboxValidator(g: FormGroup){
+    if (g.get('financing_fee_is_percent_of_loan').value && Number(g.get('financing_fee').value) > 100){
+      g.patchValue({'financing_fee': 100});
+    }
+    if (g.get('title_and_recording_is_percent_of_loan').value && Number(g.get('title_and_recording').value) > 100){
+      g.patchValue({'title_and_recording': 100});
+    }
+    return null;
+  }
+  */
 }
