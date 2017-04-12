@@ -10,8 +10,15 @@
         <commercial-other-income></commercial-other-income>
         <commercial-parking-income></commercial-parking-income>
         <residential-parking-income></residential-parking-income>
-        <commercial-effective-income></commercial-effective-income>
-        <residential-effective-income></residential-effective-income>
+        <div id='operating-income'>
+          <commercial-effective-income></commercial-effective-income>
+          <residential-effective-income></residential-effective-income>
+          <div id='effective-income-container'>
+          </div>
+        </div>
+      </div>
+      <div id='operating-expense'>
+        <operating-expenses></operating-expenses>
       </div>
       <div id='acquisition-costs'>
         <dynamic-form [questions]="questions" [questionsObj]='questionsObj'></dynamic-form>
