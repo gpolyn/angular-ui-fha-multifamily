@@ -46,9 +46,11 @@
     </div>
   </div>
   <template ngFor let-parkingIncome [ngForOf]="(incomes | async)">
-    <parking-income-source
-      [income]="parkingIncome"
-      (onDestroy)="handleDestroy($event)"
-    ></parking-income-source>
+    <div class='residential-parking-income'>
+      <parking-income-source
+        [income]="parkingIncome"
+        (onDestroy)="handleDestroy($event)"
+      ></parking-income-source>
+    </div>
   </template>
 </table>

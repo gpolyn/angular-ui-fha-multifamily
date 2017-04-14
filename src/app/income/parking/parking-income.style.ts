@@ -5,7 +5,13 @@ const style =
       width: 508px;
     }
 
-    table > div div {
+    :host /deep/ div.display {
+      height: 19px;
+    }
+
+    table > div div,
+    :host /deep/ .residential-parking-income div,
+    :host /deep/ .commercial-parking-income div {
       width: 113px;
       float: left;
       padding: 1px;
@@ -16,13 +22,28 @@ const style =
       -webkit-border-radius: 5px;
     }
 
-    table > div div:nth-child(3), 
-    table > div div:nth-child(4) {
+    table > div div:nth-last-child(-n+3),
+    :host /deep/ .residential-parking-income div:nth-last-child(-n+3),
+    :host /deep/ .commercial-parking-income div:nth-last-child(-n+3) {
       width: 115px;
     }
 
-    table > div div:nth-child(5) {
+    table > div div:nth-child(5),
+    :host /deep/ .residential-parking-income div:nth-child(5),
+    :host /deep/ .residential-parking-income div:nth-child(5) div,
+    :host /deep/ .commercial-parking-income div:nth-child(5) div,
+    :host /deep/ .commercial-parking-income div:nth-child(5) {
       width: 20px;
+    }
+
+    :host /deep/ .residential-parking-income div,
+    :host /deep/ .commercial-parking-income div {
+      text-align: center;
+    }
+
+    :host /deep/ .residential-parking-income .display,
+    :host /deep/ .commercial-parking-income .display {
+      border: 0;
     }
 
     table > div div:nth-child(2) {

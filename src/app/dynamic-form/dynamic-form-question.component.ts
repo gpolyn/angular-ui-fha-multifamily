@@ -4,13 +4,9 @@ import { QuestionBase }     from './question-base';
 @Component({
   selector: 'df-question',
   template: require('./dynamic-form-question.component.html'),
+  // template: require('./dynamic-form-question.component.alt.html'),
 })
 export class DynamicFormQuestionComponent {
   @Input() question: QuestionBase<any>;
   @Input() form: FormGroup;
-  get isValid() { return this.form.controls[this.question.key].valid; }
-  changeHandler (e: any) {
-    console.log('change is ', e.target.value);
-  }
-
 }

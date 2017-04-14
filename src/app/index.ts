@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { OpexService } from './opex.service';
+import { ApartmentIncomeService } from './apartment-income.service';
 import {OperatingExpensesModule} from './opex/opex.module';
 
 import {AppComponent} from './containers/app.component';
@@ -32,7 +33,7 @@ import {ResidentialEffectiveIncomeComponent, CommercialEffectiveIncomeComponent}
 
 import {IncomeServiceRevised, CommercialIncomeService, ResidentialIncomeService, IncomeStorageService} from './special.service';
 import { LoanCostsService } from './loan-costs.service';
-import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService, MyCommercialOtherIncomeService, MyResidentialOtherIncomeService } from './special.service';
+import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService, MyCommercialOtherIncomeService, MyResidentialOtherIncomeService, MyApartmentIncomeService } from './special.service';
 
 import { BSService } from './bs.service';
 import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
@@ -51,6 +52,8 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
   ],
   providers: [
     IncomeServiceRevised, 
+    ApartmentIncomeService,
+    MyApartmentIncomeService,
     CommercialIncomeService, 
     OpexService,
     BSService,

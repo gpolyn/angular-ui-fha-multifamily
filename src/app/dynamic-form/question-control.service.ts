@@ -7,21 +7,14 @@ import { QuestionBase } from './question-base';
 export class QuestionControlService {
   constructor() { }
 
-  toFormGroup(questions: QuestionBase<any>[] ) {
+  objectToFormGroup(questions: any, initialValues?: any) {
+    console.log('objectToFormGroup initialValue', initialValues)
     let group: any = {};
-
-    questions.forEach(question => {
-      group[question.key] =  new FormControl(question.value || '', question.validators);
-    });
-    group['counter-input'] = new FormControl('');
-    return new FormGroup(group);
-  }
-
-  objectToFormGroup(questions: any) {
-    let group: any = {};
+    let initialVal = null;
 
     for (let questionKey in questions){
-      group[questionKey] =  new FormControl(questions[questionKey].value || '', questions[questionKey].validators);
+      initialVal = initialValues[questions[questionKey].name];
+      group[questionKey] =  new FormControl(initialVal || '', questions[questionKey].validators);
     }
     console.log('group is ', group)
     return new FormGroup(group, this.checkboxValidator);

@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs/Observable';
+import {GUID, CURRENT_AUTHOR_ID} from '../app-config';
 import { ComponentFixture, inject, TestBed, async } from '@angular/core/testing';
 import { By }                                from '@angular/platform-browser';
 import { DebugElement, Input, Output, Component, EventEmitter } from '@angular/core';
@@ -8,6 +9,11 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { DynamicFormComponent} from './dynamic-form.component';
 import { DynamicFormQuestionComponent } from './dynamic-form-question.component';
 import { QuestionService }    from './question.service';
+import { LoanCostsService }          from '../loan-costs.service';
+import { LocalStorageService }          from '../localStorage.service';
+
+class FakeLoanCostsService {};
+class FakeLocalStorageService {};
 
 describe('DynamicFormComponent', () => {
 
@@ -19,7 +25,7 @@ describe('DynamicFormComponent', () => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, FormsModule], 
       declarations: [DynamicFormComponent, DynamicFormQuestionComponent],
-			providers: [ QuestionService]
+      providers: [ QuestionService, {provide: LocalStorageService, useClass: FakeLocalStorageService}, {provide: LoanCostsService, useClass: FakeLoanCostsService}, {provide: CURRENT_AUTHOR_ID, useValue: GUID}]
     });
 
     fixture = TestBed.createComponent(DynamicFormComponent);

@@ -4,6 +4,10 @@ const style =
       width: 508px;
     }
 
+    :host /deep/ div.display {
+      height: 19px;
+    }
+
     table > div div, 
     :host /deep/ .commercial-income div,
     :host /deep/ .other-residential-income div {

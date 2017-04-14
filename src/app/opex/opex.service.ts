@@ -32,7 +32,7 @@ export class OperatingExpensesService {
     private residentialIncome: ResidentialIncomeService,
     private opexBackend: OpexService 
   ){
-    console.log("Opex service", commercialIncome, residentialIncome);
+  // console.log("Opex service", commercialIncome, residentialIncome);
 
     //this.observableEffectiveIncome$ = Observable.combineLatest(commercialIncome.egi$, residentialIncome.egi$, (comm, residential) => { return comm + residential;});
     
@@ -44,7 +44,7 @@ export class OperatingExpensesService {
   }
 
   save<T extends IOpex>(data: T){
-    console.log("save opex", data); 
+    // console.log("save opex", data); 
     this.simpleOpex = data;
     this.observableOpex$.next(this.simpleOpex);
     this.simpleOpex['metadata'] = this.TOKEN;

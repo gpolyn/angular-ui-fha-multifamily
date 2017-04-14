@@ -27,7 +27,6 @@ export class AppComponent {
 
 
   constructor(service: QuestionService, private incomeService: IncomeServiceRevised) {
-    this.questions = service.getQuestions();
     this.questionsObj = service.getQuestionsObject();
   }
 

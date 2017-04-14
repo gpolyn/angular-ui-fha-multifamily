@@ -94,8 +94,11 @@ export class CommercialEffectiveIncomeComponent extends EffectiveIncomeComponent
 
   constructor(@Inject(APP_CONFIG) private config: IAppConfig, protected incomeService: CommercialIncomeService){
     super(incomeService);
+    console.log('CommercialEffectiveIncomeComponent')
     this.incomeTypeLabel = 'commercial';
-    this.maxOccupancyPercent = this.config.maxResidentialOccupancy;
+    //this.config = config;
+    this.maxOccupancyPercent = this.config.maxCommercialOccupancy;
+    console.log('CommercialEffectiveIncomeComponent max occupancy', this.maxOccupancyPercent)
   }
 
 }
@@ -109,7 +112,8 @@ export class ResidentialEffectiveIncomeComponent extends EffectiveIncomeComponen
   constructor(@Inject(APP_CONFIG) private config: IAppConfig, protected incomeService: ResidentialIncomeService){
     super(incomeService);
     this.incomeTypeLabel = 'residential';
-    this.maxOccupancyPercent = this.config.maxCommercialOccupancy;
+    this.maxOccupancyPercent = this.config.maxResidentialOccupancy;
+    console.log('ResidentialEffectiveIncomeComponent max occupancy', this.maxOccupancyPercent)
   }
 
 }

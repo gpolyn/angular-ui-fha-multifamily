@@ -1,6 +1,7 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import { ApartmentIncome } from './apartment-income';
 import { IncomeServiceRevised } from './income.service';
+import { MyApartmentIncomeService } from '../../special.service';
 import './apartment-income.css';
 
 export interface ApartmentIncomeChange {
@@ -13,7 +14,7 @@ export interface ApartmentIncomeChange {
   // github.com/webpack-contrib/style-loader/issues/123
   styles: [require('./apartment-income.css').toString()],
   template: require('./apartment-income.component.html'),
-	providers: [IncomeServiceRevised]
+	providers: [IncomeServiceRevised, MyApartmentIncomeService]
 })
 
 export class ApartmentIncomeComponent implements OnInit {
@@ -22,7 +23,7 @@ export class ApartmentIncomeComponent implements OnInit {
 
   apartmentIncomes: Array<ApartmentIncome> = [];
 
-  constructor(private incomeService: IncomeServiceRevised<ApartmentIncome>){ }
+  constructor(private incomeService: IncomeServiceRevised<ApartmentIncome>, private altIncomeSvc: MyApartmentIncomeService){ }
 
   private helpful = (incomes) => this.apartmentIncomes = [...incomes, new ApartmentIncome()].reverse(); // wanted a certain order
 
@@ -31,6 +32,8 @@ export class ApartmentIncomeComponent implements OnInit {
   }
 
   handleSave(e: any): void {
+    console.log('saving apartment income')
+    this.altIncomeSvc.addIncome(e);
     this.incomeService.saveIncome(e).then(this.helpful);
     this.incomeService.totalIncome().then((income) => {
       this.incomeChange.emit(<ApartmentIncomeChange>{isCommercial: false, incomeChange: income});
@@ -38,6 +41,8 @@ export class ApartmentIncomeComponent implements OnInit {
   }
 
   handleDestroy(e: any): void {
+    console.log('destroying income')
+    this.altIncomeSvc.removeIncome(e.id)
     this.incomeService.deleteIncome(e).then(this.helpful);
     this.incomeService.totalIncome().then((income) => {
       this.incomeChange.emit(<ApartmentIncomeChange>{isCommercial: false, incomeChange: income});
