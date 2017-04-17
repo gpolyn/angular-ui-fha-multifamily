@@ -24,6 +24,8 @@ export class OperatingExpensesService {
 
   private effectiveIncome: BehaviorSubject<number>;
   observableEffectiveIncome$: Observable<number>;
+  commEgi$: Observable<number>;
+  residentialEgi$: Observable<number>;
 
   observableNOI$: Observable<number>;
 
@@ -34,8 +36,11 @@ export class OperatingExpensesService {
   ){
   // console.log("Opex service", commercialIncome, residentialIncome);
 
-    //this.observableEffectiveIncome$ = Observable.combineLatest(commercialIncome.egi$, residentialIncome.egi$, (comm, residential) => { return comm + residential;});
+  //this.observableEffectiveIncome$ = Observable.combineLatest(commercialIncome.egi$, residentialIncome.egi$, (comm, residential) => { return comm + residential;});
     
+    this.residentialEgi$ = commercialIncome.egi$;
+    commercialIncome.egi$.subscribe(val => this.residentialEgi$ = val);
+    this.commEgi$ = commercialIncome.egi$;
     this.opex = new BehaviorSubject<IOpex>(<IOpex>{opex: 30, isPercent: true});
     this.observableOpex$ = this.opex;
 

@@ -1,27 +1,49 @@
-import { Injectable, Injector, ReflectiveInjector } from '@angular/core';
+import { Optional, Injectable, Injector, ReflectiveInjector } from '@angular/core';
 import { IIncome } from './shared/interfaces';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import {LocalStorageService} from './localStorage.service'
 import { IIncome2, ICommercialIncomeService, IResidentialIncomeService } from './income-service.interface';
 
 @Injectable()
-export class IncomeStorageService {
+class IncomeStorageService {
 
-  STORAGE_ID = 'sizemymultifamilyloan_angular_incomes';
+  STORAGE_ID = 'sizemymultifamilyloan_angular_v1';
+  storageSpace: string;
+  private injector: Injector;
+  private localStorageSvc: LocalStorageService;
 
-	get (): IIncome[] {
-    return JSON.parse(localStorage.getItem(this.STORAGE_ID) || '[]');
+  constructor(storageSpace: string = ''){
+    this.storageSpace = storageSpace;
+    this.injector = ReflectiveInjector.resolveAndCreate([LocalStorageService]);
+    this.localStorageSvc = this.injector.get(LocalStorageService);
+  }
+
+	get(): IIncome[] {
+  const allData = JSON.parse(localStorage.getItem(this.STORAGE_ID) || '{}');
+  const aData = this.localStorageSvc.get(this.storageSpace);
+  if (Object.keys(aData).length === 0){
+    return [];
+    } else {
+      return aData;
+    }
+    //return allData[this.storageSpace] || [];
+  //return allData || [];
 	}
 
 	put(incomes: IIncome[]) {
+    console.log('about to add', incomes);
+    /*
     const type = incomes[0].type;
-    const filteredIncomes = this.get().filter( income => income.type !== type) || [];
-		localStorage.setItem(this.STORAGE_ID, JSON.stringify(filteredIncomes.concat(incomes)));
+    const allData = JSON.parse(localStorage.getItem(this.STORAGE_ID) || '{}');
+    allData[this.storageSpace] = incomes;
+		localStorage.setItem(this.STORAGE_ID, JSON.stringify(allData));
+    */
+    this.localStorageSvc.put(this.storageSpace, incomes);
 	}
 }
 
-@Injectable()
-export class IncomeServiceRevised {
+class IncomeServiceRevised {
 
   private lastId: number = 0;
   private incomes: Array<IIncome> = [];
@@ -74,18 +96,18 @@ export class IncomeServiceRevised {
 
 }
 
-export class CommercialIncomeService {
+abstract class IncomeServiceBase {
 
-  private injector: Injector = ReflectiveInjector.resolveAndCreate([IncomeStorageService]);
+//private injector: Injector = ReflectiveInjector.resolveAndCreate([IncomeStorageService]);
   chincomes$: any;
   totalGrossIncome$: any;
   egi$: any;
   private incomeService: any;
   observableOccupancy$: any;
 
-  constructor(){
+  constructor(svc: IncomeStorageService){
 
-    this.incomeService = new IncomeServiceRevised(this.injector.get(IncomeStorageService));
+    this.incomeService = new IncomeServiceRevised(svc);
     this.chincomes$ = this.incomeService.chincomes$;
     this.totalGrossIncome$ = this.incomeService.totalGrossIncome$;
     this.egi$ = this.incomeService.egi$;
@@ -98,13 +120,48 @@ export class CommercialIncomeService {
   addIncome(e: IIncome) { return this.incomeService.addIncome(e); }
 
   removeIncome(e: IIncome) { return this.incomeService.removeIncome(e); }
+}
+
+@Injectable()
+export class CommercialIncomeService extends IncomeServiceBase {
+  
+  constructor(){super(new IncomeStorageService('commercialIncomes'));}
+  
+};
+
+@Injectable()
+export class ResidentialIncomeService extends IncomeServiceBase {
+
+  constructor(){super(new IncomeStorageService('residentialIncomes'));}
 
 };
 
-export class ResidentialIncomeService extends CommercialIncomeService {
+@Injectable()
+export class GrossIncomeService {
 
-  constructor(){
-    super(); 
+  private grossIncome: BehaviorSubject<number>;
+  grossIncome$: Observable<number>;
+
+  constructor(private commercialIncomeSvc: CommercialIncomeService, private residentialIncomeSvc: ResidentialIncomeService){
+    
+    let src1 = 0;
+    let src2 = 0;
+    this.grossIncome = new BehaviorSubject<number>(0);
+    this.grossIncome$ = this.grossIncome.asObservable();
+
+    const getTotalGross = () => { 
+      this.grossIncome.next(src1 + src2);
+    };
+
+    commercialIncomeSvc.egi$.subscribe(val => { 
+      src1 = val;
+      getTotalGross();
+    });
+
+    residentialIncomeSvc.egi$.subscribe(val => { 
+      src2 = val;
+      getTotalGross();
+    });
   }
 
 };
@@ -138,6 +195,15 @@ abstract class MultiIncomeService {
   }
 
 }
+
+@Injectable()
+export class MyApartmentIncomeService extends MultiIncomeService {
+
+  constructor(commSvc: CommercialIncomeService, resSvc: ResidentialIncomeService){ 
+    super(commSvc, resSvc, false, 'apartmentIncome');
+  }
+
+};
 
 
 @Injectable()

@@ -17,7 +17,9 @@ export interface IOpex {
 @Component({
   selector: 'operating-expenses',
   template: `
-    <div id="gross-income-container">effective gross income: {{ ( totalGrossIncome | async )}}</div>
+  <div>rcli</div>
+    <div id="gross-income-container">effective gross income: {{ ( residentialEgi$ | async )}}</div>
+    <div>rpssp</div>
     <form [formGroup]="opexForm" novalidate>
       <input type='number' formControlName="opex">
       <input type='checkbox' formControlName="isPercent">

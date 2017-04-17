@@ -31,7 +31,7 @@ import {HeroDetailComponent1} from './input-and-checkbox/input-and-checkbox.comp
 import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox.component';
 import {ResidentialEffectiveIncomeComponent, CommercialEffectiveIncomeComponent} from './effective-income/effective-income.component';
 
-import {IncomeServiceRevised, CommercialIncomeService, ResidentialIncomeService, IncomeStorageService} from './special.service';
+import { CommercialIncomeService, ResidentialIncomeService, GrossIncomeService} from './special.service';
 import { LoanCostsService } from './loan-costs.service';
 import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService, MyCommercialOtherIncomeService, MyResidentialOtherIncomeService, MyApartmentIncomeService } from './special.service';
 
@@ -51,7 +51,7 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     OtherIncomeWrapperModule
   ],
   providers: [
-    IncomeServiceRevised, 
+    GrossIncomeService,
     ApartmentIncomeService,
     MyApartmentIncomeService,
     CommercialIncomeService, 
@@ -66,7 +66,6 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     { provide: APP_CONFIG, useValue: DI_CONFIG },
     { provide: CURRENT_AUTHOR_ID, useValue: GUID},
     ResidentialIncomeService,
-    IncomeStorageService
     ],
   declarations: [
     AppComponent,

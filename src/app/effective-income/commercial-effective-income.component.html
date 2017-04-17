@@ -2,7 +2,7 @@
   <div>
     <div class='left'>gross commercial</div>
     <div class='right'>
-      <span id="gross-commercial-income" class="income">{{( gross | async ) }}</span>
+      <span id="gross-commercial-income" class="income">{{( gross | async | currency:'USD':true)}}</span>
     </div>
   </div>
   <div>
@@ -16,7 +16,7 @@
   <div id='effective-commercial-income'>
     <div class='left'>commercial income</div>
     <div class='right'>
-      <span id="effective-gross-commercial-income">{{( effectiveGrossIncome | async )}}</span>
+      <span id="effective-gross-commercial-income">{{( effectiveGrossIncome | async | currency:'USD':true)}}</span>
     </div>
   </div>
 </div>

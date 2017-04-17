@@ -1,12 +1,13 @@
 import {Component, Output, EventEmitter} from '@angular/core';
 import { QuestionService } from '../dynamic-form/question.service';
-import { IncomeServiceRevised } from '../special.service';
 import { BSService } from '../bs.service';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {GrossIncomeService} from '../special.service';
 
 @Component({
   selector: 'fha-app',
-  providers: [QuestionService],
+  providers: [QuestionService, GrossIncomeService],
   template: require('./app.component.html')
 })
 export class AppComponent {
@@ -24,10 +25,11 @@ export class AppComponent {
 	incomes: Observable<any[]>;
   maxCommercialOccupancy: number = 90;
   maxResidentialOccupancy: number = 80;
+  grossIncome$: Observable<number>;
 
-
-  constructor(service: QuestionService, private incomeService: IncomeServiceRevised) {
+  constructor(service: QuestionService, grossService: GrossIncomeService) {
     this.questionsObj = service.getQuestionsObject();
+    this.grossIncome$ = grossService.grossIncome$;
   }
 
   handleEGI(e:any){
