@@ -1,79 +1,64 @@
 import { ChangeDetectorRef, OnDestroy, Input, ChangeDetectionStrategy, Component, OnInit, OnChanges, Output, Injector, EventEmitter} from '@angular/core';
-import { CommercialIncomeService, ResidentialIncomeService } from '../special.service';
+import { CommercialIncomeService, ResidentialIncomeService} from '../special.service';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { FormBuilder, FormGroup, ValidatorFn, AbstractControl } from '@angular/forms';
 import { OperatingExpensesService } from './opex.service';
 
-function jsonEqual(a,b) {
-  return JSON.stringify(a) === JSON.stringify(b);
-}
-
-export interface IOpex {
-  opex: number;
-  isPercent: boolean;  
+interface IOpex {
+  operating_expenses: number;
+  operating_expenses_is_percent_of_effective_gross_income: boolean;  
 }
 
 @Component({
   selector: 'operating-expenses',
   template: `
-  <div>rcli</div>
-    <div id="gross-income-container">effective gross income: {{ ( residentialEgi$ | async )}}</div>
-    <div>rpssp</div>
-    <form [formGroup]="opexForm" novalidate>
-      <input type='number' formControlName="opex">
-      <input type='checkbox' formControlName="isPercent">
-    </form>
-    <div id="noi-container">net operating income: {{ (noi | async )}}</div>
+    <div id='operating-expense' [formGroup]="opexForm" novalidate>
+      <div class='left'>
+        <label for='total'>total operating expenses<span class='required'>*</span></label>
+      </div>
+      <div class='right'>
+        <input id='total' type='number' formControlName="operating_expenses">
+        <input name='totalOperatingExpenseIsPercent' id='totalOperatingExpenseIsPercent' value='true' type='checkbox' formControlName="operating_expenses_is_percent_of_effective_gross_income">
+        <label for='totalOperatingExpenseIsPercent'>%</label>
+      </div>
+    </div>
+    <div id="operating">
+      <div class='left'>net operating income</div>
+      <div class='right'>
+        <span id='net-operating-income'>{{ noi | async | currency:'USD':true}}</span>
+      </div>
+    </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [OperatingExpensesService]
 })
 
 export class OperatingExpensesComponent implements OnInit, OnDestroy {
 
   opexForm: FormGroup;
-  private incomeService: OperatingExpensesService;
-  totalGrossIncome: Observable<number>;
   noi: Observable<number>;
-  opex: BehaviorSubject<IOpex>;
   private sub: any;
 
-  constructor(private fb: FormBuilder, private opexSvc: OperatingExpensesService, private ref: ChangeDetectorRef){
-    this.totalGrossIncome = opexSvc.observableEffectiveIncome$;
-    //this.noi = opexSvc.observableNOI$;
-    this.opex = opexSvc.observableOpex$;
+  constructor(private fb: FormBuilder, private opexSvc: OperatingExpensesService, private ref: ChangeDetectorRef){ }
+
+  ngOnInit() {
+    this.opexForm = this.fb.group(this.opexSvc.observableOpex$.getValue(), {validator: this.maxMinEnforcer});
+		this.sub = this.opexForm.valueChanges.subscribe(this.opexSvc.save);
+    this.noi = this.opexSvc.observableNOI$;
   }
 
   ngOnDestroy(){
     this.sub.unsubscribe();
   }
 
-  handleOpexChanges<T extends IOpex>(data: T){
-    console.log("handleOpexChanges", data); 
-    if (!this.doNotSave){
-      this.opexSvc.save(data);
-    }
-    this.doNotSave = false;
-  }
-
-  doNotSave: boolean = false;
-
-  ngOnInit() {
-
-    this.opexForm = this.fb.group(this.opex.getValue(), {validator: this.maxMinEnforcer});
-    //this.opex.subscribe((data)=> { if (data.isExternal) { this.doNotSave = true;}})
-		this.sub = this.opexForm.valueChanges.subscribe(this.handleOpexChanges.bind(this));
-
-  }
-
   maxMinEnforcer(control: AbstractControl): {[key: string]: boolean} {
-
-		const opex = control.get('opex').value;
-		const isPercent = control.get('isPercent').value;
+		const opex = control.get('operating_expenses').value;
+		const isPercent = control.get('operating_expenses_is_percent_of_effective_gross_income').value;
 		if (opex < 0) {
-			control.patchValue({opex: 0});
+			control.patchValue({operating_expenses: 0});
 		} else if (isPercent && opex > 100) {
-			control.patchValue({opex: 100});
+			control.patchValue({operating_expenses: 100});
     }
 
 		return null;

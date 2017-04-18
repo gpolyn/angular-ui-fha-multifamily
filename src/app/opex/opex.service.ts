@@ -1,59 +1,57 @@
 import { Injectable, EventEmitter, Optional} from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import { CommercialIncomeService, ResidentialIncomeService} from '../special.service';
+import { GrossIncomeService} from '../special.service';
 import { OpexService } from '../opex.service';
 
 export interface IOpex {
-  opex: number;
-  isPercent: boolean;  
-}
-
-export interface IServiceContainer extends IOpex {
-  metadata?: any;
+  operating_expenses: number;
+  operating_expenses_is_percent_of_effective_gross_income: boolean;  
 }
 
 @Injectable()
 export class OperatingExpensesService {
 
-  private opex: BehaviorSubject<IServiceContainer>; 
-  observableOpex$: BehaviorSubject<IServiceContainer>;
-  private simpleOpex: IOpex;
-  readonly TOKEN: string = 'fart';
-
-  private effectiveIncome: BehaviorSubject<number>;
-  observableEffectiveIncome$: Observable<number>;
-  commEgi$: Observable<number>;
-  residentialEgi$: Observable<number>;
-
+  private opex: IOpex;
+  private gross: number = 0;
+  observableOpex$: BehaviorSubject<IOpex>;
+  private noi$: BehaviorSubject<number>;
   observableNOI$: Observable<number>;
 
   constructor(
-    @Optional() private commercialIncome: CommercialIncomeService,
-    private residentialIncome: ResidentialIncomeService,
+    private grossIncomeService: GrossIncomeService,
     private opexBackend: OpexService 
   ){
-  // console.log("Opex service", commercialIncome, residentialIncome);
+    this.noi$ = new BehaviorSubject<number>(0);
+    this.observableNOI$ = this.noi$.asObservable();
+    this.calculateNOI = this.calculateNOI.bind(this);
+    this.opexBackend.opex$.subscribe(val => {
+      this.opex = val;
+      this.calculateNOI();
+    });
+    this.grossIncomeService.grossIncome$.subscribe(val => {
+      this.gross = val;
+      this.calculateNOI();
+    });
+    this.observableOpex$ = new BehaviorSubject<IOpex>(this.opex);
+    this.save = this.save.bind(this);
+    this.calculateNOI = this.calculateNOI.bind(this);
+  }
 
-  //this.observableEffectiveIncome$ = Observable.combineLatest(commercialIncome.egi$, residentialIncome.egi$, (comm, residential) => { return comm + residential;});
-    
-    this.residentialEgi$ = commercialIncome.egi$;
-    commercialIncome.egi$.subscribe(val => this.residentialEgi$ = val);
-    this.commEgi$ = commercialIncome.egi$;
-    this.opex = new BehaviorSubject<IOpex>(<IOpex>{opex: 30, isPercent: true});
-    this.observableOpex$ = this.opex;
+  calculateNOI(){
+    let noi;
 
-    this.observableNOI$ = Observable.combineLatest(this.observableEffectiveIncome$, this.observableOpex$, (inc,opex)=>{ return opex.isPercent ? ( inc * (1 - opex.opex/100.0) ) : ( inc - opex.opex ) ;});
-    opexBackend.opex$.filter(opex => opex.metadata == this.TOKEN).subscribe(result => console.log("hey baby", result));
+    if (this.opex.operating_expenses_is_percent_of_effective_gross_income === true){
+      noi = this.gross * (1 - this.opex.operating_expenses/100.0);
+    } else {
+      noi = this.gross - this.opex.operating_expenses;
+    }
+
+    this.noi$.next(noi);
   }
 
   save<T extends IOpex>(data: T){
-    // console.log("save opex", data); 
-    this.simpleOpex = data;
-    this.observableOpex$.next(this.simpleOpex);
-    this.simpleOpex['metadata'] = this.TOKEN;
-    this.opexBackend.save(this.simpleOpex)
+    this.opexBackend.save(data)
   }
 
 }
