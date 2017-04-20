@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 
 import { ReactiveFormsModule, FormsModule, FormBuilder} from '@angular/forms';
 
@@ -12,15 +12,17 @@ const initialOpex = {
   operating_expenses_is_percent_of_effective_gross_income: true
 }
 
+const opex$: BehaviorSubject<any> = new BehaviorSubject<any>(initialOpex)
+
 const opexServiceStub = {
-  observableOpex$: new BehaviorSubject<any>(initialOpex),
+  observableOpex$: opex$,
   observableNOI$: ( new BehaviorSubject<number>(10) ).asObservable(),
 	save: (data: any) => {}
 }
 const initialNoi = 20;
 
 class FakeOperatingExpensesService {
-  observableOpex$: BehaviorSubject<any> = new BehaviorSubject<any>(initialOpex);
+  observableOpex$: BehaviorSubject<any> = opex$;
   observableNOI$: BehaviorSubject<number> = new BehaviorSubject<number>(initialNoi);
   save(data: any){}
 };
@@ -39,6 +41,7 @@ let opexSvc2: OperatingExpensesService;
 describe('OperatingExpenses', () => {
 
   beforeEach(() => {
+    opex$.next(initialOpex);
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, FormsModule], 
       declarations: [OperatingExpensesComponent],
@@ -50,6 +53,7 @@ describe('OperatingExpenses', () => {
 
     fixture = TestBed.createComponent(OperatingExpensesComponent);
     component = fixture.componentInstance;
+    component.ngOnInit();
     fixture.detectChanges();
 		opex = component.opexForm.controls['operating_expenses'];
 		opexIsPercent = component.opexForm.controls['operating_expenses_is_percent_of_effective_gross_income'];
@@ -73,12 +77,9 @@ describe('OperatingExpenses', () => {
     expect(ele.checked).toBe(initialOpex.operating_expenses_is_percent_of_effective_gross_income);
   })
 
-  xit('should update form from observableOpex', () =>{
+  it('should update form from observableOpex', () =>{
     const nextOpex = {operating_expenses_is_percent_of_effective_gross_income: !initialOpex.operating_expenses_is_percent_of_effective_gross_income, operating_expenses: initialOpex.operating_expenses + 10};
-    opexSvc.observableOpex$.next(nextOpex);
-    fixture.detectChanges();
-		opex = component.opexForm.controls['operating_expenses'];
-		opexIsPercent = component.opexForm.controls['operating_expenses_is_percent_of_effective_gross_income'];
+    opex$.next(nextOpex);
     expect(opexIsPercent.value).toBe(nextOpex.operating_expenses_is_percent_of_effective_gross_income);
     expect(opex.value).toEqual(nextOpex.operating_expenses);
   })

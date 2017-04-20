@@ -37,18 +37,25 @@ export class OperatingExpensesComponent implements OnInit, OnDestroy {
 
   opexForm: FormGroup;
   noi: Observable<number>;
-  private sub: any;
+  private subs: any[] = [];
 
-  constructor(private fb: FormBuilder, private opexSvc: OperatingExpensesService){ }
+  constructor(private fb: FormBuilder, private opexSvc: OperatingExpensesService){
+    this.handleUpstreamOpexChanges = this.handleUpstreamOpexChanges.bind(this);
+  }
 
   ngOnInit() {
     this.opexForm = this.fb.group(this.opexSvc.observableOpex$.getValue(), {validator: this.maxMinEnforcer});
-		this.sub = this.opexForm.valueChanges.subscribe(this.opexSvc.save);
+    this.subs.push(this.opexForm.valueChanges.subscribe(this.opexSvc.save));
+    this.subs.push(this.opexSvc.observableOpex$.subscribe(this.handleUpstreamOpexChanges));
     this.noi = this.opexSvc.observableNOI$;
   }
 
+  handleUpstreamOpexChanges(opex: any){
+    this.opexForm.setValue(opex);
+  }
+
   ngOnDestroy(){
-    this.sub.unsubscribe();
+    this.subs.forEach(sub => sub.unsubscribe());
   }
 
   maxMinEnforcer(control: AbstractControl): {[key: string]: boolean} {
