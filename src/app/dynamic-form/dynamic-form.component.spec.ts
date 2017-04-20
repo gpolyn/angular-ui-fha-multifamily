@@ -12,8 +12,15 @@ import { QuestionService }    from './question.service';
 import { LoanCostsService }          from '../loan-costs.service';
 import { LocalStorageService }          from '../localStorage.service';
 
-class FakeLoanCostsService {};
-class FakeLocalStorageService {};
+class FakeLoanCostsService {
+};
+class FakeLocalStorageService { 
+  get(data: any) { 
+    return {data: []};
+  }
+  put(arg1: any, arg2: any){
+  }
+};
 
 describe('DynamicFormComponent', () => {
 

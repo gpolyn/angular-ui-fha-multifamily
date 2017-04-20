@@ -2,6 +2,7 @@ import {  MyCommercialOtherIncomeService,
           MyResidentialOtherIncomeService,
           MyResidentialParkingIncomeService,
           MyCommercialParkingIncomeService,
+          GrossIncomeService,
           CommercialIncomeService,
           ResidentialIncomeService} from './special.service';
 import { IIncome2 } from './income-service.interface';
@@ -52,6 +53,25 @@ describe('MyCommercialParkingIncomeService', () => {
   tests();
 
 });
+
+describe('GrossIncomeService', () => {
+
+  let service: GrossIncomeService;
+
+  it('should report correct grossIncome$', () => {
+    const commEgi = 20;
+    const resEgi = 2 * commEgi;
+    const commercialEGI$: BehaviorSubject<number> = new BehaviorSubject<number>(commEgi);
+    const residentialEGI$: BehaviorSubject<number> = new BehaviorSubject<number>(resEgi);
+    const fakeCommercialIncomeSvc = { egi$: commercialEGI$ };
+    const fakeResidentialIncomeSvc = { egi$: residentialEGI$ };
+    service = new GrossIncomeService(fakeCommercialIncomeSvc as CommercialIncomeService, fakeResidentialIncomeSvc as ResidentialIncomeService);
+    let gross;
+    service.grossIncome$.subscribe(val => gross = val);
+    expect(gross).toBe(commEgi + resEgi);
+  });
+
+})
 
 describe('MyCommercialOtherIncomeService', () => {
 

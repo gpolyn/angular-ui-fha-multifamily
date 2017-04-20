@@ -1,12 +1,19 @@
 import { Injectable, EventEmitter, Optional} from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { GrossIncomeService} from '../special.service';
-import { OpexService } from '../opex.service';
 
 export interface IOpex {
   operating_expenses: number;
   operating_expenses_is_percent_of_effective_gross_income: boolean;  
+}
+
+export abstract class AbstractGrossIncomeService {
+  grossIncome$: Observable<number>;
+}
+
+export abstract class AbstractOperatingExpenseService {
+  save<T extends IOpex>(data: T): void {};
+  opex$: Observable<IOpex>;
 }
 
 @Injectable()
@@ -19,8 +26,8 @@ export class OperatingExpensesService {
   observableNOI$: Observable<number>;
 
   constructor(
-    private grossIncomeService: GrossIncomeService,
-    private opexBackend: OpexService 
+    private grossIncomeService: AbstractGrossIncomeService,
+    private opexBackend: AbstractOperatingExpenseService
   ){
     this.noi$ = new BehaviorSubject<number>(0);
     this.observableNOI$ = this.noi$.asObservable();

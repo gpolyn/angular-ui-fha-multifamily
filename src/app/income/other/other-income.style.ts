@@ -64,5 +64,15 @@ const style =
       text-align: center;
     }
 
+    :host /deep/ .destroy-item:hover {
+      color: #af5b5e;
+    }
+
+    :host /deep/ .destroy-item {
+      display: block;
+      <!-- margin: auto 0; -->
+
+    }
+
   `;
 export default style;

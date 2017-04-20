@@ -11,6 +11,7 @@ import {AppComponent} from './containers/app.component';
 
 import { OtherIncomeWrapperModule} from './income/other-income-wrapper.module';
 import { ParkingIncomeWrapperModule} from './income/parking-income-wrapper.module';
+import { OpexFacadeModule } from './opex-facade.module';
 
 import {ApartmentIncomeModule} from './income/apartment/apartment-income.module';
 
@@ -47,6 +48,7 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     ApartmentIncomeModule, 
     //ParkingIncomeModule,
     ParkingIncomeWrapperModule,
+    OpexFacadeModule,
     //OtherIncomeModule,
     OtherIncomeWrapperModule
   ],

@@ -30,8 +30,7 @@ interface IOpex {
       </div>
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [OperatingExpensesService]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class OperatingExpensesComponent implements OnInit, OnDestroy {
@@ -40,7 +39,7 @@ export class OperatingExpensesComponent implements OnInit, OnDestroy {
   noi: Observable<number>;
   private sub: any;
 
-  constructor(private fb: FormBuilder, private opexSvc: OperatingExpensesService, private ref: ChangeDetectorRef){ }
+  constructor(private fb: FormBuilder, private opexSvc: OperatingExpensesService){ }
 
   ngOnInit() {
     this.opexForm = this.fb.group(this.opexSvc.observableOpex$.getValue(), {validator: this.maxMinEnforcer});

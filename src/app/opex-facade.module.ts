@@ -1,0 +1,15 @@
+import { NgModule }           from '@angular/core';
+import { OperatingExpensesModule } from './opex/opex.module';
+import { AbstractGrossIncomeService, AbstractOperatingExpenseService } from './opex/opex.service';
+import {GrossIncomeService} from './special.service';
+import { OpexService } from './opex.service';
+
+@NgModule({
+exports: [OperatingExpensesModule],
+providers: [
+  { provide: AbstractGrossIncomeService, useClass: GrossIncomeService },
+  { provide: AbstractOperatingExpenseService, useClass: OpexService },
+]
+})
+
+export class OpexFacadeModule { };
