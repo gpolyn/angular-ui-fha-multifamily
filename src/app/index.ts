@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { OpexService } from './opex.service';
 import { ApartmentIncomeService } from './apartment-income.service';
 import {OperatingExpensesModule} from './opex/opex.module';
+import {EffectiveIncomeModule} from './effective-income/effective-income.module';
 
 import {AppComponent} from './containers/app.component';
 
@@ -30,7 +31,6 @@ import { DynamicFormComponent }         from './dynamic-form/dynamic-form.compon
 import { DynamicFormQuestionComponent } from './dynamic-form/dynamic-form-question.component';
 import {HeroDetailComponent1} from './input-and-checkbox/input-and-checkbox.component';
 import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox.component';
-import {ResidentialEffectiveIncomeComponent, CommercialEffectiveIncomeComponent} from './effective-income/effective-income.component';
 
 import { CommercialIncomeService, ResidentialIncomeService, GrossIncomeService} from './special.service';
 import { LoanCostsService } from './loan-costs.service';
@@ -45,6 +45,7 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     FormsModule,
     ReactiveFormsModule,
     OperatingExpensesModule,
+    EffectiveIncomeModule,
     ApartmentIncomeModule, 
     //ParkingIncomeModule,
     ParkingIncomeWrapperModule,
@@ -79,8 +80,6 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     ProjectStatusComponent,
     HeroDetailComponent1,
     CounterInputComponent,
-    CommercialEffectiveIncomeComponent,
-    ResidentialEffectiveIncomeComponent,
     DynamicFormComponent, DynamicFormQuestionComponent,
   ],
   bootstrap: [AppComponent]

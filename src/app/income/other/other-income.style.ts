@@ -40,6 +40,8 @@ const style =
     :host /deep/ .commercial-income div:nth-child(4),
     :host /deep/ .commercial-income div:nth-child(4) div {
       width: 20px;
+      border: 0px;
+      margin: 1px;
     }
 
     table > div div.add,
@@ -70,8 +72,16 @@ const style =
 
     :host /deep/ .destroy-item {
       display: block;
+      border: 0px;
       <!-- margin: auto 0; -->
 
+    }
+
+    :host /deep/ i.material-icons {
+      position: relative;
+      right:82px;
+      top:-8px;
+      font-size:24px;
     }
 
   `;

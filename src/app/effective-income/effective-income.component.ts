@@ -5,6 +5,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { ParkingIncome } from '../shared/parking-income';
 import 'rxjs/add/operator/filter'; 
 import { CommercialIncomeService, ResidentialIncomeService } from '../special.service';
+import { AbstractCommercialIncomeService, AbstractResidentialIncomeService } from './effective-income.service';
 import { IAppConfig, APP_CONFIG } from '../app-config';
 
 export interface EffectiveIncome {
@@ -31,6 +32,10 @@ class EffectiveIncomeComponent implements OnInit, OnDestroy {
   }
 
 	ngOnInit(){
+
+    if (this.incomeService.observableOccupancy$.getValue() > this.maxOccupancyPercent){
+      this.incomeService.observableOccupancy$.next(this.maxOccupancyPercent);
+    }
 
     const validators = [Validators.required];
 

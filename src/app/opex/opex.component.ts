@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, OnDestroy, Input, ChangeDetectionStrategy, Component, OnInit, OnChanges, Output, Injector, EventEmitter} from '@angular/core';
+import { OnDestroy, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommercialIncomeService, ResidentialIncomeService} from '../special.service';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
