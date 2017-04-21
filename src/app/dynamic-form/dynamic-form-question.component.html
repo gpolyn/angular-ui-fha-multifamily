@@ -1,5 +1,5 @@
 <div [id]="question.containerId || ''" [formGroup]="form">
-  <label [attr.for]="question.key">{{question.label}}
+  <label *ngIf="question.displayLabel" [attr.for]="question.key">{{question.label}}
     <span *ngIf="question.required" class='required'>*</span>
   </label>
   <input *ngIf="question.controlType === 'checkbox'" type='checkbox' [formControlName]="question.key" [id]="question.key" value='true' />
@@ -9,8 +9,11 @@
     <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
   </select>
   <div *ngIf="question.controlType==='radio'">
-    <label *ngFor="let opt of question.options">
-      <input type="radio" [value]="opt.key" [formControlName]="question.key">{{opt.value}}
-    </label>
+    <template ngFor let-opt [ngForOf]="question.options">
+      <label [attr.for]='opt.id'>{{opt.value}}</label>
+      <input type="radio" [id]="opt.id" [value]="opt.value" [formControlName]="question.key">
+    </template>
+      <!-- <input type="radio" [id]="opt.id" [formControlName]="question.key"> -->
+    <!-- <input type="radio" [value]="opt.key" [formControlName]="question.key"> -->
   </div>
 </div>

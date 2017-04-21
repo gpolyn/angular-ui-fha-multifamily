@@ -1,15 +1,24 @@
 import {NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-//import {MSAWaiverComponent} from './msa-waiver.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProjectComponent } from './project.component';
+import { MSAWaiverComponent } from './msa-waiver.component';
+import { ProjectStatusComponent } from './project-status.component';
 
 @NgModule({
-  imports: [ CommonModule, FormsModule],
+  imports: [ 
+    CommonModule, 
+    FormsModule, 
+    ReactiveFormsModule
+  ],
   declarations: [
+    ProjectComponent,
+    ProjectStatusComponent,  
+    MSAWaiverComponent
   ],
   exports: [
-  ],
+    ProjectComponent
+  ]
 })
 
 export class ProjectCharacteristicsModule { }

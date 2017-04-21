@@ -7,6 +7,7 @@ import { OpexService } from './opex.service';
 import { ApartmentIncomeService } from './apartment-income.service';
 import {OperatingExpensesModule} from './opex/opex.module';
 import {EffectiveIncomeModule} from './effective-income/effective-income.module';
+import {ProjectCharacteristicsModule} from './project-characteristics/project-characteristics.module';
 
 import {AppComponent} from './containers/app.component';
 
@@ -16,7 +17,7 @@ import { OpexFacadeModule } from './opex-facade.module';
 
 import {ApartmentIncomeModule} from './income/apartment/apartment-income.module';
 
-import {ProjectStatusComponent} from './project-status.component';
+//import {ProjectStatusComponent} from './project-characteristics/project-status.component';
 import {LocalStorageService} from './localStorage.service';
 
 import {OtherNonParkingResidentialIncomeSourceComponent} from './other-non-parking-residential-income-source.component';
@@ -25,7 +26,7 @@ import {OtherResidentialNonParkingIncomeComponent} from './other-residential-non
 import {CommercialOtherIncomeSourceComponent} from './other-non-parking-commercial-income-source.component';
 import {OtherCommercialNonParkingIncomeComponent} from './other-non-parking-commercial-income.component';
 
-import {MSAWaiverComponent} from './msa-waiver.component';
+//import {MSAWaiverComponent} from './msa-waiver.component';
 
 import { DynamicFormComponent }         from './dynamic-form/dynamic-form.component';
 import { DynamicFormQuestionComponent } from './dynamic-form/dynamic-form-question.component';
@@ -47,6 +48,7 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     OperatingExpensesModule,
     EffectiveIncomeModule,
     ApartmentIncomeModule, 
+    ProjectCharacteristicsModule,
     //ParkingIncomeModule,
     ParkingIncomeWrapperModule,
     OpexFacadeModule,
@@ -76,8 +78,8 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     OtherResidentialNonParkingIncomeComponent,
     CommercialOtherIncomeSourceComponent,
     OtherCommercialNonParkingIncomeComponent,
-    MSAWaiverComponent,
-    ProjectStatusComponent,
+    //MSAWaiverComponent,
+    //ProjectStatusComponent,
     HeroDetailComponent1,
     CounterInputComponent,
     DynamicFormComponent, DynamicFormQuestionComponent,

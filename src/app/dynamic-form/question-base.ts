@@ -12,6 +12,7 @@ export class QuestionBase<T>{
   type: string;
   controlType: string;
   validators: ValidatorFn|ValidatorFn[];
+  displayLabel: boolean = false;
   constructor(options: {
       value?: T,
       key?: string,
@@ -21,6 +22,7 @@ export class QuestionBase<T>{
       id?: string,
       name?: string,
       controlType?: string,
+      containerId? : string,
       validators?: ValidatorFn|ValidatorFn[]
     } = {}) {
     this.value = options.value;
@@ -32,6 +34,8 @@ export class QuestionBase<T>{
     this.validators = options.validators;
     this.id = options.id;
     this.name = options.name;
+    this.containerId = options.containerId || '';
+    this.displayLabel = options.label && options.label.trim().length > 0;
   }
 
 }

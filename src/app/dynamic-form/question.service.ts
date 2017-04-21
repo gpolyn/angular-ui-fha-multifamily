@@ -25,20 +25,11 @@ export class QuestionService {
 
   private getQuestions() {
     let questions: QuestionBase<any>[] = [
-      new DropdownQuestion({
-        key: 'elevator-status',
-        name: 'is_elevator_project',
-        value: 'false',
-        label: 'project has elevator?',
-        options: [
-          {key: 'true',  value: 'true'},
-          {key: 'false',  value: 'false'}
-        ],
-      }),
       new TextboxQuestion({
         key: 'transaction-amount',
         id: 'transaction-amount',
         name: 'transaction_amount',
+        required: true,
         label: 'transaction amount',
         containerId: 'transaction-amount-input',
         validators: [Validators.required, this.minVal(0)],
@@ -62,10 +53,9 @@ export class QuestionService {
         type: 'number',
       }),
       new TextboxQuestion({
-        key: 'loan-replacement-reserves',
-        label: 'annual replacment reserves per unit',
+        key: 'annual-replacement-reserves-per-unit',
+        label: '',
         name: 'annual_replacment_reserve_per_unit',
-        fuck: true,
         value: 250,
         validators: [Validators.required, this.minVal(0)],
         type: 'number',
@@ -93,11 +83,12 @@ export class QuestionService {
       }),
       new RadioQuestion({
         key: 'loan-type',
+        containerId: 'transaction-amount-type-selector',
         name: 'loan_type',
         value: 'purchase',
         options: [
-          {key: 'purchase',  value: 'purchase'},
-          {key: 'existing debt',  value: 'existing debt'}
+          {key: 'purchase',  value: 'purchase', id: 'purchase'},
+          {key: 'existing debt',  value: 'debt', id: 'debt'}
         ],
       }),
       new TextboxQuestion({
@@ -175,6 +166,7 @@ export class QuestionService {
   }
 
   convertValues(rawValues: any){
+    console.log('QuestionService#convertValues');
     const converted = {};
     let type = null;
     for (let k in rawValues){
@@ -206,6 +198,7 @@ export class QuestionService {
   }
 
   maybeNumericize(): { [key: string]: any; } {
+    console.log('maybeNumericize')
     const special: { [key: string]: any; } = (e) => {
       console.log(e.value);
       console.log(typeof(e.value) === 'number'); 
