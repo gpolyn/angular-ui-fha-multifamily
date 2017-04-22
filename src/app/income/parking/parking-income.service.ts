@@ -5,7 +5,6 @@ import { IResidentialIncomeService, ICommercialIncomeService } from '../../incom
 
 export abstract class CommercialIncomeService implements ICommercialIncomeService<IParkingIncome> {
 
-  privateIncomes: BehaviorSubject<IParkingIncome[]>;
   addIncome(income: IParkingIncome) {}
   removeIncome(income: IParkingIncome) {}
   chincomes$: Observable<IParkingIncome[]>;
