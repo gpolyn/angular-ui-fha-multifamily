@@ -1,5 +1,12 @@
 import { IIncome } from './interfaces';
 
+export interface IApartmentIncome {
+  bedrooms: number;
+  units: number;
+  squareFeet?: number;
+  monthlyRent: number;
+}
+
 export class ApartmentIncome implements IIncome {
   id: any;
   bedrooms: number = 0;

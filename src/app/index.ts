@@ -12,6 +12,7 @@ import {ProjectCharacteristicsModule} from './project-characteristics/project-ch
 import {AppComponent} from './containers/app.component';
 
 import { OtherIncomeWrapperModule} from './income/other-income-wrapper.module';
+import { ApartmentIncomeFacadeModule} from './income/apartment-income-facade.module';
 import { ParkingIncomeWrapperModule} from './income/parking-income-wrapper.module';
 import { OpexFacadeModule } from './opex-facade.module';
 
@@ -52,6 +53,7 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     ProjectCharacteristicsModule,
     //ParkingIncomeModule,
     ParkingIncomeWrapperModule,
+    ApartmentIncomeFacadeModule,
     OpexFacadeModule,
     //OtherIncomeModule,
     OtherIncomeWrapperModule

@@ -1,5 +1,15 @@
 import {Injectable} from '@angular/core';
 import { IIncome } from './interfaces';
+import { IApartmentIncome } from './apartment-income';
+import { Observable } from 'rxjs/Observable';
+
+export abstract class ApartmentIncomeService {
+
+  addIncome(income: IApartmentIncome) {}
+  removeIncome(income: IApartmentIncome) {}
+  chincomes$: Observable<IApartmentIncome[]>;
+
+}
 
 @Injectable()
 export class IncomeServiceRevised<T extends IIncome> {

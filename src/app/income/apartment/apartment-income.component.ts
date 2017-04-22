@@ -1,7 +1,6 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import { ApartmentIncome } from './apartment-income';
-import { IncomeServiceRevised } from './income.service';
-import { MyApartmentIncomeService } from '../../special.service';
+import { IncomeServiceRevised, ApartmentIncomeService } from './income.service';
 import './apartment-income.css';
 
 export interface ApartmentIncomeChange {
@@ -23,7 +22,7 @@ export class ApartmentIncomeComponent implements OnInit {
 
   apartmentIncomes: Array<ApartmentIncome> = [];
 
-  constructor(private incomeService: IncomeServiceRevised<ApartmentIncome>, private altIncomeSvc: MyApartmentIncomeService){ }
+  constructor(private incomeService: IncomeServiceRevised<ApartmentIncome>, private altIncomeSvc: ApartmentIncomeService){ }
 
   private helpful = (incomes) => this.apartmentIncomes = [...incomes, new ApartmentIncome()].reverse(); // wanted a certain order
 
