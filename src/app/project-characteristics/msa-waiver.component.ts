@@ -89,7 +89,7 @@ export class MetropolitanStatisticalAreaWaiver {
   selector: 'msa-waiver',
   template: `
 		<label for='high-cost-setting'>Metropolitan Statistical Area waiver:</label>
-		<select (change)='onChange($event.target.value)' id='high-cost-setting'>
+		<select (change)='onChange($event.target.value)' [value]='value' id='high-cost-setting'>
 			<option *ngFor='let val of values' >{{val}}</option>
 		</select>
     `
@@ -97,6 +97,7 @@ export class MetropolitanStatisticalAreaWaiver {
 
 export class MSAWaiverComponent {
 	@Output() selectedMsa = new EventEmitter<string>();
+  @Input() value: string;
   values: string[] = MetropolitanStatisticalAreaWaiver.values;
 	selectedValue: string;
 

@@ -35,6 +35,7 @@ import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox
 
 import { CommercialIncomeService, ResidentialIncomeService, GrossIncomeService} from './special.service';
 import { LoanCostsService } from './loan-costs.service';
+import { ProjectCharacteristicsService } from './project-characteristics.service';
 import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService, MyCommercialOtherIncomeService, MyResidentialOtherIncomeService, MyApartmentIncomeService } from './special.service';
 
 import { BSService } from './bs.service';
@@ -67,6 +68,7 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     MyResidentialOtherIncomeService,
     LocalStorageService,
     LoanCostsService,
+    ProjectCharacteristicsService,
     MyCommercialOtherIncomeService,
     { provide: APP_CONFIG, useValue: DI_CONFIG },
     { provide: CURRENT_AUTHOR_ID, useValue: GUID},
