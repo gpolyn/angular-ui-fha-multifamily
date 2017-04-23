@@ -41,6 +41,7 @@ const style =
     #new-apartment-income div.add {
       width: 16px;
       height: 16px;
+      padding: 0px; 
       margin: auto;
     }
 
@@ -109,22 +110,26 @@ const style =
       border: 0;
     }
 
-    button {
+    button.mdl-button--icon,
+    :host /deep/ button.mdl-button--icon {
       outline:none;
+      min-width: 24px;
+      height: 24px;
+      width: 24px;
     }
 
     .add-apartment-income i.material-icons {
-      position: relative;
-      right:85px;
-      top:-10px;
+      <!-- position: relative; -->
+      <!-- right:85px; -->
+      <!-- top:-10px; -->
       font-size:24px;
       outline:none;
     }
 
     :host /deep/ .apartment-income i.material-icons {
-      position: relative;
-      right:82px;
-      top:-9px;
+      <!-- position: relative; -->
+      <!-- right:82px; -->
+      <!-- top:-9px; -->
       outline:none;
       font-size:24px;
     }
