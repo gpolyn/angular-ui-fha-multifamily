@@ -28,7 +28,8 @@ class EffectiveIncomeComponent implements OnInit, OnDestroy {
   gross: Observable<number>;
   effectiveGrossIncome: Observable<number>;
 
-  constructor(protected incomeService: CommercialIncomeService | ResidentialIncomeService){
+    //constructor(protected incomeService: CommercialIncomeService | ResidentialIncomeService){
+  constructor(protected incomeService: any){
   }
 
 	ngOnInit(){
@@ -97,7 +98,7 @@ class EffectiveIncomeComponent implements OnInit, OnDestroy {
 })
 export class CommercialEffectiveIncomeComponent extends EffectiveIncomeComponent {
 
-  constructor(@Inject(APP_CONFIG) private config: IAppConfig, protected incomeService: CommercialIncomeService){
+  constructor(@Inject(APP_CONFIG) private config: IAppConfig, protected incomeService: AbstractCommercialIncomeService){
     super(incomeService);
     console.log('CommercialEffectiveIncomeComponent')
     this.incomeTypeLabel = 'commercial';
@@ -114,7 +115,7 @@ export class CommercialEffectiveIncomeComponent extends EffectiveIncomeComponent
 })
 export class ResidentialEffectiveIncomeComponent extends EffectiveIncomeComponent {
 
-  constructor(@Inject(APP_CONFIG) private config: IAppConfig, protected incomeService: ResidentialIncomeService){
+  constructor(@Inject(APP_CONFIG) private config: IAppConfig, protected incomeService: AbstractResidentialIncomeService){
     super(incomeService);
     this.incomeTypeLabel = 'residential';
     this.maxOccupancyPercent = this.config.maxResidentialOccupancy;

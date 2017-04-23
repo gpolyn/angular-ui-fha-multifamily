@@ -7,7 +7,7 @@ import { CommercialIncomeService, ResidentialIncomeService } from './special.ser
 exports: [EffectiveIncomeModule],
 providers: [
   { provide: AbstractResidentialIncomeService, useClass: ResidentialIncomeService },
-  //  { provide: AbstractCommercialIncomeService, useClass: CommercialIncomeService },
+  { provide: AbstractCommercialIncomeService, useClass: CommercialIncomeService },
 ]
 })
 
