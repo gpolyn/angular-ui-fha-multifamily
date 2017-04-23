@@ -35,58 +35,27 @@ const style =
     :host /deep/ .apartment-income div:nth-child(5), 
     #new-apartment-income div:nth-child(5) {
       width: 20px;
+      padding: 0px;
     }
 
     :host /deep/ .apartment-income div.delete-container,
     #new-apartment-income div.add {
-      width: 16px;
-      height: 16px;
       padding: 0px; 
       margin: auto;
-    }
-
-    :host /deep/ .apartment-income input,
-    #new-apartment-income input {
-      width: 96%;
-      height: 99%;
     }
 
     table div {
       width: 508px;
     }
 
-    :host /deep/ div.display {
-      height: 19px;
-    }
-
-
-    table > div div:nth-child(n+2), 
-    :host /deep/ .other-residential-income div:nth-child(n+2),
-    :host /deep/ .other-residential-income div:nth-child(n+2) div,
-    :host /deep/ .commercial-income div:nth-child(n+2),
-    :host /deep/ .commercial-income div:nth-child(n+2) div {
-      width: 115px;
-    }
-
-    table#other-residential-income > div div:nth-child(2) input, 
-    table#other-residential-income > div div:nth-child(3) input {
-      width: 96%;
-    }
-
     #new-apartment-income div:nth-child(5),
     #new-apartment-income div:nth-child(5) div,
     :host /deep/ .apartment-income div:nth-child(5),
     :host /deep/ .apartment-income div:nth-child(5) div {
-      width: 20px;
+      width: 24px;
+      height:24px;
       border: 0px;
-      margin: 1px;
-    }
-
-    table > div div.add,
-    :host /deep/ .commercial-income div.delete-container{
-      width: 16px;
-      height: 16px;
-      margin: auto;
+      margin: 0px;
     }
 
     table input {
@@ -96,18 +65,12 @@ const style =
 
     :host /deep/ .apartment-income .display {
       border: 0;
+      height: 19px;
     }
 
-    :host /deep/ .destroy-item:hover {
+    .add button:hover,
+    :host /deep/ .delete-container button:hover {
       color: #af5b5e;
-    }
-
-    :host /deep/ .destroy-item {
-      display: block;
-      border: 0px;
-    }
-    .add-apartment-income {
-      border: 0;
     }
 
     button.mdl-button--icon,
@@ -117,23 +80,6 @@ const style =
       height: 24px;
       width: 24px;
     }
-
-    .add-apartment-income i.material-icons {
-      <!-- position: relative; -->
-      <!-- right:85px; -->
-      <!-- top:-10px; -->
-      font-size:24px;
-      outline:none;
-    }
-
-    :host /deep/ .apartment-income i.material-icons {
-      <!-- position: relative; -->
-      <!-- right:82px; -->
-      <!-- top:-9px; -->
-      outline:none;
-      font-size:24px;
-    }
-    
 
   `;
 export default style;

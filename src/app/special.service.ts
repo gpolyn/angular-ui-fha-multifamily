@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import {LocalStorageService} from './localStorage.service'
 import { IIncome2, ICommercialIncomeService, IResidentialIncomeService } from './income-service.interface';
 
+
 @Injectable()
 class IncomeStorageService {
 
@@ -242,3 +243,44 @@ export class MyCommercialParkingIncomeService extends MultiIncomeService impleme
 
 };
 
+class IncomeServiceBridgeBase <T extends IncomeServiceBase> {
+  observableOccupancy$: BehaviorSubject<number>;
+  totalGrossIncome$: Observable<number>;
+  egi$: Observable<number>;
+  private injector: Injector;
+  private localStorageSvc: LocalStorageService;
+
+  constructor(protected svc: T, protected namespace: string){
+    this.observableOccupancy$ = svc.observableOccupancy$;
+    this.totalGrossIncome$ = svc.totalGrossIncome$;
+    this.egi$ = svc.egi$;
+    this.injector = ReflectiveInjector.resolveAndCreate([LocalStorageService]);
+    this.localStorageSvc = this.injector.get(LocalStorageService);
+    const lastSavedOccupancy = this.localStorageSvc.get(namespace);
+    console.log('LAST SAVED OCCUPANCY', lastSavedOccupancy);
+    const isEmpty = Object.keys(lastSavedOccupancy).length === 0 && lastSavedOccupancy.constructor === Object;
+    if (!isEmpty) {
+      this.svc.saveOccupancy(lastSavedOccupancy);
+    }
+  }
+
+  saveOccupancy(occupancy: number){
+    this.localStorageSvc.put(this.namespace, occupancy);
+    this.svc.saveOccupancy(occupancy);
+  }
+
+}
+
+@Injectable()
+export class ResidentialIncomeServiceBridge extends IncomeServiceBridgeBase<ResidentialIncomeService> {
+  constructor(protected svc: ResidentialIncomeService){
+    super(svc, 'residentialOccupancy'); 
+  }
+}
+
+@Injectable()
+export class CommercialIncomeServiceBridge extends IncomeServiceBridgeBase<CommercialIncomeService> {
+  constructor(protected svc: CommercialIncomeService){
+    super(svc, 'commercialOccupancy'); 
+  }
+}
