@@ -9,6 +9,9 @@
 </div>
 <div>
   <div class="delete-container">
-    <button class="simple-income-source-destroy destroy-item" (click)="onDestroy.emit(income)"><i class="material-icons">ic_remove_circle_outline</i></button>
+    <button (click)="onDestroy.emit(income)" class="mdl-button mdl-js-button mdl-button--icon">
+      <i class="material-icons">remove_circle_outline</i>
+    </button>
+    <!-- <button class="simple-income-source-destroy destroy-item" (click)="onDestroy.emit(income)"><i class="material-icons">ic_remove_circle_outline</i></button> -->
   </div>
 </div>

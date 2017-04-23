@@ -83,15 +83,36 @@ const style =
     :host /deep/ .destroy-item {
       display: block;
       border: 0px;
-      <!-- margin: auto 0; -->
-
     }
 
-    :host /deep/ i.material-icons {
-      position: relative;
-      right:82px;
-      top:-8px;
-      font-size:24px;
+    table > div div:nth-child(4),
+    table > div div:nth-child(4) div,
+    :host /deep/ div#new-commercial-income div:nth-child(4),
+    :host /deep/ div#new-commercial-income div:nth-child(4) div,
+    :host /deep/ div.other-residential-income div:nth-child(4),
+    :host /deep/ div.other-residential-income div:nth-child(4) div,
+    :host /deep/ div.commercial-income div:nth-child(4),
+    :host /deep/ div.commercial-income div:nth-child(4) div,
+    :host /deep/ div#new-other-income div:nth-child(4),
+    :host /deep/ div#new-other-income div:nth-child(4) div {
+      width: 24px;
+      height:24px;
+      border: 0px;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    .add button:hover,
+    :host /deep/ .delete-container button:hover {
+      color: #af5b5e;
+    }
+
+    button.mdl-button--icon,
+    :host /deep/ button.mdl-button--icon {
+      outline:none;
+      min-width: 24px;
+      height: 24px;
+      width: 24px;
     }
 
   `;
