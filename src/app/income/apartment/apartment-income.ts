@@ -1,7 +1,7 @@
 import { IIncome } from './interfaces';
 
 export interface IApartmentIncome {
-  bedrooms: number;
+  bedrooms: number | string;
   units: number;
   squareFeet?: number;
   monthlyRent: number;

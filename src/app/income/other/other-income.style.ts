@@ -34,7 +34,17 @@ const style =
       width: 96%;
     }
 
-    table > div div:nth-child(4),
+    /*
+    button {
+      border: 0;
+      background-color: transparent;
+    }
+    */
+
+    :host /deep/ #new-other-income div:nth-child(4),
+    :host /deep/ #new-other-income div:nth-child(4) div,
+    :host /deep/ #new-commercial-income div:nth-child(4),
+    :host /deep/ #new-commercial-income div:nth-child(4) div,
     :host /deep/ .other-residential-income div:nth-child(4),
     :host /deep/ .other-residential-income div:nth-child(4) div,
     :host /deep/ .commercial-income div:nth-child(4),

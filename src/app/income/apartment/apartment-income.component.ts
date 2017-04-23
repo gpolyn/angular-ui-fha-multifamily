@@ -1,51 +1,81 @@
-import {Component, OnInit, EventEmitter, Output} from '@angular/core';
-import { ApartmentIncome } from './apartment-income';
-import { IncomeServiceRevised, ApartmentIncomeService } from './income.service';
-import './apartment-income.css';
+import { Inject, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { IApartmentIncome } from './apartment-income';
+import { ApartmentIncomeService } from './income.service';
+import { Observable } from 'rxjs/Observable';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { APARTMENT_INC_CONFIG } from './config';
+import style from './style';
 
-export interface ApartmentIncomeChange {
-  isCommercial: boolean;
-  incomeChange: number;
+class ApartmentIncome implements IApartmentIncome {
+
+  bedrooms: number | string;
+  units: number;
+  squareFeet?: number;
+  monthlyRent: number;
+  totalMonthlyIncome: number;
+
+  constructor(options: {
+    squareFeet?: string, 
+    units: string,
+    bedrooms: string,
+    monthlyRent: string}){
+    console.log('new apartment', options);
+
+    if (options.squareFeet){
+      this.squareFeet = Number(options.squareFeet);
+    }
+    this.monthlyRent = options.monthlyRent && Number(options.monthlyRent);
+    this.bedrooms = options.bedrooms && Number(options.bedrooms);
+    this.units = options.units && Number(options.units);
+    this.totalMonthlyIncome = this.units * this.monthlyRent;
+  }
+
 }
 
 @Component({
   selector: 'apartment-income',
-  // github.com/webpack-contrib/style-loader/issues/123
-  styles: [require('./apartment-income.css').toString()],
   template: require('./apartment-income.component.html'),
-	providers: [IncomeServiceRevised]
+  //styles: [require('./apartment-income.css').toString()],
+  styles: [style],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers:[FormBuilder]
 })
 
-export class ApartmentIncomeComponent implements OnInit {
+export class ApartmentIncomeComponent<T extends IApartmentIncome> implements OnInit { 
 
-  @Output() incomeChange = new EventEmitter<ApartmentIncomeChange>();
+  newIncomeForm: FormGroup;
+  incomes: Observable<Array<IApartmentIncome>>;
+  private readonly bedroomCounts: Array<number> = [0,1,2,3,4];
+  private config: IApartmentIncome;
 
-  apartmentIncomes: Array<ApartmentIncome> = [];
-
-  constructor(private incomeService: IncomeServiceRevised<ApartmentIncome>, private altIncomeSvc: ApartmentIncomeService){ }
-
-  private helpful = (incomes) => this.apartmentIncomes = [...incomes, new ApartmentIncome()].reverse(); // wanted a certain order
-
-  ngOnInit(): void {
-    this.incomeService.getIncomes().then(this.helpful);
+  constructor( private incomeService: ApartmentIncomeService, @Inject(APARTMENT_INC_CONFIG) cfg: T, private fb: FormBuilder){
+    this.config = cfg;
   }
 
-  handleSave(e: any): void {
-    console.log('saving apartment income')
-    this.altIncomeSvc.addIncome(e);
-    this.incomeService.saveIncome(e).then(this.helpful);
-    this.incomeService.totalIncome().then((income) => {
-      this.incomeChange.emit(<ApartmentIncomeChange>{isCommercial: false, incomeChange: income});
-    })
+  private createForm() {
+    const validatedRent = {monthlyRent: [this.config.monthlyRent, [Validators.required]]};
+    const validatedUnits = {units: [this.config.units, [Validators.required]]};
+    this.newIncomeForm = this.fb.group({...this.config, validatedRent, validatedUnits});
   }
 
-  handleDestroy(e: any): void {
-    console.log('destroying income')
-    this.altIncomeSvc.removeIncome(e.id)
-    this.incomeService.deleteIncome(e).then(this.helpful);
-    this.incomeService.totalIncome().then((income) => {
-      this.incomeChange.emit(<ApartmentIncomeChange>{isCommercial: false, incomeChange: income});
-    })
+  addClick(){
+
+    if (this.newIncomeForm.valid){
+      const formVals = this.newIncomeForm.value;
+      this.incomeService.addIncome(new ApartmentIncome(this.newIncomeForm.value));
+    }
+
+    this.newIncomeForm.reset(this.config);
+  }
+
+  ngOnInit() {
+    this.incomes = this.incomeService.chincomes$;
+    this.createForm();
+  }
+
+  handleDestroy(e: T) {
+		this.incomeService.removeIncome(e);
   }
 
 }
+

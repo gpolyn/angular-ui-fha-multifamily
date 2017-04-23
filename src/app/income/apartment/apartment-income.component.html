@@ -25,11 +25,31 @@
       </th>	
     </tr>
   </thead>
-    <template ngFor let-apartmentIncome [ngForOf]="apartmentIncomes">
-      <apartment-income-source
-        [apartmentIncome]="apartmentIncome"
-        (onDestroy)="handleDestroy($event)"
-        (onSave)="handleSave($event)"
-      ></apartment-income-source>
+  <div id="new-apartment-income" [formGroup]="newIncomeForm" novalidate>
+    <div>
+      <select class='apartment-bedroom-count' formControlName="bedrooms">
+        <option *ngFor="let count of bedroomCounts">{{count}}</option>
+      </select>
+    </div>
+    <div>
+      <input class='apartment-unit-count' type='number' formControlName="units" required>
+    </div>
+    <div>
+      <input class='apartment-square-feet' type='number' formControlName="squareFeet" >
+    </div>
+    <div>
+      <input class='apartment-monthly-rent' type='number' formControlName="monthlyRent" required>
+    </div>
+    <div>
+      <div class='add'>
+        <button class='add-apartment-income add-item' (click)="addClick()"><i class="material-icons">ic_add_circle_outline</i></button>
+      </div>
+    </div>
+  </div>
+    <template ngFor let-apartmentIncome [ngForOf]="(incomes | async)">
+        <apartment-income-source
+          [income]="apartmentIncome"
+          (onDestroy)="handleDestroy($event)"
+        ></apartment-income-source>
     </template>
 </table>
