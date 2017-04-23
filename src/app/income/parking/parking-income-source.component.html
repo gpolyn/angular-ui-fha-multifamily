@@ -12,6 +12,8 @@
 </div>
 <div>
   <div class="delete-container">
-    <button class="parking-income-destroy destroy-item" (click)="onDestroy.emit(income)">delete</button>
+    <button (click)="onDestroy.emit(income)" class="mdl-button mdl-js-button mdl-button--icon">
+      <i class="material-icons">remove_circle_outline</i>
+    </button>
   </div>
 </div>

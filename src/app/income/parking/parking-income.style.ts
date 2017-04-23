@@ -60,5 +60,35 @@ const style =
       width: 96%;
       height: 99%;
     }
+
+    .add button:hover,
+    :host /deep/ .delete-container button:hover {
+      color: #af5b5e;
+    }
+
+    table > div div:nth-child(5),
+    table > div div:nth-child(5) div,
+    :host /deep/ div#new-commercial-parking-income div:nth-child(5),
+    :host /deep/ div#new-commercial-parking-income div:nth-child(5) div,
+    :host /deep/ div.residential-parking-income div:nth-child(5),
+    :host /deep/ div.residential-parking-income div:nth-child(5) div,
+    :host /deep/ div.commercial-parking-income div:nth-child(5),
+    :host /deep/ div.commercial-parking-income div:nth-child(5) div,
+    :host /deep/ div#new-other-income div:nth-child(5),
+    :host /deep/ div#new-other-income div:nth-child(5) div {
+      width: 24px;
+      height:24px;
+      border: 0px;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    button.mdl-button--icon,
+    :host /deep/ button.mdl-button--icon {
+      outline:none;
+      min-width: 24px;
+      height: 24px;
+      width: 24px;
+    }
   `;
 export default style;
