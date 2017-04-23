@@ -109,19 +109,26 @@ const style =
       border: 0;
     }
 
+    button {
+      outline:none;
+    }
+
     .add-apartment-income i.material-icons {
       position: relative;
       right:85px;
       top:-10px;
       font-size:24px;
+      outline:none;
     }
 
     :host /deep/ .apartment-income i.material-icons {
       position: relative;
       right:82px;
       top:-9px;
+      outline:none;
       font-size:24px;
     }
+    
 
   `;
 export default style;
