@@ -1,9 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { By }           from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { IParkingIncome } from './parking-income';
+import { IParkingIncome } from '../interfaces/parking-income.interface';
 import { ParkingIncomeSourceComponent } from './parking-income-source.component';
 
 const testIncome: IParkingIncome = {

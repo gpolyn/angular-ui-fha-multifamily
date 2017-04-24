@@ -1,10 +1,10 @@
-import { ViewEncapsulation, Input, Inject, ChangeDetectionStrategy, Component, OnInit, OnChanges, Output, Injector, EventEmitter} from '@angular/core';
-import { IParkingIncome } from './parking-income';
-import style from './parking-income.style';
-import { CommercialIncomeService, ResidentialIncomeService } from './parking-income.service';
+import { Input, Inject, ChangeDetectionStrategy, Component, OnInit, Injector, EventEmitter} from '@angular/core';
+import { IParkingIncome } from '../interfaces/parking-income.interface';
+import style from '../styles/parking-income.style';
+import { CommercialIncomeService, ResidentialIncomeService } from '../services/parking-income.service';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PARKING_INC_CONFIG } from './config';
+import { PARKING_INC_CONFIG } from '../config/config';
 
 class ParkingIncome implements IParkingIncome {
 
@@ -69,7 +69,7 @@ abstract class ParkingIncomeComponent<T extends IParkingIncome> implements OnIni
 
 @Component({
   selector: 'commercial-parking-income',
-  template: require('./commercial-parking-income.component.html'),
+  template: require('../templates/commercial-parking-income.component.html'),
   // github.com/webpack-contrib/style-loader/issues/123
   //styles: [require('./parking-income.css').toString()],
   styles: [style],
@@ -85,7 +85,7 @@ export class CommercialParkingIncomeComponent<T extends IParkingIncome> extends 
 
 @Component({
   selector: 'residential-parking-income',
-  template: require('./parking-income.component.html'),
+  template: require('../templates/parking-income.component.html'),
   styles: [style],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

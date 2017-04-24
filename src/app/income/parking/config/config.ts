@@ -1,5 +1,5 @@
 import { OpaqueToken } from '@angular/core';
-import { IParkingIncome } from './parking-income';
+import { IParkingIncome } from '../interfaces/parking-income.interface';
 
 export const INITIAL_CONFIG: IParkingIncome = {
   spaces: undefined,

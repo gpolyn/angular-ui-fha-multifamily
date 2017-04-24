@@ -1,4 +1,4 @@
-import { IIncome2 } from '../../income-service.interface';
+import { IIncome2 } from '../interfaces/app.interface';
 import { Observable } from 'rxjs/Observable';
 import { ComponentFixture, inject, TestBed, async } from '@angular/core/testing';
 import { By }                                from '@angular/platform-browser';
@@ -14,9 +14,9 @@ const INITIAL_OTHER_INCOME_CONFIG = {
   totalMonthlyIncome: undefined
 };
 
-import { IParkingIncome } from './parking-income';
-import { PARKING_INC_CONFIG } from './config';
-import { CommercialIncomeService, ResidentialIncomeService }      from './parking-income.service';
+import { IParkingIncome } from '../interfaces/parking-income.interface';
+import { PARKING_INC_CONFIG } from '../config/config';
+import { CommercialIncomeService, ResidentialIncomeService }      from '../services/parking-income.service';
 import { CommercialParkingIncomeComponent, ResidentialParkingIncomeComponent } from './parking-income.component';
 import { ParkingIncomeSourceComponent } from './parking-income-source.component';
 
