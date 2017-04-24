@@ -1,10 +1,10 @@
 import { Inject, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { IApartmentIncome } from './apartment-income';
-import { ApartmentIncomeService } from './income.service';
+import { IApartmentIncome } from '../interfaces/apartment-income.interface';
+import { ApartmentIncomeService } from '../services/income.service';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { APARTMENT_INC_CONFIG } from './config';
-import style from './style';
+import { APARTMENT_INC_CONFIG } from '../config/config';
+import style from '../styles/style';
 
 class ApartmentIncome implements IApartmentIncome {
 
@@ -34,7 +34,7 @@ class ApartmentIncome implements IApartmentIncome {
 
 @Component({
   selector: 'apartment-income',
-  template: require('./apartment-income.component.html'),
+  template: require('../templates/apartment-income.component.html'),
   //styles: [require('./apartment-income.css').toString()],
   styles: [style],
   changeDetection: ChangeDetectionStrategy.OnPush,

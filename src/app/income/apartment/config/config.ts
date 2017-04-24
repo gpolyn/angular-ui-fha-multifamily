@@ -1,5 +1,5 @@
 import { OpaqueToken } from '@angular/core';
-import { IApartmentIncome } from './apartment-income';
+import { IApartmentIncome } from '../interfaces/apartment-income.interface';
 
 export const INITIAL_CONFIG: IApartmentIncome = {
   bedrooms: 0,

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import { IIncome } from './interfaces';
-import { IApartmentIncome } from './apartment-income';
+import { IIncome } from '../interfaces/income.interface';
+import { IApartmentIncome } from '../interfaces/apartment-income.interface';
 import { Observable } from 'rxjs/Observable';
 
 export abstract class ApartmentIncomeService {

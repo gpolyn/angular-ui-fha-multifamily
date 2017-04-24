@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter} from '@angular/core';
-import { IApartmentIncome } from './apartment-income';
+import { IApartmentIncome } from '../interfaces/apartment-income.interface';
 
 @Component({
   selector: 'apartment-income-source',
-  template: require('./apartment-income-source.component.html'),
+  template: require('../templates/apartment-income-source.component.html'),
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
