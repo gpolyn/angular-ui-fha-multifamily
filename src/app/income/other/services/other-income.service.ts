@@ -1,7 +1,7 @@
-import { IOtherIncome } from './other-income';
+import { IOtherIncome } from '../interfaces/other-income.interface';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { IResidentialIncomeService, ICommercialIncomeService } from '../../income-service.interface';
+import { IResidentialIncomeService, ICommercialIncomeService } from '../interfaces/app.interface';
 
 export abstract class CommercialIncomeService implements ICommercialIncomeService<IOtherIncome> {
 

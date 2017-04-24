@@ -1,14 +1,5 @@
 import { OpaqueToken } from '@angular/core';
-import { IIncome2 } from '../../income-service.interface';
-
-export interface IOtherIncome extends IIncome2 {
-
-  usage?: string;
-  squareFeet?: number;
-  monthlyRent: number;
-  totalMonthlyIncome: number;
-
-}
+import { IOtherIncome } from './interfaces/other-income.interface';
 
 export const INITIAL_OTHER_INCOME_CONFIG: IOtherIncome = {
   usage: "shouldnt see this",

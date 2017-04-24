@@ -1,4 +1,4 @@
-import { IIncome2 } from '../../income-service.interface';
+import { IIncome2 } from './interfaces/app.interface';
 import { Observable } from 'rxjs/Observable';
 import { ComponentFixture, inject, TestBed, async } from '@angular/core/testing';
 import { By }                                from '@angular/platform-browser';
@@ -14,7 +14,7 @@ const INITIAL_OTHER_INCOME_CONFIG = {
 };
 /*
 import { OTHER_INC_CONFIG, IOtherIncome } from './other-income';
-import { CommercialIncomeService, ResidentialIncomeService }      from './other-income.service';
+import { CommercialIncomeService, ResidentialIncomeService }      from './services/other-income.service';
 import { CommercialOtherIncomeComponent, ResidentialOtherIncomeComponent } from './other-income.component';
 import { OtherIncomeSourceComponent } from './other-income-source.component';
 

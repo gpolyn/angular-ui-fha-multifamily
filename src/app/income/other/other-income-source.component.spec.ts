@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By }           from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { IOtherIncome } from './other-income';
+import { IOtherIncome } from './interfaces/other-income.interface';
 import { OtherIncomeSourceComponent } from './other-income-source.component';
 
 const testIncome: IOtherIncome = {

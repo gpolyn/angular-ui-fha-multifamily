@@ -1,9 +1,5 @@
 import { NgModule }           from '@angular/core';
-
-import { OtherIncomeModule} from './other/other-income.module';
 import { MyCommercialOtherIncomeService, MyResidentialOtherIncomeService } from '../special.service';
-
-import {  OTHER_INC_CONFIG } from './other/other-income';
 
 const INITIAL_OTHER_INCOME_CONFIG_2 = {
   usage: undefined,
@@ -12,7 +8,7 @@ const INITIAL_OTHER_INCOME_CONFIG_2 = {
   totalMonthlyIncome: undefined
 };
 
-import { ResidentialIncomeService, CommercialIncomeService } from './other/other-income.service';
+import { OTHER_INC_CONFIG, OtherIncomeModule, ResidentialIncomeService, CommercialIncomeService } from './other';
 
 @NgModule({
 exports: [ OtherIncomeModule],
