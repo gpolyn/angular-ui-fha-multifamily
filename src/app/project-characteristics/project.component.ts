@@ -1,8 +1,9 @@
-import { OnDestroy, ChangeDetectionStrategy, Component, OnInit, OnChanges } from '@angular/core';
+import { Inject, OnDestroy, ChangeDetectionStrategy, Component, OnInit, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { FormBuilder, FormGroup, ValidatorFn, AbstractControl } from '@angular/forms';
 import {ProjectCharacteristicsService} from '../project-characteristics.service';
+import { PROJECT_CONFIG } from './config';
 
 @Component({
   selector: 'project-characteristics',
@@ -39,7 +40,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
     affordability: 'market'
   }
 
-  constructor(private dataSvc: ProjectCharacteristicsService){
+  constructor(private dataSvc: ProjectCharacteristicsService, @Inject(PROJECT_CONFIG) private config: any){
   }
 
   handleChange(event: any, origin: string){
@@ -52,10 +53,13 @@ export class ProjectComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.form = new FormGroup({});
     let initialProjectVals;
+    console.log('PROJECT CONFIG', this.config);
     this.dataSvc.projectCharacteristics$.subscribe(val => initialProjectVals = val);
     console.log('stored vals', initialProjectVals)
-    //this.myProject = {...this.initialState, initialProjectVals};
-    this.myProject = initialProjectVals;
+    const vals = {...this.config, ...initialProjectVals};
+    console.log('about to use', vals);
+    this.myProject = vals;
+    //this.myProject = initialProjectVals;
   }
   ngOnDestroy(){}
 
