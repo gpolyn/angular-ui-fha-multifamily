@@ -11,6 +11,7 @@ import { DynamicFormQuestionComponent } from './dynamic-form-question.component'
 import { QuestionService }    from './question.service';
 import { LoanCostsService }          from '../loan-costs.service';
 import { LocalStorageService }          from '../localStorage.service';
+import { LOAN_COSTS_CONFIG } from './config';
 
 class FakeLoanCostsService {
 };
@@ -32,7 +33,13 @@ describe('DynamicFormComponent', () => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, FormsModule], 
       declarations: [DynamicFormComponent, DynamicFormQuestionComponent],
-      providers: [ QuestionService, {provide: LocalStorageService, useClass: FakeLocalStorageService}, {provide: LoanCostsService, useClass: FakeLoanCostsService}, {provide: CURRENT_AUTHOR_ID, useValue: GUID}]
+      providers: [ 
+      QuestionService, 
+      {provide: LocalStorageService, useClass: FakeLocalStorageService}, 
+      {provide: LoanCostsService, useClass: FakeLoanCostsService}, 
+      {provide: CURRENT_AUTHOR_ID, useValue: GUID},
+      {provide: LOAN_COSTS_CONFIG, useValue: 'some value'}
+      ]
     });
 
     fixture = TestBed.createComponent(DynamicFormComponent);
@@ -118,7 +125,7 @@ describe('DynamicFormComponent', () => {
 
   it('should have expected number of df-question components', () => {
       let eles = fixture.nativeElement.querySelectorAll("df-question");
-      expect(eles.length).toBe(15);
+      expect(eles.length).toBe(17);
   })
 
 });
