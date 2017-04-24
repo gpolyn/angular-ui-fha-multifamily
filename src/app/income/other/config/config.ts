@@ -1,5 +1,5 @@
 import { OpaqueToken } from '@angular/core';
-import { IOtherIncome } from './interfaces/other-income.interface';
+import { IOtherIncome } from '../interfaces/other-income.interface';
 
 export const INITIAL_OTHER_INCOME_CONFIG: IOtherIncome = {
   usage: "shouldnt see this",

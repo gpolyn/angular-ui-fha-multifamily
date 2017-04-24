@@ -1,4 +1,4 @@
-import { IIncome2 } from './interfaces/app.interface';
+import { IIncome2 } from '../interfaces/app.interface';
 import { Observable } from 'rxjs/Observable';
 import { ComponentFixture, inject, TestBed, async } from '@angular/core/testing';
 import { By }                                from '@angular/platform-browser';
