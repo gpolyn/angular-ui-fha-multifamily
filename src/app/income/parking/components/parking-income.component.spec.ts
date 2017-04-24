@@ -1,6 +1,6 @@
 import { IIncome2 } from '../interfaces/app.interface';
 import { Observable } from 'rxjs/Observable';
-import { ComponentFixture, inject, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By }                                from '@angular/platform-browser';
 import { DebugElement, Input, Output, Component, EventEmitter } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
