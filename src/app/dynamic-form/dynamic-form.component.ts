@@ -1,14 +1,14 @@
-import { Component, Input, OnInit }  from '@angular/core';
+import { Inject, Component, Input, OnInit }  from '@angular/core';
 import { FormGroup }                 from '@angular/forms';
 import { QuestionBase }              from './question-base';
 import { QuestionControlService }    from './question-control.service';
 import { QuestionService }           from './question.service';
 import { LoanCostsService, ILoanCosts }          from '../loan-costs.service';
+import { LOAN_COSTS_CONFIG } from './config';
 
 @Component({
   selector: 'dynamic-form',
   template: require('./dynamic-form.component.html'),
-  // template: require('./dynamic-form.component.alt.html'),
   providers: [ QuestionControlService, LoanCostsService ]
 })
 export class DynamicFormComponent implements OnInit {
@@ -20,11 +20,13 @@ export class DynamicFormComponent implements OnInit {
   payLoad = '';
   private subs: any[] = [];
 
-  constructor(private qcs: QuestionControlService, private costSvc: LoanCostsService, private qs: QuestionService) {  }
+  constructor(private qcs: QuestionControlService, private costSvc: LoanCostsService, private qs: QuestionService, @Inject(LOAN_COSTS_CONFIG) private config: any) {  }
   ngOnInit() {
     console.log('questionsObj', this.questionsObj)
     this.costSvc.costs$.subscribe(data => this.initialValues = data.data);
-    this.form = this.qcs.objectToFormGroup(this.questionsObj, this.initialValues);
+    const combinedInitialVals = {...this.config, ...this.initialValues};
+    //this.form = this.qcs.objectToFormGroup(this.questionsObj, this.initialValues);
+    this.form = this.qcs.objectToFormGroup(this.questionsObj, combinedInitialVals);
     this.form.valueChanges.subscribe((e)=>console.log(e));
     this.enforceOptionalMaxNumericLimit = this.enforceOptionalMaxNumericLimit.bind(this);
     this.form.valueChanges.subscribe(this.enforceOptionalMaxNumericLimit);

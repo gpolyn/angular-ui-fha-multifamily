@@ -28,8 +28,9 @@ import {OtherCommercialNonParkingIncomeComponent} from './other-non-parking-comm
 
 //import {MSAWaiverComponent} from './msa-waiver.component';
 
-import { DynamicFormComponent }         from './dynamic-form/dynamic-form.component';
-import { DynamicFormQuestionComponent } from './dynamic-form/dynamic-form-question.component';
+import { LoanCharacteristicsModule }         from './dynamic-form/loan-characteristics.module';
+//import { DynamicFormComponent }         from './dynamic-form/dynamic-form.component';
+//import { DynamicFormQuestionComponent } from './dynamic-form/dynamic-form-question.component';
 import {HeroDetailComponent1} from './input-and-checkbox/input-and-checkbox.component';
 import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox.component';
 
@@ -52,6 +53,7 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     ApartmentIncomeFacadeModule,
     EffectiveIncomeFacadeModule,
     OpexFacadeModule,
+    LoanCharacteristicsModule,
     OtherIncomeWrapperModule
   ],
   providers: [
@@ -84,7 +86,7 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     //ProjectStatusComponent,
     HeroDetailComponent1,
     CounterInputComponent,
-    DynamicFormComponent, DynamicFormQuestionComponent,
+    //DynamicFormComponent, DynamicFormQuestionComponent,
   ],
   bootstrap: [AppComponent]
 })
