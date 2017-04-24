@@ -1,7 +1,9 @@
 import { NgModule }           from '@angular/core';
-import { ApartmentIncomeModule } from './apartment/apartment-income.module';
+//import { ApartmentIncomeModule } from './apartment/apartment-income.module';
 import { MyApartmentIncomeService } from '../special.service';
-import { ApartmentIncomeService } from './apartment/income.service';
+//import { ApartmentIncomeService } from './apartment/income.service';
+import { ApartmentIncomeModule, ApartmentIncomeService } from './apartment';
+//import { ApartmentIncomeService } from './apartment/income.service';
 
 
 @NgModule({
