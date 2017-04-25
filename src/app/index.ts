@@ -21,7 +21,7 @@ import {ApartmentIncomeModule} from './income/apartment/apartment-income.module'
 import {LocalStorageService} from './localStorage.service';
 
 //import {OtherNonParkingResidentialIncomeSourceComponent} from './other-non-parking-residential-income-source.component';
-import {OtherResidentialNonParkingIncomeComponent} from './other-residential-non-parking-income.component';
+//import {OtherResidentialNonParkingIncomeComponent} from './other-residential-non-parking-income.component';
 
 //import {OtherCommercialNonParkingIncomeComponent} from './other-non-parking-commercial-income.component';
 
@@ -78,7 +78,7 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
   declarations: [
     AppComponent,
     //OtherNonParkingResidentialIncomeSourceComponent,
-    OtherResidentialNonParkingIncomeComponent,
+    //OtherResidentialNonParkingIncomeComponent,
     //OtherCommercialNonParkingIncomeComponent,
     //MSAWaiverComponent,
     //ProjectStatusComponent,
