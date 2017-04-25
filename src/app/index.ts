@@ -23,7 +23,6 @@ import {LocalStorageService} from './localStorage.service';
 import {OtherNonParkingResidentialIncomeSourceComponent} from './other-non-parking-residential-income-source.component';
 import {OtherResidentialNonParkingIncomeComponent} from './other-residential-non-parking-income.component';
 
-import {CommercialOtherIncomeSourceComponent} from './other-non-parking-commercial-income-source.component';
 import {OtherCommercialNonParkingIncomeComponent} from './other-non-parking-commercial-income.component';
 
 //import {MSAWaiverComponent} from './msa-waiver.component';
@@ -80,7 +79,6 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     AppComponent,
     OtherNonParkingResidentialIncomeSourceComponent,
     OtherResidentialNonParkingIncomeComponent,
-    CommercialOtherIncomeSourceComponent,
     OtherCommercialNonParkingIncomeComponent,
     //MSAWaiverComponent,
     //ProjectStatusComponent,
