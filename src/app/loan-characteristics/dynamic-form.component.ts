@@ -7,7 +7,7 @@ import { LoanCostsService, ILoanCosts }          from '../loan-costs.service';
 import { LOAN_COSTS_CONFIG } from './config';
 
 @Component({
-  selector: 'dynamic-form',
+  selector: 'loan-characteristics',
   template: require('./dynamic-form.component.html'),
   providers: [ QuestionControlService, LoanCostsService ]
 })

@@ -19,7 +19,7 @@ import {ApartmentIncomeModule} from './income/apartment/apartment-income.module'
 
 import {LocalStorageService} from './localStorage.service';
 
-import { LoanCharacteristicsModule }         from './dynamic-form/loan-characteristics.module';
+import { LoanCharacteristicsModule }         from './loan-characteristics/loan-characteristics.module';
 import {HeroDetailComponent1} from './input-and-checkbox/input-and-checkbox.component';
 import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox.component';
 
