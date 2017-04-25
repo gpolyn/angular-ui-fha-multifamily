@@ -1,6 +1,5 @@
 import {Component, Output, EventEmitter} from '@angular/core';
 import { QuestionService } from '../dynamic-form/question.service';
-import { BSService } from '../bs.service';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {GrossIncomeService} from '../special.service';

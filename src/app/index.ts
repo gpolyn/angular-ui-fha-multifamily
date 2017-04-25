@@ -17,19 +17,9 @@ import { OpexFacadeModule } from './opex-facade.module';
 
 import {ApartmentIncomeModule} from './income/apartment/apartment-income.module';
 
-//import {ProjectStatusComponent} from './project-characteristics/project-status.component';
 import {LocalStorageService} from './localStorage.service';
 
-//import {OtherNonParkingResidentialIncomeSourceComponent} from './other-non-parking-residential-income-source.component';
-//import {OtherResidentialNonParkingIncomeComponent} from './other-residential-non-parking-income.component';
-
-//import {OtherCommercialNonParkingIncomeComponent} from './other-non-parking-commercial-income.component';
-
-//import {MSAWaiverComponent} from './msa-waiver.component';
-
 import { LoanCharacteristicsModule }         from './dynamic-form/loan-characteristics.module';
-//import { DynamicFormComponent }         from './dynamic-form/dynamic-form.component';
-//import { DynamicFormQuestionComponent } from './dynamic-form/dynamic-form-question.component';
 import {HeroDetailComponent1} from './input-and-checkbox/input-and-checkbox.component';
 import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox.component';
 
@@ -38,7 +28,6 @@ import { LoanCostsService } from './loan-costs.service';
 import { ProjectCharacteristicsService } from './project-characteristics.service';
 import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService, MyCommercialOtherIncomeService, MyResidentialOtherIncomeService, MyApartmentIncomeService } from './special.service';
 
-import { BSService } from './bs.service';
 import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
 
 @NgModule({
@@ -61,7 +50,6 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     MyApartmentIncomeService,
     CommercialIncomeService, 
     OpexService,
-    BSService,
     MyResidentialParkingIncomeService,
     MyCommercialParkingIncomeService,
     MyResidentialOtherIncomeService,
@@ -77,14 +65,8 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     ],
   declarations: [
     AppComponent,
-    //OtherNonParkingResidentialIncomeSourceComponent,
-    //OtherResidentialNonParkingIncomeComponent,
-    //OtherCommercialNonParkingIncomeComponent,
-    //MSAWaiverComponent,
-    //ProjectStatusComponent,
     HeroDetailComponent1,
     CounterInputComponent,
-    //DynamicFormComponent, DynamicFormQuestionComponent,
   ],
   bootstrap: [AppComponent]
 })
