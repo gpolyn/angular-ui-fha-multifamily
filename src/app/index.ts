@@ -20,7 +20,7 @@ import {ApartmentIncomeModule} from './income/apartment/apartment-income.module'
 //import {ProjectStatusComponent} from './project-characteristics/project-status.component';
 import {LocalStorageService} from './localStorage.service';
 
-import {OtherNonParkingResidentialIncomeSourceComponent} from './other-non-parking-residential-income-source.component';
+//import {OtherNonParkingResidentialIncomeSourceComponent} from './other-non-parking-residential-income-source.component';
 import {OtherResidentialNonParkingIncomeComponent} from './other-residential-non-parking-income.component';
 
 //import {OtherCommercialNonParkingIncomeComponent} from './other-non-parking-commercial-income.component';
@@ -77,7 +77,7 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     ],
   declarations: [
     AppComponent,
-    OtherNonParkingResidentialIncomeSourceComponent,
+    //OtherNonParkingResidentialIncomeSourceComponent,
     OtherResidentialNonParkingIncomeComponent,
     //OtherCommercialNonParkingIncomeComponent,
     //MSAWaiverComponent,
