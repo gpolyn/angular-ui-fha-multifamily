@@ -12,9 +12,10 @@ const INITIAL_OTHER_INCOME_CONFIG = {
   monthlyRent: 300,
   totalMonthlyIncome: undefined
 };
-/*
-import { OTHER_INC_CONFIG, IOtherIncome } from './other-income';
-import { CommercialIncomeService, ResidentialIncomeService }      from './services/other-income.service';
+
+import { OTHER_INC_CONFIG} from '../config/config';
+import { IOtherIncome } from '../interfaces/other-income.interface';
+import { CommercialIncomeService, ResidentialIncomeService }      from '../services/other-income.service';
 import { CommercialOtherIncomeComponent, ResidentialOtherIncomeComponent } from './other-income.component';
 import { OtherIncomeSourceComponent } from './other-income-source.component';
 
@@ -168,7 +169,7 @@ function tests(){
   it('should add valid income with CommercialIncomeService', () => {
     spy = spyOn(incomeService, 'addIncome');
     comp.newIncomeForm.patchValue({monthlyRent: 300});
-		const button = fixture.debugElement.nativeElement.querySelector('button#add-other-income');
+		const button = fixture.debugElement.nativeElement.querySelector('.add button');
 		button.click();
     const whatWasCalled: IIncome2 = spy.calls.mostRecent();
     expect(whatWasCalled.totalMonthlyIncome).not.toBe(null);
@@ -177,7 +178,7 @@ function tests(){
   it('should not add invalid income with CommercialIncomeService', () => {
     spy = spyOn(incomeService, 'addIncome');
     comp.newIncomeForm.patchValue({monthlyRent: undefined});
-		const button = fixture.debugElement.nativeElement.querySelector('button#add-other-income');
+		const button = fixture.debugElement.nativeElement.querySelector('.add button');
 		button.click();
     expect(spy.calls.any()).toEqual(false);
   });
@@ -224,4 +225,3 @@ function tests(){
   });
 
 }
-*/
