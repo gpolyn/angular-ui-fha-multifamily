@@ -34,7 +34,7 @@ class EffectiveIncomeComponent implements OnInit, OnDestroy {
 
 	ngOnInit(){
 
-    if (this.incomeService.observableOccupancy$.getValue() > this.maxOccupancyPercent){
+    if (!this.incomeService.observableOccupancy$.getValue() || this.incomeService.observableOccupancy$.getValue() > this.maxOccupancyPercent){
       this.incomeService.observableOccupancy$.next(this.maxOccupancyPercent);
     }
 

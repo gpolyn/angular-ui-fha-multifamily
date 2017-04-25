@@ -4,6 +4,7 @@ import { By }                                from '@angular/platform-browser';
 import { DebugElement, Input, Output, Component, EventEmitter } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { AbstractCommercialIncomeService, AbstractResidentialIncomeService } from './effective-income.service';
 import { APP_CONFIG } from '../app-config';
 
 const INITIAL_CONFIG = {
@@ -15,30 +16,34 @@ const INITIAL_CONFIG = {
 import { CommercialIncomeService, ResidentialIncomeService }      from '../special.service';
 import { ResidentialEffectiveIncomeComponent, CommercialEffectiveIncomeComponent } from './effective-income.component';
 
-const fake = {
-  egi$: undefined,
-  totalGrossIncome$: undefined,
-  observableOccupancy$: undefined
-}
 
 let comp: any;
 let fixture: any;
 let componentIncomeService: any;
 let incomeService: any;
 let spy: any;
+let grossIncomeEl: DebugElement;
+let egiEl: DebugElement;
+const initialGrossIncomeValue = 4325;
+const initialEffectiveIncomeValue = 325;
 
-describe('ResidentialEffectiveIncomeComponent', () => {
+function setup(initialServiceOccupancyValue: number, isResidentialComponent: boolean = true){
 
-	beforeEach(() => {
+  const fake = {
+    egi$: new BehaviorSubject<number>(initialEffectiveIncomeValue).asObservable(),
+    totalGrossIncome$: new BehaviorSubject<number>(initialGrossIncomeValue).asObservable(),
+    observableOccupancy$: new BehaviorSubject<number>(initialServiceOccupancyValue),
+    saveOccupancy(occupancy: number){}
+  }
 
-
+  if (isResidentialComponent) {
     TestBed.configureTestingModule({
        declarations: [ ResidentialEffectiveIncomeComponent ],
        imports: [ReactiveFormsModule, FormsModule],
        providers:    [ 
-         {provide: ResidentialIncomeService, useValue: fake },
+         {provide: AbstractResidentialIncomeService, useValue: fake },
          {provide: APP_CONFIG, useValue: INITIAL_CONFIG}
-			 ]
+       ]
     });
 
     TestBed.compileComponents();
@@ -47,154 +52,152 @@ describe('ResidentialEffectiveIncomeComponent', () => {
 
     fixture.detectChanges();
 
-    incomeService = fixture.debugElement.injector.get(ResidentialIncomeService);
+    incomeService = fixture.debugElement.injector.get(AbstractResidentialIncomeService);
     componentIncomeService = incomeService;
-    incomeService = TestBed.get(ResidentialIncomeService);
-
-	});
-
-  tests();
-
-})
-
-/*
-describe('CommercialOtherIncomeComponent', () => {
-
-	beforeEach(() => {
-
+    incomeService = TestBed.get(AbstractResidentialIncomeService);
+  } else {
     TestBed.configureTestingModule({
-       declarations: [ OtherIncomeSourceComponent, CommercialOtherIncomeComponent ],
+       declarations: [ CommercialEffectiveIncomeComponent ],
        imports: [ReactiveFormsModule, FormsModule],
        providers:    [ 
-         {provide: CommercialIncomeService, useClass: FakeCommercialIncomeService},
-         {provide: OTHER_INC_CONFIG, useValue: INITIAL_OTHER_INCOME_CONFIG}
-			 ]
+         {provide: AbstractCommercialIncomeService, useValue: fake },
+         {provide: APP_CONFIG, useValue: INITIAL_CONFIG}
+       ]
     });
 
-
     TestBed.compileComponents();
-    fixture = TestBed.createComponent(CommercialOtherIncomeComponent);
+    fixture = TestBed.createComponent(CommercialEffectiveIncomeComponent);
     comp    = fixture.componentInstance;
 
     fixture.detectChanges();
 
-    incomeService = fixture.debugElement.injector.get(CommercialIncomeService);
+    incomeService = fixture.debugElement.injector.get(AbstractCommercialIncomeService);
     componentIncomeService = incomeService;
-    incomeService = TestBed.get(CommercialIncomeService);
-
-	});
-
-  tests();
-
-});
-
-*/
-
-function tests(){
-
-  /*
-  it('should initially display configured income usage', () => {
-    expect(comp.newIncomeForm.controls['usage'].value).toEqual(INITIAL_OTHER_INCOME_CONFIG.usage);
-  });
-
-  it('should initially display configured square feet', () => {
-    expect(comp.newIncomeForm.controls['squareFeet'].value).toEqual(INITIAL_OTHER_INCOME_CONFIG.squareFeet);
-  });
-
-  it('should initially display configured monthly rent', () => {
-    expect(comp.newIncomeForm.controls['monthlyRent'].value).toEqual(INITIAL_OTHER_INCOME_CONFIG.monthlyRent);
-  });
-
-  it('should handle other-income-source onDestroy with handleDestroy',()=>{
-
-    
-
-    componentIncomeService.privateIncomes.next([someIncome]);
-
-    fixture.detectChanges();
-
-    const otherIncomes = fixture.debugElement.queryAllNodes(By.css('other-income-source'));
-
-    const expected = "expected";
-
-    spyOn(comp, 'handleDestroy');
-
-    otherIncomes[0].componentInstance.onDestroy.emit(expected);
-
-    expect(comp.handleDestroy).toHaveBeenCalledWith(expected);
-    
-  })
-
-  it('should call removeIncome on service from handleDestroy', ()=>{
-
-    componentIncomeService.privateIncomes.next([someIncome]);
-
-    fixture.detectChanges();
-
-    const otherIncomes = fixture.debugElement.queryAllNodes(By.css('other-income-source'));
-
-    const expected = "expected";
-
-    spyOn(incomeService, 'removeIncome');
-
-    otherIncomes[0].componentInstance.onDestroy.emit(someIncome);
-
-    expect(incomeService.removeIncome).toHaveBeenCalledWith(someIncome);
-    
-  })
-
-  it('should add valid income with CommercialIncomeService', () => {
-    spy = spyOn(incomeService, 'addIncome');
-    comp.newIncomeForm.patchValue({monthlyRent: 300});
-		const button = fixture.debugElement.nativeElement.querySelector('button#add-other-income');
-		button.click();
-    const whatWasCalled: IIncome2 = spy.calls.mostRecent();
-    expect(whatWasCalled.totalMonthlyIncome).not.toBe(null);
-  });
-
-  it('should not add invalid income with CommercialIncomeService', () => {
-    spy = spyOn(incomeService, 'addIncome');
-    comp.newIncomeForm.patchValue({monthlyRent: undefined});
-		const button = fixture.debugElement.nativeElement.querySelector('button#add-other-income');
-		button.click();
-    expect(spy.calls.any()).toEqual(false);
-  });
-
-  it('should call removeIncome when delete is clicked on particular income', () => {
-
-    spyOn(incomeService, 'removeIncome');
-
-    componentIncomeService.privateIncomes.next([someIncome]);
-
-    fixture.detectChanges();
-
-    const initialList = fixture.debugElement.queryAllNodes(By.css('other-income-source'));
-    expect(initialList.length).toBe(1);
-
-		const button = fixture.debugElement.nativeElement.querySelector('other-income-source button');
-
-    button.click();
-
-    expect(incomeService.removeIncome).toHaveBeenCalledWith(someIncome);
-
-  });
-
-
-  it('should display gross income', () => {
-
-    const grossIncomeEl = fixture.debugElement.query(By.css('.gross-income'));
-
-    expect(grossIncomeEl.textContent).toContain("fuck")
-
-    componentIncomeService.totalGrossIncome$.next([someIncome]);
-
-    fixture.detectChanges();
-
-    const updatedGrossIncomeEl = fixture.debugElement.query(By.css('.gross-income'));
-    expect(grossIncomeEl.textContent).toContain("fuck")
-
-  });
-  */
+    incomeService = TestBed.get(AbstractCommercialIncomeService);
+  }
 
 }
+
+describe('ResidentialEffectiveIncomeComponent', () => {
+
+  it('should initially display service-given occupancy when < max occupancy', () => {
+    setup(65);
+    expect(comp.occupancyPercent.value).toEqual(65);
+  });
+
+  it('should initially display max occupancy when svc occupancy > max occupancy', () => {
+    setup(100);
+    expect(comp.occupancyPercent.value).toEqual(INITIAL_CONFIG.maxResidentialOccupancy);
+  });
+
+  it('should initially display config occupancy when no service occupancy', () => {
+    setup(null);
+    expect(comp.occupancyPercent.value).toEqual(INITIAL_CONFIG.maxResidentialOccupancy);
+  });
+
+  it('should display egi initially as expected',()=>{
+    setup(75);
+    const el = fixture.debugElement.nativeElement.querySelector('span#effective-gross-residential-income');
+    expect(el.textContent).toContain('$325.00');
+  })
+
+  it('should not accept occupancy < 0',()=>{
+    setup(75);
+    let input = fixture.debugElement.query(By.css('input'));
+    let el = input.nativeElement;
+    expect(el.value).toBe('75');
+    el.value = '-1';
+    el.dispatchEvent(new Event('input'));
+    expect(comp.occupancyPercent.value).toEqual(0);
+  })
+
+  it('should not accept occupancy > max occupancy',()=>{
+    setup(75);
+    let input = fixture.debugElement.query(By.css('input'));
+    let el = input.nativeElement;
+    expect(el.value).toBe('75');
+    el.value = '' + (INITIAL_CONFIG.maxResidentialOccupancy + 1);
+    el.dispatchEvent(new Event('input'));
+    expect(comp.occupancyPercent.value).toEqual(INITIAL_CONFIG.maxResidentialOccupancy);
+  })
+
+  it('should call service when occupancy is changed',()=>{
+    setup(75);
+    spyOn(componentIncomeService, 'saveOccupancy');
+    let input = fixture.debugElement.query(By.css('input'));
+    let el = input.nativeElement;
+    el.value = '' + (INITIAL_CONFIG.maxResidentialOccupancy - 1);
+    el.dispatchEvent(new Event('input'));
+    expect(componentIncomeService.saveOccupancy).toHaveBeenCalledWith(INITIAL_CONFIG.maxResidentialOccupancy - 1);
+  })
+
+  it('should display gross initially as expected',()=>{
+    setup(75);
+    const grossIncomeEl = fixture.debugElement.nativeElement.querySelector('span.income');
+    expect(grossIncomeEl.textContent).toContain('$4,325.00');
+  })
+
+
+})
+
+describe('CommercialEffectiveIncomeComponent', () => {
+
+  it('should initially display service-given occupancy when < max occupancy', () => {
+    setup(65, false);
+    expect(comp.occupancyPercent.value).toEqual(65);
+  });
+
+  it('should initially display max occupancy when svc occupancy > max occupancy', () => {
+    setup(100, false);
+    expect(comp.occupancyPercent.value).toEqual(INITIAL_CONFIG.maxCommercialOccupancy);
+  });
+
+  it('should initially display config occupancy when no service occupancy', () => {
+    setup(null, false);
+    expect(comp.occupancyPercent.value).toEqual(INITIAL_CONFIG.maxCommercialOccupancy);
+  });
+
+  it('should display egi initially as expected',()=>{
+    setup(75, false);
+    const el = fixture.debugElement.nativeElement.querySelector('span#effective-gross-commercial-income');
+    expect(el.textContent).toContain('$325.00');
+  })
+
+  it('should not accept occupancy < 0',()=>{
+    setup(75, false);
+    let input = fixture.debugElement.query(By.css('input'));
+    let el = input.nativeElement;
+    expect(el.value).toBe('75');
+    el.value = '-1';
+    el.dispatchEvent(new Event('input'));
+    expect(comp.occupancyPercent.value).toEqual(0);
+  })
+
+  it('should not accept occupancy > max occupancy',()=>{
+    setup(75, false);
+    let input = fixture.debugElement.query(By.css('input'));
+    let el = input.nativeElement;
+    expect(el.value).toBe('75');
+    el.value = '' + (INITIAL_CONFIG.maxCommercialOccupancy + 1);
+    el.dispatchEvent(new Event('input'));
+    expect(comp.occupancyPercent.value).toEqual(INITIAL_CONFIG.maxCommercialOccupancy);
+  })
+
+  it('should call service when occupancy is changed',()=>{
+    setup(75, false);
+    spyOn(componentIncomeService, 'saveOccupancy');
+    let input = fixture.debugElement.query(By.css('input'));
+    let el = input.nativeElement;
+    el.value = '' + (INITIAL_CONFIG.maxCommercialOccupancy - 1);
+    el.dispatchEvent(new Event('input'));
+    expect(componentIncomeService.saveOccupancy).toHaveBeenCalledWith(INITIAL_CONFIG.maxCommercialOccupancy - 1);
+  })
+
+  it('should display gross initially as expected',()=>{
+    setup(75, false);
+    const grossIncomeEl = fixture.debugElement.nativeElement.querySelector('span.income');
+    expect(grossIncomeEl.textContent).toContain('$4,325.00');
+  })
+
+})
 
