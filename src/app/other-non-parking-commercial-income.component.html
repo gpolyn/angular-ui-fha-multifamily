@@ -1,9 +1,0 @@
-<ul class="other-non-parking-commercial-income">
-  <template ngFor let-otherIncome [ngForOf]="otherIncomes">
-    <other-non-parking-commercial-income-source
-      [otherIncome]="otherIncome"
-      (onDestroy)="handleDestroy($event)"
-      (onSave)="handleSave($event)"
-    ></other-non-parking-commercial-income-source>
-  </template>
-</ul>
