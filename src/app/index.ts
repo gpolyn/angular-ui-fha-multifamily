@@ -1,6 +1,4 @@
 import {NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { OpexService } from './opex.service';
@@ -9,13 +7,12 @@ import {ProjectCharacteristicsModule} from './project-characteristics/project-ch
 
 import {AppComponent} from './containers/app.component';
 
+import { InputAndCheckboxModule} from './input-and-checkbox';
 import { OtherIncomeWrapperModule} from './income/other-income-wrapper.module';
 import { ApartmentIncomeFacadeModule} from './income/apartment-income-facade.module';
 import { EffectiveIncomeFacadeModule} from './effective-income-facade.module';
 import { ParkingIncomeWrapperModule} from './income/parking-income-wrapper.module';
 import { OpexFacadeModule } from './opex-facade.module';
-
-import {ApartmentIncomeModule} from './income/apartment/apartment-income.module';
 
 import {LocalStorageService} from './localStorage.service';
 
@@ -33,9 +30,8 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
 @NgModule({
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ApartmentIncomeModule, 
+    //FormsModule,
+    //ReactiveFormsModule,
     ProjectCharacteristicsModule,
     ParkingIncomeWrapperModule,
     ApartmentIncomeFacadeModule,
@@ -64,9 +60,7 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
     CommercialIncomeServiceBridge,
     ],
   declarations: [
-    AppComponent,
-    HeroDetailComponent1,
-    CounterInputComponent,
+    AppComponent
   ],
   bootstrap: [AppComponent]
 })

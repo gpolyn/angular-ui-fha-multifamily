@@ -1,4 +1,5 @@
 import { Component, OnInit, forwardRef, Input, OnChanges, Output } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 
 export interface CheckedNumber {
