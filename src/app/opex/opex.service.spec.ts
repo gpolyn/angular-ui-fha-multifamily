@@ -41,8 +41,8 @@ describe('OperatingExpensesService', () => {
     const gross$: Observable<number> = grossBS.asObservable();
     const fakeAbstractGrossIncomeService = { grossIncome$: gross$ };
     const opex: Observable<IOpex> = opexBS.asObservable();
-    const fakeAbstractOperatingExpenseService = { opex$: opex };
-    fakeAbstractOperatingExpenseService['save'] = (opex: IOpex) => {};
+    const fakeAbstractOperatingExpenseService = { opex$: opex, save: (opex: IOpex) => {} };
+    //fakeAbstractOperatingExpenseService['save'] = (opex: IOpex) => {};
     spy = spyOn(fakeAbstractOperatingExpenseService, 'save');
     service = new OperatingExpensesService(fakeAbstractGrossIncomeService as AbstractGrossIncomeService, fakeAbstractOperatingExpenseService as AbstractOperatingExpenseService);
     TestBed.configureTestingModule({
