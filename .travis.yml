@@ -8,8 +8,8 @@ env:
 # node 4 likes the G++ v4.8 compiler
 # see https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Node.js-v4-(or-io.js-v3)-compiler-requirements
 addons:
-	apt:
-		sources:
+  apt:
+    sources:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
