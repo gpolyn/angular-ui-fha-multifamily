@@ -9,3 +9,20 @@ body {
 #todoapp {
   margin: auto;
 }
+
+div#transaction-amount-input {
+  width: 255px !important
+}
+
+div#transaction-amount-input label {
+  padding: 0 !important
+}
+
+div#transaction-amount-input input {
+  float: right !important;
+  margin-right: 5% !important;
+}
+
+div#transaction-amount-type-selector {
+  padding-left: 0px !important;
+}
