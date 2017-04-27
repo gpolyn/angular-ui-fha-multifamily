@@ -2,6 +2,12 @@ body {
   background-color: lightgrey;
 }
 
+#inner_page_title {
+  width: 550px !important;
+  height: 50px !important;
+  margin: auto;
+}
+
 #inner_page_title h1 {
   text-align:center !important
 }
