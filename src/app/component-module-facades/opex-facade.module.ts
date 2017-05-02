@@ -1,6 +1,6 @@
 import { NgModule }           from '@angular/core';
-import { OperatingExpensesModule } from '../opex/opex.module';
-import { AbstractGrossIncomeService, AbstractOperatingExpenseService } from '../opex/opex.service';
+import { OperatingExpensesModule } from '../components';
+import { AbstractGrossIncomeService, AbstractOperatingExpenseService } from '../components';
 import {GrossIncomeService, OpexService} from '../services';
 
 @NgModule({
