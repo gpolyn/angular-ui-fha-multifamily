@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-//import { OpexService } from './opex.service';
 import {ProjectCharacteristicsModule} from './project-characteristics/project-characteristics.module';
 
 import {AppComponent} from './containers/app.component';
@@ -13,7 +12,7 @@ import { EffectiveIncomeFacadeModule, OpexFacadeModule} from './component-module
 import { ParkingIncomeWrapperModule} from './income/parking-income-wrapper.module';
 
 
-import { LoanCharacteristicsModule }         from './loan-characteristics/loan-characteristics.module';
+import { LoanCharacteristicsModule }         from './components';
 import {HeroDetailComponent1} from './input-and-checkbox/input-and-checkbox.component';
 import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox.component';
 

@@ -1,5 +1,5 @@
 import {Component, Output, EventEmitter} from '@angular/core';
-import { QuestionService } from '../loan-characteristics/question.service';
+import { QuestionService } from '../components';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {GrossIncomeService} from '../services';

@@ -3,7 +3,7 @@ import { FormGroup }                 from '@angular/forms';
 import { QuestionBase }              from './question-base';
 import { QuestionControlService }    from './question-control.service';
 import { QuestionService }           from './question.service';
-import { LoanCostsService, ILoanCosts }          from '../services';
+import { LoanCostsService, ILoanCosts }          from '../../services';
 import { LOAN_COSTS_CONFIG } from './config';
 
 @Component({

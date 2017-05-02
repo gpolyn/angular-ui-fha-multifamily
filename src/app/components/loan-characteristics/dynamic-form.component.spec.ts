@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import {GUID, CURRENT_AUTHOR_ID} from '../config';
+import {GUID, CURRENT_AUTHOR_ID} from '../../config';
 import { ComponentFixture, inject, TestBed, async } from '@angular/core/testing';
 import { By }                                from '@angular/platform-browser';
 import { DebugElement, Input, Output, Component, EventEmitter } from '@angular/core';
@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { DynamicFormComponent} from './dynamic-form.component';
 import { DynamicFormQuestionComponent } from './dynamic-form-question.component';
 import { QuestionService }    from './question.service';
-import { LoanCostsService, LocalStorageService }          from '../services';
+import { LoanCostsService, LocalStorageService }          from '../../services';
 import { LOAN_COSTS_CONFIG } from './config';
 
 class FakeLoanCostsService {
