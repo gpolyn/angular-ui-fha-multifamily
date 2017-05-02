@@ -1,1 +1,1 @@
-Generated with https://github.com/FountainJS/generator-fountain-angular2 
+test gh-pages branch approach to github pages for this project
