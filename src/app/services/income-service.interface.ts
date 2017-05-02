@@ -4,6 +4,13 @@ export interface IIncome2 {
   totalMonthlyIncome: number;
 }
 
+export interface IIncome {
+  id: any;
+  readonly isCommercial: boolean;
+  totalMonthlyIncome(): number;
+  type: string;
+}
+
 interface ICommonIncomeService<T extends IIncome2> {
   chincomes$: Observable<T[]>; 
 	addIncome(e: T): void;

@@ -1,9 +1,9 @@
 import { Optional, Injectable, Injector, ReflectiveInjector } from '@angular/core';
-import { IIncome } from '../shared/interfaces';
+import { IIncome } from './income-service.interface';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import {LocalStorageService} from '../services'
-import { IIncome2, ICommercialIncomeService, IResidentialIncomeService } from '../income-service.interface';
+import { IIncome2, ICommercialIncomeService, IResidentialIncomeService } from './income-service.interface';
 
 
 @Injectable()
