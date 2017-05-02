@@ -65,7 +65,7 @@
     "test": "gulp test",
     "test:auto": "gulp test:auto",
     "pree2e": "webdriver-manager update",
-    "e2e": "concurrently 'npm run lite -- -c=e2e/bs-config.json' 'protractor protractor.conf.js'",
+    "e2e": "gulp && concurrently 'npm run lite -- -c=e2e/bs-config.json' 'protractor protractor.conf.js'",
     "lite": "lite-server"
   },
   "eslintConfig": {
