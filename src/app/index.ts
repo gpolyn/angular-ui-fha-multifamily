@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { OpexService } from './opex.service';
-import { ApartmentIncomeService } from './apartment-income.service';
 import {ProjectCharacteristicsModule} from './project-characteristics/project-characteristics.module';
 
 import {AppComponent} from './containers/app.component';
@@ -10,9 +9,8 @@ import {AppComponent} from './containers/app.component';
 import { InputAndCheckboxModule} from './input-and-checkbox';
 import { OtherIncomeWrapperModule} from './income/other-income-wrapper.module';
 import { ApartmentIncomeFacadeModule} from './income/apartment-income-facade.module';
-import { EffectiveIncomeFacadeModule} from './effective-income-facade.module';
+import { EffectiveIncomeFacadeModule, OpexFacadeModule} from './component-module-facades';
 import { ParkingIncomeWrapperModule} from './income/parking-income-wrapper.module';
-import { OpexFacadeModule } from './opex-facade.module';
 
 import {LocalStorageService} from './localStorage.service';
 
@@ -42,7 +40,6 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
   ],
   providers: [
     GrossIncomeService,
-    ApartmentIncomeService,
     MyApartmentIncomeService,
     CommercialIncomeService, 
     OpexService,
