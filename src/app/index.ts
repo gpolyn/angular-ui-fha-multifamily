@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { OpexService } from './opex.service';
+//import { OpexService } from './opex.service';
 import {ProjectCharacteristicsModule} from './project-characteristics/project-characteristics.module';
 
 import {AppComponent} from './containers/app.component';
@@ -19,7 +19,7 @@ import {HeroDetailComponent1} from './input-and-checkbox/input-and-checkbox.comp
 import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox.component';
 
 import { CommercialIncomeService, ResidentialIncomeService, GrossIncomeService, ResidentialIncomeServiceBridge, CommercialIncomeServiceBridge } from './special.service';
-import { LoanCostsService,ProjectCharacteristicsService } from './services';
+import { LoanCostsService, ProjectCharacteristicsService, OpexService } from './services';
 //import { ProjectCharacteristicsService } from './project-characteristics.service';
 import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService, MyCommercialOtherIncomeService, MyResidentialOtherIncomeService, MyApartmentIncomeService } from './special.service';
 
