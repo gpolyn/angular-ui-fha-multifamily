@@ -2,7 +2,7 @@ import {Component, Output, EventEmitter} from '@angular/core';
 import { QuestionService } from '../loan-characteristics/question.service';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import {GrossIncomeService} from '../special.service';
+import {GrossIncomeService} from '../services';
 
 @Component({
   selector: 'fha-app',

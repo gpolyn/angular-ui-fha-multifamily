@@ -17,7 +17,7 @@ import { LoanCharacteristicsModule }         from './loan-characteristics/loan-c
 import {HeroDetailComponent1} from './input-and-checkbox/input-and-checkbox.component';
 import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox.component';
 
-import { CommercialIncomeService, ResidentialIncomeService, GrossIncomeService, ResidentialIncomeServiceBridge, CommercialIncomeServiceBridge } from './special.service';
+import { CommercialIncomeService, ResidentialIncomeService, GrossIncomeService, ResidentialIncomeServiceBridge, CommercialIncomeServiceBridge } from './services';
 import { LocalStorageService, LoanCostsService, ProjectCharacteristicsService, OpexService } from './services';
 //import { ProjectCharacteristicsService } from './project-characteristics.service';
 import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService, MyCommercialOtherIncomeService, MyResidentialOtherIncomeService, MyApartmentIncomeService } from './special.service';
