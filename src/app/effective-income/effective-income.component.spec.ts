@@ -5,7 +5,7 @@ import { DebugElement, Input, Output, Component, EventEmitter } from '@angular/c
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AbstractCommercialIncomeService, AbstractResidentialIncomeService } from './effective-income.service';
-import { APP_CONFIG } from '../app-config';
+import { APP_CONFIG } from '../config';
 
 const INITIAL_CONFIG = {
   maxCommercialOccupancy: 80,

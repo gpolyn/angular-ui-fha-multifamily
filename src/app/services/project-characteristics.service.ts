@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { CURRENT_AUTHOR_ID } from '../app-config';
+import { CURRENT_AUTHOR_ID } from '../config';
 import { LocalStorageService } from './localStorage.service';
 
 export interface IProjectCharacteristics {

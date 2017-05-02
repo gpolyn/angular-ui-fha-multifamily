@@ -32,7 +32,7 @@ import { CommercialIncomeService,
          MyResidentialOtherIncomeService, 
          MyApartmentIncomeService } from './services';
 
-import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
+import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './config';
 
 @NgModule({
   imports: [

@@ -6,7 +6,7 @@ import { ParkingIncome } from '../shared/parking-income';
 import 'rxjs/add/operator/filter'; 
 import { CommercialIncomeService, ResidentialIncomeService } from '../services';
 import { AbstractCommercialIncomeService, AbstractResidentialIncomeService } from './effective-income.service';
-import { IAppConfig, APP_CONFIG } from '../app-config';
+import { IAppConfig, APP_CONFIG } from '../config';
 
 export interface EffectiveIncome {
 	totalIncome: number;

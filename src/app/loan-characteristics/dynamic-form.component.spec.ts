@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import {GUID, CURRENT_AUTHOR_ID} from '../app-config';
+import {GUID, CURRENT_AUTHOR_ID} from '../config';
 import { ComponentFixture, inject, TestBed, async } from '@angular/core/testing';
 import { By }                                from '@angular/platform-browser';
 import { DebugElement, Input, Output, Component, EventEmitter } from '@angular/core';
