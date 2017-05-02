@@ -3,6 +3,3 @@
 
 @import "{{ site.theme }}";
 
-h1: after {
-  content: url('https://github.com/angular/angular.js/blob/master/images/logo/AngularJS-Shield.exports/AngularJS-Shield-small.png');
-}
