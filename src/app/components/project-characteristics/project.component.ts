@@ -2,7 +2,7 @@ import { Inject, OnDestroy, ChangeDetectionStrategy, Component, OnInit, OnChange
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { FormBuilder, FormGroup, ValidatorFn, AbstractControl } from '@angular/forms';
-import {ProjectCharacteristicsService} from '../services';
+import {ProjectCharacteristicsService} from '../../services';
 import { PROJECT_CONFIG } from './config';
 
 @Component({

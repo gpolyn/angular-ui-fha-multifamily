@@ -8,7 +8,7 @@ import {ProjectComponent} from './project.component';
 import {ProjectStatusComponent} from './project-status.component';
 import {MSAWaiverComponent} from './msa-waiver.component';
 import { PROJECT_CONFIG } from './config';
-import {ProjectCharacteristicsService} from '../services';
+import {ProjectCharacteristicsService} from '../../services';
 
 const SOME_CONFIG = {
   is_elevator_project: 'true',
