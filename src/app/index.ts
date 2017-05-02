@@ -19,8 +19,8 @@ import {HeroDetailComponent1} from './input-and-checkbox/input-and-checkbox.comp
 import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox.component';
 
 import { CommercialIncomeService, ResidentialIncomeService, GrossIncomeService, ResidentialIncomeServiceBridge, CommercialIncomeServiceBridge } from './special.service';
-import { LoanCostsService } from './services';
-import { ProjectCharacteristicsService } from './project-characteristics.service';
+import { LoanCostsService,ProjectCharacteristicsService } from './services';
+//import { ProjectCharacteristicsService } from './project-characteristics.service';
 import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService, MyCommercialOtherIncomeService, MyResidentialOtherIncomeService, MyApartmentIncomeService } from './special.service';
 
 import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
