@@ -12,8 +12,7 @@ const INITIAL_CONFIG = {
   maxResidentialOccupancy: 95
 };
 
-//import { CommercialIncomeService, ResidentialIncomeService }      from './other-income.service';
-import { CommercialIncomeService, ResidentialIncomeService }      from '../special.service';
+import { CommercialIncomeService, ResidentialIncomeService }      from '../services';
 import { ResidentialEffectiveIncomeComponent, CommercialEffectiveIncomeComponent } from './effective-income.component';
 
 

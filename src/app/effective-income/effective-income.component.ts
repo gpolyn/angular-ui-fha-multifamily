@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';  
 import { ParkingIncome } from '../shared/parking-income';
 import 'rxjs/add/operator/filter'; 
-import { CommercialIncomeService, ResidentialIncomeService } from '../special.service';
+import { CommercialIncomeService, ResidentialIncomeService } from '../services';
 import { AbstractCommercialIncomeService, AbstractResidentialIncomeService } from './effective-income.service';
 import { IAppConfig, APP_CONFIG } from '../app-config';
 

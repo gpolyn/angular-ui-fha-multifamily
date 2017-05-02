@@ -5,7 +5,7 @@ import {  MyCommercialOtherIncomeService,
           GrossIncomeService,
           CommercialIncomeService,
           ResidentialIncomeService} from './special.service';
-import { IIncome2 } from './income-service.interface';
+import { IIncome2 } from '../income-service.interface';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 

@@ -1,5 +1,5 @@
 import { NgModule }           from '@angular/core';
-import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService } from '../special.service';
+import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService } from '../services';
 import { ResidentialIncomeService, CommercialIncomeService, ParkingIncomeModule } from './parking';
 
 @NgModule({

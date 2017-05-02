@@ -1,5 +1,5 @@
 import { NgModule }           from '@angular/core';
-import { MyCommercialOtherIncomeService, MyResidentialOtherIncomeService } from '../special.service';
+import { MyCommercialOtherIncomeService, MyResidentialOtherIncomeService } from '../services';
 
 const INITIAL_OTHER_INCOME_CONFIG_2 = {
   usage: undefined,
