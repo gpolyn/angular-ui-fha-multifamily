@@ -17,10 +17,20 @@ import { LoanCharacteristicsModule }         from './loan-characteristics/loan-c
 import {HeroDetailComponent1} from './input-and-checkbox/input-and-checkbox.component';
 import {CounterInputComponent} from './input-and-checkbox/textfield-and-checkbox.component';
 
-import { CommercialIncomeService, ResidentialIncomeService, GrossIncomeService, ResidentialIncomeServiceBridge, CommercialIncomeServiceBridge } from './services';
-import { LocalStorageService, LoanCostsService, ProjectCharacteristicsService, OpexService } from './services';
-//import { ProjectCharacteristicsService } from './project-characteristics.service';
-import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService, MyCommercialOtherIncomeService, MyResidentialOtherIncomeService, MyApartmentIncomeService } from './services';
+import { CommercialIncomeService, 
+         ResidentialIncomeService, 
+         GrossIncomeService, 
+         ResidentialIncomeServiceBridge, 
+         CommercialIncomeServiceBridge, 
+         LocalStorageService, 
+         LoanCostsService, 
+         ProjectCharacteristicsService, 
+         OpexService, 
+         MyCommercialParkingIncomeService, 
+         MyResidentialParkingIncomeService, 
+         MyCommercialOtherIncomeService, 
+         MyResidentialOtherIncomeService, 
+         MyApartmentIncomeService } from './services';
 
 import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './app-config';
 
