@@ -9,8 +9,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { DynamicFormComponent} from './dynamic-form.component';
 import { DynamicFormQuestionComponent } from './dynamic-form-question.component';
 import { QuestionService }    from './question.service';
-import { LoanCostsService }          from '../services';
-import { LocalStorageService }          from '../localStorage.service';
+import { LoanCostsService, LocalStorageService }          from '../services';
 import { LOAN_COSTS_CONFIG } from './config';
 
 class FakeLoanCostsService {

@@ -2,7 +2,7 @@ import { Optional, Injectable, Injector, ReflectiveInjector } from '@angular/cor
 import { IIncome } from './shared/interfaces';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import {LocalStorageService} from './localStorage.service'
+import {LocalStorageService} from './services'
 import { IIncome2, ICommercialIncomeService, IResidentialIncomeService } from './income-service.interface';
 
 

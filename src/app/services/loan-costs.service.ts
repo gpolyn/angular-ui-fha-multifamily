@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { CURRENT_AUTHOR_ID } from '../app-config';
-import { LocalStorageService } from '../localStorage.service';
+import { LocalStorageService } from './localStorage.service';
 
 export interface ILoanCosts {
   repairs?: number;
