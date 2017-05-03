@@ -1,5 +1,4 @@
 test gh-pages branch approach to github pages for this project
-
 .
 ├── apartment-income.service.ts
 ├── app-config.ts
