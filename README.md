@@ -1,14 +1,18 @@
 # Background
 
-See the live demo here: [gpolyn.github.io/angular-fha](https://gpolyn.github.io/angular-fha).
+Five years ago I produced a (quirky) javascript demo for my commercial real estate analysis API at [www.sizemymultifamilyloan.com/api/fha_sec223f_demo](www.sizemymultifamilyloan.com/api/fha_sec223f_demo).
 
-## Fictitious mindset adopted
+I've now completed my first Angular 2  replica of the original demo, which is live here: [gpolyn.github.io/angular-fha](https://gpolyn.github.io/angular-fha).
 
-‘I am an independent contractor with special knowledge of the business subject of my component — to complete my assignment, I need only comply with any Typescript interfaces given me by the app architect.’ 
+For more information of future planned releases for my Angular 2 replica, please visit TK.
 
-# Interesting stuff
+# Notes on coding the Angular 2 replica
 
-## 1. Programming to [Typescript](http://www.typescriptlang.org) interfaces
+#### Fictitious mindset adopted 
+
+_"I am an independent contractor with special knowledge of the business subject of my component&mdash;to complete my assignment, I need only comply with any Typescript interfaces given me by the app architect."_ 
+
+#### 1. Programming to [Typescript](http://www.typescriptlang.org) interfaces
 
 `app.interface.ts` contains an app-wide contract for income components and is used in `src/app/components/parking` and `src/app/components/other`.
 
