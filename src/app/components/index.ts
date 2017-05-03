@@ -5,3 +5,6 @@ export {OperatingExpensesModule} from './opex/opex.module';
 export { AbstractGrossIncomeService, AbstractOperatingExpenseService } from './opex/opex.service';
 export * from './effective-income/effective-income.service';
 export * from './effective-income/effective-income.module';
+export * from './apartment';
+export * from './other';
+export * from './parking';

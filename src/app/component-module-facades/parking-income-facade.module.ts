@@ -1,12 +1,12 @@
 import { NgModule }           from '@angular/core';
 import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService } from '../services';
-import { ResidentialIncomeService, CommercialIncomeService, ParkingIncomeModule } from '../income/parking';
+import { AbstractResidentialParkingIncomeService, AbstractCommercialParkingIncomeService, ParkingIncomeModule } from '../components';
 
 @NgModule({
 exports: [ ParkingIncomeModule],
 providers: [
-  { provide: ResidentialIncomeService, useClass: MyResidentialParkingIncomeService },
-  { provide: CommercialIncomeService, useClass: MyCommercialParkingIncomeService },
+  { provide: AbstractResidentialParkingIncomeService, useClass: MyResidentialParkingIncomeService },
+  { provide: AbstractCommercialParkingIncomeService, useClass: MyCommercialParkingIncomeService },
 ]
 })
 

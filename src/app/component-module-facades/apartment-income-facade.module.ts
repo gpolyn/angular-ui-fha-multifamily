@@ -1,6 +1,6 @@
 import { NgModule }           from '@angular/core';
 import { MyApartmentIncomeService } from '../services';
-import { ApartmentIncomeModule, ApartmentIncomeService } from '../income/apartment';
+import { ApartmentIncomeModule, ApartmentIncomeService } from '../components';
 
 
 @NgModule({
