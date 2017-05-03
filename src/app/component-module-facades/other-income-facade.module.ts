@@ -8,7 +8,7 @@ const INITIAL_OTHER_INCOME_CONFIG_2 = {
   totalMonthlyIncome: undefined
 };
 
-import { OTHER_INC_CONFIG, OtherIncomeModule, ResidentialIncomeService, CommercialIncomeService } from './other';
+import { OTHER_INC_CONFIG, OtherIncomeModule, ResidentialIncomeService, CommercialIncomeService } from '../income/other';
 
 @NgModule({
 exports: [ OtherIncomeModule],
@@ -19,4 +19,4 @@ providers: [
 ]
 })
 
-export class OtherIncomeWrapperModule { };
+export class OtherIncomeFacadeModule { };
