@@ -1,8 +1,6 @@
-# Background
+Five years ago I produced a (quirky) Javascript demo for my commercial real estate analysis API at [sizemymultifamilyloan.com/api/fha_sec223f_demo](www.sizemymultifamilyloan.com/api/fha_sec223f_demo).
 
-Five years ago I produced a (quirky) javascript demo for my commercial real estate analysis API at [www.sizemymultifamilyloan.com/api/fha_sec223f_demo](www.sizemymultifamilyloan.com/api/fha_sec223f_demo).
-
-I've now completed my first Angular 2  replica of the original demo, which is live here: [gpolyn.github.io/angular-fha](https://gpolyn.github.io/angular-fha).
+I've now completed my first [Angular 2](https://angular.io/) replica of the original demo, which lives here: [gpolyn.github.io/angular-fha](https://gpolyn.github.io/angular-fha).
 
 For more information of future planned releases for my Angular 2 replica, please visit TK.
 
@@ -10,9 +8,9 @@ For more information of future planned releases for my Angular 2 replica, please
 
 #### Fictitious mindset adopted 
 
-_"I am an independent contractor with special knowledge of the business subject of my component&mdash;to complete my assignment, I need only comply with any Typescript interfaces given me by the app architect."_ 
+_"I'm an independent contractor with special knowledge of the business subject of my component&mdash;to complete my assignment, my code must 'compile' to any [Typescript](http://www.typescriptlang.org) interfaces given me by the app architect."_ 
 
-#### 1. Programming to [Typescript](http://www.typescriptlang.org) interfaces
+#### 1. Programming to Typescript interfaces
 
 `app.interface.ts` contains an app-wide contract for income components and is used in `src/app/components/parking` and `src/app/components/other`.
 
