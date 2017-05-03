@@ -5,8 +5,8 @@ import {AppComponent} from './containers/app.component';
 
 import { InputAndCheckboxModule} from './input-and-checkbox';
 import { OtherIncomeWrapperModule} from './income/other-income-wrapper.module';
-import { ApartmentIncomeFacadeModule} from './income/apartment-income-facade.module';
-import { EffectiveIncomeFacadeModule, OpexFacadeModule} from './component-module-facades';
+//import { ApartmentIncomeFacadeModule} from './income/apartment-income-facade.module';
+import { ApartmentIncomeFacadeModule, EffectiveIncomeFacadeModule, OpexFacadeModule } from './component-module-facades';
 import { ParkingIncomeWrapperModule} from './income/parking-income-wrapper.module';
 
 
