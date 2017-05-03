@@ -1,6 +1,6 @@
 import { NgModule }           from '@angular/core';
 import { MyCommercialParkingIncomeService, MyResidentialParkingIncomeService } from '../services';
-import { ResidentialIncomeService, CommercialIncomeService, ParkingIncomeModule } from './parking';
+import { ResidentialIncomeService, CommercialIncomeService, ParkingIncomeModule } from '../income/parking';
 
 @NgModule({
 exports: [ ParkingIncomeModule],
@@ -10,4 +10,4 @@ providers: [
 ]
 })
 
-export class ParkingIncomeWrapperModule { };
+export class ParkingIncomeFacadeModule { };

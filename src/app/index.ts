@@ -7,7 +7,8 @@ import { InputAndCheckboxModule} from './input-and-checkbox';
 //import { OtherIncomeWrapperModule} from './income/other-income-wrapper.module';
 //import { ApartmentIncomeFacadeModule} from './income/apartment-income-facade.module';
 import { OtherIncomeFacadeModule, ApartmentIncomeFacadeModule, EffectiveIncomeFacadeModule, OpexFacadeModule } from './component-module-facades';
-import { ParkingIncomeWrapperModule} from './income/parking-income-wrapper.module';
+//import { ParkingIncomeWrapperModule} from './income/parking-income-wrapper.module';
+import { ParkingIncomeFacadeModule} from './component-module-facades';
 
 
 import { LoanCharacteristicsModule, ProjectCharacteristicsModule}         from './components';
@@ -37,7 +38,8 @@ import { DI_CONFIG, APP_CONFIG, CURRENT_AUTHOR_ID, GUID } from './config';
     //FormsModule,
     //ReactiveFormsModule,
     ProjectCharacteristicsModule,
-    ParkingIncomeWrapperModule,
+    //ParkingIncomeWrapperModule,
+    ParkingIncomeFacadeModule,
     ApartmentIncomeFacadeModule,
     EffectiveIncomeFacadeModule,
     OpexFacadeModule,
