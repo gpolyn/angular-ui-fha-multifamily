@@ -1,38 +1,71 @@
-test gh-pages branch approach to github pages for this project
+# Background
 
-<div id='tree'>
-  <a href="baseHREF">baseHREF</a><br>
-  ├── <a href="baseHREF/app/">app</a><br>
-  │   ├── <a href="baseHREF/app/apartment-income.service.ts">apartment-income.service.ts</a><br>
-  │   ├── <a href="baseHREF/app/app-config.ts">app-config.ts</a><br>
-  │   ├── <a href="baseHREF/app/containers/">containers</a><br>
-  │   ├── <a href="baseHREF/app/effective-income/">effective-income</a><br>
-  │   ├── <a href="baseHREF/app/effective-income-facade.module.ts">effective-income-facade.module.ts</a><br>
-  │   ├── <a href="baseHREF/app/income/">income</a><br>
-  │   ├── <a href="baseHREF/app/income-service.interface.ts">income-service.interface.ts</a><br>
-  │   ├── <a href="baseHREF/app/index.ts">index.ts</a><br>
-  │   ├── <a href="baseHREF/app/input-and-checkbox/">input-and-checkbox</a><br>
-  │   ├── <a href="baseHREF/app/interfaces.ts">interfaces.ts</a><br>
-  │   ├── <a href="baseHREF/app/loan-characteristics/">loan-characteristics</a><br>
-  │   ├── <a href="baseHREF/app/loan-costs.service.ts">loan-costs.service.ts</a><br>
-  │   ├── <a href="baseHREF/app/localStorage.service.ts">localStorage.service.ts</a><br>
-  │   ├── <a href="baseHREF/app/opex/">opex</a><br>
-  │   ├── <a href="baseHREF/app/opex-facade.module.ts">opex-facade.module.ts</a><br>
-  │   ├── <a href="baseHREF/app/opex.service.ts">opex.service.ts</a><br>
-  │   ├── <a href="baseHREF/app/project-characteristics/">project-characteristics</a><br>
-  │   ├── <a href="baseHREF/app/project-characteristics.service.ts">project-characteristics.service.ts</a><br>
-  │   ├── <a href="baseHREF/app/shared/">shared</a><br>
-  │   ├── <a href="baseHREF/app/special.service.spec.ts">special.service.spec.ts</a><br>
-  │   └── <a href="baseHREF/app/special.service.ts">special.service.ts</a><br>
-  ├── <a href="baseHREF/images/">images</a><br>
-  │   └── <a href="baseHREF/images/nddw-logo-2017.png">nddw-logo-2017.png</a><br>
-  ├── <a href="baseHREF/index.css">index.css</a><br>
-  ├── <a href="baseHREF/index.html">index.html</a><br>
-  ├── <a href="baseHREF/index.spec.js">index.spec.js</a><br>
-  ├── <a href="baseHREF/index.ts">index.ts</a><br>
-  └── <a href="baseHREF/stylesheets/">stylesheets</a><br>
-  &nbsp;&nbsp;&nbsp; ├── <a href="baseHREF/stylesheets/general.css">general.css</a><br>
-  &nbsp;&nbsp;&nbsp; ├── <a href="baseHREF/stylesheets/income_tables.css">income_tables.css</a><br>
-  &nbsp;&nbsp;&nbsp; ├── <a href="baseHREF/stylesheets/scaffold.css">scaffold.css</a><br>
-  &nbsp;&nbsp;&nbsp; └── <a href="baseHREF/stylesheets/todos.css">todos.css</a><br>
-</div>
+See the live demo here: [gpolyn.github.io/angular-fha](https://gpolyn.github.io/angular-fha).
+
+## Fictitious mindset adopted
+
+‘I am an independent contractor with special knowledge of the business subject of my component — to complete my assignment, I need only comply with any Typescript interfaces given me by the app architect.’ 
+
+# Interesting stuff
+
+## 1. Programming to [Typescript](http://www.typescriptlang.org) interfaces
+
+`app.interface.ts` contains an app-wide contract for income components and is used in `src/app/components/parking` and `src/app/components/other`.
+
+For example, `IOtherIncome` extends `IIncome2`, adding fields specific to the income source.
+
+```
+export interface IOtherIncome extends IIncome2 {
+  usage?: string;
+  squareFeet?: number;
+  monthlyRent: number;
+  totalMonthlyIncome: number;
+}
+```
+Meanwhile, at `app.interface.ts` the `ICommonIncomeService` interface, and its extensions, imply a promise to observe the `IOtherIncome` type, for example in the Observable array, `chincomes$`.
+```
+interface ICommonIncomeService<T extends IIncome2> {
+  chincomes$: Observable<T[]>; 
+	addIncome(e: T): void;
+	removeIncome(e: T): void;
+}
+```
+
+## 2. Modularity
+
+Components `src/app/components/parking` and `src/app/components/other` were prepared for integration with extensions of the `ICommonIncomeService` interface of `app.interface.ts`, but with abstract class service implementations, excusing the responsibility to test them. The problem of the approach is that the abstract service classes could not be used in the component `NgModule` specification — attempts resulted in errors. The abstract services employed by the other and parking income components were later provided with concrete classes in src/app/component_facade_modules.
+
+I imagined that app requirements included default field values for each component. For example, initial or placeholder values are given for several loan cost fields at the following excerpt from `src/app/components/loan-chracteristics/config.ts`.
+```
+TK
+```
+Meanwhile, the component field default values can be overridden higher in dependency chain with dependency injection. For example, there is a problematic `usage` default value in the following excerpt of `src/app/components/other/config/config.ts`
+```
+const INITIAL_OTHER_INCOME_CONFIG_2 = {
+  usage: undefined,
+
+};
+…
+@NgModule({
+exports: [ OtherIncomeModule],
+providers: [
+…
+  { provide: OTHER_INC_CONFIG, useValue: INITIAL_OTHER_INCOME_CONFIG_2 }
+]
+})
+```
+
+The problem field is successfully overridden in the following excerpt from component-module-facades/
+
+## 3. Dependency Injection
+
+## 4. Reactive approach
+
+Angular 2 performance can be improved when component push strategy is changed to TK. This step was accomplished in the demo by employing rxjs/Observable collections with the Angular async pipe and the reactive forms module.
+
+Useful discoveries:
+
+1) As noted earlier, at TK, abstract classes cannot used as parameters in NgModule
+
+2) Create as many components as you anticipate distinct service uses. My initial attempts to configure <other-income /> and <parking-income /> components with flags for ‘is commercial’ did not play well with service discovery. I reconciled myself to the entailed duplication by sharing tests between the sibling components, while taking the cleaner appearance of the components in my app container as a win.
+
