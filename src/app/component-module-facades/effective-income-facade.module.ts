@@ -1,6 +1,6 @@
 import { NgModule }           from '@angular/core';
-import { EffectiveIncomeModule } from '../effective-income/effective-income.module';
-import { AbstractCommercialIncomeService, AbstractResidentialIncomeService } from '../effective-income/effective-income.service';
+import { EffectiveIncomeModule } from '../components';
+import { AbstractCommercialIncomeService, AbstractResidentialIncomeService } from '../components';
 import { ResidentialIncomeServiceBridge, CommercialIncomeServiceBridge } from '../services';
 
 @NgModule({

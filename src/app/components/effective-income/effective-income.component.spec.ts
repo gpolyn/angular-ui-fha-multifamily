@@ -5,14 +5,14 @@ import { DebugElement, Input, Output, Component, EventEmitter } from '@angular/c
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AbstractCommercialIncomeService, AbstractResidentialIncomeService } from './effective-income.service';
-import { APP_CONFIG } from '../config';
+import { APP_CONFIG } from '../../config';
 
 const INITIAL_CONFIG = {
   maxCommercialOccupancy: 80,
   maxResidentialOccupancy: 95
 };
 
-import { CommercialIncomeService, ResidentialIncomeService }      from '../services';
+import { CommercialIncomeService, ResidentialIncomeService }      from '../../services';
 import { ResidentialEffectiveIncomeComponent, CommercialEffectiveIncomeComponent } from './effective-income.component';
 
 

@@ -3,9 +3,9 @@ import { ValidatorFn, AbstractControl, Validators, FormControl } from '@angular/
 import {Observable} from 'rxjs/Observable';  
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';  
 import 'rxjs/add/operator/filter'; 
-import { CommercialIncomeService, ResidentialIncomeService } from '../services';
+import { CommercialIncomeService, ResidentialIncomeService } from '../../services';
 import { AbstractCommercialIncomeService, AbstractResidentialIncomeService } from './effective-income.service';
-import { IAppConfig, APP_CONFIG } from '../config';
+import { IAppConfig, APP_CONFIG } from '../../config';
 
 export interface EffectiveIncome {
 	totalIncome: number;
