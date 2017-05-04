@@ -1,8 +1,8 @@
-Five years ago I produced a (quirky) Javascript demo for my commercial real estate analysis API at [sizemymultifamilyloan.com/api/fha_sec223f_demo](www.sizemymultifamilyloan.com/api/fha_sec223f_demo).
+Years ago I produced a (quirky) Javascript demo for my commercial real estate analysis API, [sizemymultifamilyloan.com/api/fha_sec223f_demo](www.sizemymultifamilyloan.com/api/fha_sec223f_demo).
 
-I've now completed my first [Angular 2](https://angular.io/) replica of the original demo, which lives here: [gpolyn.github.io/angular-fha](https://gpolyn.github.io/angular-fha).
+I've now completed my first pass at an [Angular 2](https://angular.io/) replica of the original demo, which lives here: [gpolyn.github.io/angular-fha](https://gpolyn.github.io/angular-fha).
 
-For more information of future planned releases for my Angular 2 replica, please visit TK.
+The new replica is not responsive to non-desktop form factors, nor is it yet integrated with the API service; for more information on planned next replica releases, please visit TK.
 
 # Notes on coding the Angular 2 replica
 
@@ -10,11 +10,11 @@ For more information of future planned releases for my Angular 2 replica, please
 
 _"I'm an independent contractor with special knowledge of the business subject of my component&mdash;to complete my assignment, my code must 'compile' to any [Typescript](http://www.typescriptlang.org) interfaces given me by the app architect."_ 
 
-#### 1. Programming to Typescript interfaces
+#### Programming to Typescript interfaces
 
 `app.interface.ts` contains an app-wide contract for income components and is used in `src/app/components/parking` and `src/app/components/other`.
 
-For example, `IOtherIncome` extends `IIncome2`, adding fields specific to the income source.
+For example, at `src/app/components/other/other-income.interface.ts` `IOtherIncome` extends `IIncome2`, adding fields, such as `usage` or `monthlyRent`, that are specific to the income source.
 
 ```
 export interface IOtherIncome extends IIncome2 {
@@ -24,50 +24,73 @@ export interface IOtherIncome extends IIncome2 {
   totalMonthlyIncome: number;
 }
 ```
-Meanwhile, at `app.interface.ts` the `ICommonIncomeService` interface, and its extensions, imply a promise to observe the `IOtherIncome` type, for example in the Observable array, `chincomes$`.
+Meanwhile, at `app.interface.ts` the `ICommonIncomeService` interface, and its extensions, imply a promise to observe the `IOtherIncome` type, for example in the `Observable` array, `chincomes$`.
 ```
 interface ICommonIncomeService<T extends IIncome2> {
   chincomes$: Observable<T[]>; 
-	addIncome(e: T): void;
-	removeIncome(e: T): void;
+  addIncome(e: T): void;
+  removeIncome(e: T): void;
 }
 ```
 
-## 2. Modularity
+## Modularity
 
-Components `src/app/components/parking` and `src/app/components/other` were prepared for integration with extensions of the `ICommonIncomeService` interface of `app.interface.ts`, but with abstract class service implementations, excusing the responsibility to test them. The problem of the approach is that the abstract service classes could not be used in the component `NgModule` specification — attempts resulted in errors. The abstract services employed by the other and parking income components were later provided with concrete classes in src/app/component_facade_modules.
+Components at `src/app/components/parking` and `src/app/components/other` were prepared for integration with extensions of the `ICommonIncomeService` interface of `app.interface.ts`, but use abstract class service implementations, thus excusing the responsibility for testing. (The approach has a problem: abstract service classes cannot be used in a component’s [`NgModule`](https://angular.io/docs/ts/latest/api/core/index/NgModule-interface.html) specification&mdash;such attempts resulted in errors.) The abstract services employed by the components at `src/app/components/parking` and `src/app/components/other` are later provided with concrete service classes in `src/app/component-module-facades`.
 
-I imagined that app requirements included default field values for each component. For example, initial or placeholder values are given for several loan cost fields at the following excerpt from `src/app/components/loan-chracteristics/config.ts`.
+In developing the app components, I imagined that app requirements included default field values for each component. For example, initial or placeholder values are given for several loan cost fields in the following excerpt from `src/app/components/loan-chracteristics/config.ts`.
 ```
-TK
+export const INITIAL_CONFIG = {
+  loan_type: 'purchase',
+  term_in_months: 420,
+  mortgage_interest_rate: 5.25,
+  annual_replacment_reserve_per_unit: 400
+};
 ```
-Meanwhile, the component field default values can be overridden higher in dependency chain with dependency injection. For example, there is a problematic `usage` default value in the following excerpt of `src/app/components/other/config/config.ts`
+Meanwhile, component field default values can be overridden higher in dependency chain with dependency injection. For example, there is a problematic `usage` default value in the following excerpt from `src/app/components/other/config/config.ts`
+```
+export const INITIAL_OTHER_INCOME_CONFIG: IOtherIncome = {
+  usage: "shouldnt see this",
+  squareFeet: undefined,
+  monthlyRent: undefined,
+  totalMonthlyIncome: undefined
+};
+```
+The problematic field is overridden at `src/app/component-module-facades/other-income-facade.module.ts`, as shown in the following excerpt.
+
 ```
 const INITIAL_OTHER_INCOME_CONFIG_2 = {
   usage: undefined,
-
+  squareFeet: undefined,
+  monthlyRent: undefined,
+  totalMonthlyIncome: undefined
 };
-…
+
+import { OTHER_INC_CONFIG, OtherIncomeModule, ResidentialIncomeService, CommercialIncomeService } from '../components';
+
 @NgModule({
 exports: [ OtherIncomeModule],
 providers: [
-…
+  { provide: ResidentialIncomeService, useClass: MyResidentialOtherIncomeService },
+  { provide: CommercialIncomeService, useClass: MyCommercialOtherIncomeService },
   { provide: OTHER_INC_CONFIG, useValue: INITIAL_OTHER_INCOME_CONFIG_2 }
 ]
 })
 ```
+## Dependency Injection
 
-The problem field is successfully overridden in the following excerpt from component-module-facades/
+Google has been promoting dependency injection (‘DI’) as a software design principle since at least [2009](https://www.amazon.com/Dependency-Injection-Examples-Java-Ruby/dp/193398855X) and as it is a key Angular feature I wanted to exercise the facility as much as possible in the replica.
 
-## 3. Dependency Injection
+While the _facade_ pattern might not best describe the function of the code in `src/app/code-module-facades`, there I wanted to show how component developers need not adopt any convention besides, perhaps, interface details and still see their code integrated into an Angular app.
 
-## 4. Reactive approach
+Income sources&mdash;apartment, other and parking&mdash;contribute either to _commercial_ or to _residential_ gross income, but in the replica I didn’t want to add a logically extrinsic _isCommercial_ characteristic to any income data model or interface. Instead, at `app/src/services/special.service.ts` I prepared a commercial income service singleton, `CommercialIncomeService`, and a residential income service singleton, `ResidentialIncomeService`, which were then injected into as many services as there were commercial and non-commercial income permutations, `MyCommercialOtherIncomeService` and `MyResidentialOtherIncomeService` being two examples. I minimized the effort associated with creating the many income services by sharing tests and ES6 classes.
 
-Angular 2 performance can be improved when component push strategy is changed to TK. This step was accomplished in the demo by employing rxjs/Observable collections with the Angular async pipe and the reactive forms module.
+## Reactive approach
 
-Useful discoveries:
+Angular 2 performance can be improved when `ChangeDetectionStrategy.OnPush` is used along with suitably developed components. In the replica, where used, the strategy is complemented by reliance on presenting Observable collections with the [async](https://angular.io/docs/ts/latest/api/core/testing/index/async-function.html) pipe and on [ReactiveFormsModule](https://angular.io/docs/ts/latest/api/forms/index/ReactiveFormsModule-class.html). Meanwhile, under the API Typescript contract approach, use of the popular [Immutable.js](https://facebook.github.io/immutable-js) library is not possible, unfortunately, as it cannot be used with Typescript interfaces.
 
-1) As noted earlier, at TK, abstract classes cannot used as parameters in NgModule
+## Useful discoveries
 
-2) Create as many components as you anticipate distinct service uses. My initial attempts to configure <other-income /> and <parking-income /> components with flags for ‘is commercial’ did not play well with service discovery. I reconciled myself to the entailed duplication by sharing tests between the sibling components, while taking the cleaner appearance of the components in my app container as a win.
+1. As noted above in *Modularity*, abstract Typescript classes cannot used as parameters in Angular’s `NgModule`.
+
+2. Create as many components as you anticipate characteristic service uses, I say. I attempted to establish base components for _other_ and _parking_ income components, but dependence on input flags for ‘is commercial’ in these attempts did not play well with service discovery. I reconciled myself to the duplication of multiple sibling components by sharing tests between the them, and enjoying the cleaner appearance of the components in my app container,`src/app/containers/app.component.html`.
 
