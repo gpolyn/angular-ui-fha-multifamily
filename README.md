@@ -1,8 +1,8 @@
-Years ago I produced a (quirky) Javascript demo for my commercial real estate analysis API, [sizemymultifamilyloan.com/api/fha_sec223f_demo](www.sizemymultifamilyloan.com/api/fha_sec223f_demo).
+Years ago I produced a (quirky) Javascript demo for my commercial real estate analysis API, [sizemymultifamilyloan.com/api/fha_sec223f_demo](http://www.sizemymultifamilyloan.com/api/fha_sec223f_demo).
 
 I've now completed my first pass at an [Angular 2](https://angular.io/) replica of the original demo, which lives here: [gpolyn.github.io/angular-fha](https://gpolyn.github.io/angular-fha).
 
-The new replica is not responsive to non-desktop form factors, nor is it yet integrated with the API service; for more information on planned next replica releases, please visit [gpolyn.github.io/front-end-developer](gpolyn.github.io/front-end-developer).
+The new replica is not responsive to non-desktop form factors, nor is it yet integrated with the API service; for more information on planned replica releases, please visit [gpolyn.github.io/front-end-developer](https://gpolyn.github.io/front-end-developer).
 
 # Notes on coding the Angular 2 replica
 
@@ -35,7 +35,7 @@ interface ICommonIncomeService<T extends IIncome2> {
 
 ## Modularity
 
-Components at `src/app/components/parking` and `src/app/components/other` were prepared for integration with extensions of the `ICommonIncomeService` interface of `app.interface.ts`, but use abstract class service implementations, thus excusing responsibility for testing. (The approach has a problem: abstract service classes cannot be used in a component’s [`NgModule`](https://angular.io/docs/ts/latest/api/core/index/NgModule-interface.html) specification&mdash;errors resulted.) The abstract services used by the components at `src/app/components/parking` and `src/app/components/other` are later provided with concrete service classes in `src/app/component-module-facades`.
+Components at `src/app/components/parking` and `src/app/components/other` were prepared for integration with extensions of the `ICommonIncomeService` interface in `app.interface.ts`, but use abstract class service implementations, thus excusing responsibility for testing. (The approach has a problem: abstract service classes cannot be used in a component’s [`NgModule`](https://angular.io/docs/ts/latest/api/core/index/NgModule-interface.html) specification&mdash;errors resulted.) The abstract services used by the components at `src/app/components/parking` and `src/app/components/other` are later provided with concrete service classes in `src/app/component-module-facades`.
 
 In developing the app components, I imagined that app requirements included default field values for each component. For example, initial or placeholder values are given for several loan cost fields in the following excerpt from `src/app/components/loan-chracteristics/config.ts`.
 ```
